@@ -888,24 +888,28 @@ local function to_minimal_date_of_this_month(t)
 	return string.format("%d日（%s）", dd, ww)
 end
 
--- usage: (skk-day-minus "%Y%m%d" #0)
-local function skk_day_minus(t)
-	local fmt = t[1]
-	local diff = t[2]
+local function day_delta(fmt, diff)
 	local yy = tostring(os.date("%Y"))
 	local mm = tostring(os.date("%m"))
-	local dd = tostring(os.date("%d") - tonumber(diff))
-	return os.date(fmt, os.time({year=yy,month=mm,day=dd}))
+	local dd = tostring(tonumber(os.date("%d")) + tonumber(diff))
+	local f = tostring(os.date(fmt, os.time({year=yy,month=mm,day=dd})))
+	return string.gsub(string.gsub(f, "年0", "年"), "月0", "月")
+end
+
+-- usage: (skk-day-minus "%Y%m%d" #0)
+-- usage: (skk-day-minus "%Y年%m月%d日（%a）" #0)
+local function skk_day_minus(t)
+	local fmt = t[1]
+	local diff = -1 * tonumber(t[2])
+	return day_delta(fmt, diff)
 end
 
 -- usage: (skk-day-plus "%Y%m%d" #0)
+-- usage: (skk-day-plus "%Y年%m月%d日（%a）" #0)
 local function skk_day_plus(t)
 	local fmt = t[1]
 	local diff = t[2]
-	local yy = tostring(os.date("%Y"))
-	local mm = tostring(os.date("%m"))
-	local dd = tostring(os.date("%d") + tonumber(diff))
-	return os.date(fmt, os.time({year=yy,month=mm,day=dd}))
+	return day_delta(fmt, diff)
 end
 
 -- usage: (to-comma-separated #0 "字")
