@@ -1,6 +1,8 @@
 # README
 
 CorvusSKKの個人用カスタマイズ。
+以下のようにシンボリックリンクを作成する。
 
-- `config.xml` と `init.lua` のシンボリックリンクをそれぞれ `%USERPROFILE%\AppData\Roaming\CorvusSKK` に作成する。
-- `crvskkserv.ini` は `crvskkserv.exe` と同じフォルダにシンボリックリンクを作成する。
+- `config.xml` -> `%USERPROFILE%\AppData\Roaming\CorvusSKK`
+- `init.lua` -> `%USERPROFILE%\AppData\Roaming\CorvusSKK`
+- `crvskkserv.ini` -> `crvskkserv.exe` と同じフォルダ
