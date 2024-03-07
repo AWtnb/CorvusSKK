@@ -955,6 +955,17 @@ local function to_japanese_unit(t)
  	return string.sub(str2, offset + 1) .. unit
 end
 
+-- usage: (format-hhmm #0 "%d時%d分")
+-- usage: (format-hhmm #0 "%02d時%02d分")
+-- usage: (format-hhmm #0 "%02d:%02d")
+local function format_hhmm(t)
+	local hhmm = t[1]
+	local fmt = t[2]
+	local hh = tonumber(hhmm:sub(1, 2))
+	local mm = tonumber(hhmm:sub(3, 4))
+	return string.format(fmt, hh, mm)
+end
+
 -- 関数テーブル
 local skk_gadget_func_table_org = {
 	{"concat", concat},
@@ -994,6 +1005,7 @@ local skk_gadget_func_table_org = {
 	{"to-japanese-unit", to_japanese_unit},
 	{"skk-day-plus", skk_day_plus},
 	{"skk-day-minus", skk_day_minus},
+	{"format-hhmm", format_hhmm},
 }
 local skk_gadget_func_table = {
 }
