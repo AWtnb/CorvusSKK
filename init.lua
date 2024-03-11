@@ -943,7 +943,7 @@ local function to_japanese_unit(t)
 	str1 = string.reverse(str1)
 	while (i <= string.len(str1)) do
 		if j <= #units then
-			u =units[j]
+			u = units[j]
 		else
 			u = "〓"
 		end
@@ -964,6 +964,26 @@ local function format_hhmm(t)
 	local hh = tonumber(hhmm:sub(1, 2))
 	local mm = tonumber(hhmm:sub(3, 4))
 	return string.format(fmt, hh, mm)
+end
+
+-- usage: (format-proof "要" #0)
+local function format_proof(t)
+	local prefix = t[1]
+	local count = tonumber(t[2])
+	if count < 1 then
+		count = 1
+	end
+	local step = {"初", "再", "三", "念"}
+	local idx = ""
+	if count <= #step then
+		idx = step[count]
+	else
+		idx = step[#step]
+		for i = 1, (count - #step) do
+			idx = idx .. "々"
+		end
+	end
+	return prefix .. idx .. "校"
 end
 
 -- 関数テーブル
@@ -1006,6 +1026,7 @@ local skk_gadget_func_table_org = {
 	{"skk-day-plus", skk_day_plus},
 	{"skk-day-minus", skk_day_minus},
 	{"format-hhmm", format_hhmm},
+	{"format-proof", format_proof},
 }
 local skk_gadget_func_table = {
 }
