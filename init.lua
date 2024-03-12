@@ -985,7 +985,9 @@ local function format_proof(t)
 		for _ = 1, (count - #step) do
 			idx = idx .. "々"
 		end
-		append = string.format("（%d校）", count)
+		if 5 < count then
+			append = string.format("（%d校）", count)
+		end
 	end
 	return prefix .. idx .. "校" .. append .. suffix
 end
