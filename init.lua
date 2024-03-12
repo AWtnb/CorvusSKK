@@ -966,6 +966,7 @@ local function format_hhmm(t)
 	return string.format(fmt, hh, mm)
 end
 
+-- usage: (format-proof "" #0 "")
 -- usage: (format-proof "要" #0 "ゲラ")
 local function format_proof(t)
 	local prefix = t[1]
@@ -976,15 +977,17 @@ local function format_proof(t)
 	end
 	local step = {"初", "再", "三", "念"}
 	local idx = ""
+	local append = ""
 	if count <= #step then
 		idx = step[count]
 	else
 		idx = step[#step]
-		for i = 1, (count - #step) do
+		for _ = 1, (count - #step) do
 			idx = idx .. "々"
 		end
+		append = string.format("（%d校）", count)
 	end
-	return prefix .. idx .. "校" .. suffix
+	return prefix .. idx .. "校" .. append .. suffix
 end
 
 -- 関数テーブル
