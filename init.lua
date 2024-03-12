@@ -966,10 +966,11 @@ local function format_hhmm(t)
 	return string.format(fmt, hh, mm)
 end
 
--- usage: (format-proof "要" #0)
+-- usage: (format-proof "要" #0 "ゲラ")
 local function format_proof(t)
 	local prefix = t[1]
 	local count = tonumber(t[2])
+	local suffix = t[3]
 	if count < 1 then
 		count = 1
 	end
@@ -983,7 +984,7 @@ local function format_proof(t)
 			idx = idx .. "々"
 		end
 	end
-	return prefix .. idx .. "校"
+	return prefix .. idx .. "校" .. suffix
 end
 
 -- 関数テーブル
