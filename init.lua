@@ -836,7 +836,7 @@ local function pad_zero(s, padwith)
 	local f = string.gsub(s, "[^%d]0", function(mat)
 		return string.gsub(mat, "0", padwith)
 	end)
-	return tostring(string.gsub(f, "^0", padwith))
+	return tostring(string.gsub(f, "^0", ""))
 end
 
 -- usage: (format-yymmdd #0 "%Y年%m月%d日（%a）" " ")
