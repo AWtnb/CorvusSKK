@@ -832,60 +832,35 @@ end
 	additional
 ]]--
 
--- usage: (yymmdd-to-short-date #0)
-local function yymmdd_to_short_date(t)
+local function pad_zero(s, padwith)
+	local f = string.gsub(s, "[^%d]0", function(mat)
+		return string.gsub(mat, "0", padwith)
+	end)
+	return tostring(string.gsub(f, "^0", padwith))
+end
+
+-- usage: (format-yymmdd #0 "%Y年%m月%d日（%a）" " ")
+local function format_yymmdd(t)
 	local ymd = t[1]
+	local fmt = t[2]
+	local padchar = t[3]
 	local yy = "20" .. tostring(ymd:sub(1, 2))
 	local mm = tostring(ymd:sub(3, 4))
 	local dd = tostring(ymd:sub(5, 6))
-	local ww = os.date("%a", os.time({year=yy,month=mm,day=dd}))
-	return string.format("%d月%d日（%s）", mm, dd, ww)
+	local ff = os.date(fmt, os.time({year=yy,month=mm,day=dd}))
+	return pad_zero(ff, padchar)
 end
 
--- usage: (yymmdd-to-minimal-date #0)
-local function yymmdd_to_minimal_date(t)
-	local ymd = t[1]
-	local yy = "20" .. tostring(ymd:sub(1, 2))
-	local mm = tostring(ymd:sub(3, 4))
-	local dd = tostring(ymd:sub(5, 6))
-	local ww = os.date("%a", os.time({year=yy,month=mm,day=dd}))
-	return string.format("%d日（%s）", dd, ww)
-end
-
--- usage: (to-short-date-of-this-year #0 #0)
-local function to_short_date_of_this_year(t)
-	local yy = tostring(os.date("%Y"))
+-- usage: (format-this-year #0 #0 "%Y年%m月%d日（%a）" " ")
+-- usage: (format-this-year #0 #0 "%m月%d日（%a）" "")
+local function format_this_year(t)
 	local mm = t[1]
 	local dd = t[2]
-	local ww = os.date("%a", os.time({year=yy,month=mm,day=dd}))
-	return string.format("%d月%d日（%s）", mm, dd, ww)
-end
-
--- usage: (to-minimal-date-of-this-year #0 #0)
-local function to_minimal_date_of_this_year(t)
+	local fmt = t[3]
+	local padchar = t[4]
 	local yy = tostring(os.date("%Y"))
-	local mm = t[1]
-	local dd = t[2]
-	local ww = os.date("%a", os.time({year=yy,month=mm,day=dd}))
-	return string.format("%d日（%s）", dd, ww)
-end
-
--- usage: (to-short-date-of-this-month #0)
-local function to_short_date_of_this_month(t)
-	local yy = tostring(os.date("%Y"))
-	local mm = tostring(os.date("%m"))
-	local dd = t[1]
-	local ww = os.date("%a", os.time({year=yy,month=mm,day=dd}))
-	return string.format("%d月%d日（%s）", mm, dd, ww)
-end
-
--- usage: (to-minimal-date-of-this-month #0)
-local function to_minimal_date_of_this_month(t)
-	local yy = tostring(os.date("%Y"))
-	local mm = tostring(os.date("%m"))
-	local dd = t[1]
-	local ww = os.date("%a", os.time({year=yy,month=mm,day=dd}))
-	return string.format("%d日（%s）", dd, ww)
+	local ff = os.date(fmt, os.time({year=yy,month=mm,day=dd}))
+	return pad_zero(ff, padchar)
 end
 
 local function day_delta(fmt, diff)
@@ -1021,8 +996,8 @@ local skk_gadget_func_table_org = {
 	{"skk-gadget-units-conversion", skk_gadget_units_conversion},
 	{"skk-omikuji", skk_omikuji},
 	{"skk-strftime", skk_strftime},
-	{"yymmdd-to-short-date", yymmdd_to_short_date},
-	{"yymmdd-to-minimal-date", yymmdd_to_minimal_date},
+	{"format-yymmdd", format_yymmdd},
+	{"format-this-year", format_this_year},
 	{"to-short-date-of-this-year", to_short_date_of_this_year},
 	{"to-minimal-date-of-this-year", to_minimal_date_of_this_year},
 	{"to-short-date-of-this-month", to_short_date_of_this_month},
