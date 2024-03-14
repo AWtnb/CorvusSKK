@@ -832,11 +832,11 @@ end
 	additional
 ]]--
 
-local function pad_zero(s, padwith)
-	local f = string.gsub(s, "[^%d]0", function(mat)
-		return string.gsub(mat, "0", padwith)
+local function replace_removable_zero(s, repl)
+	local f = string.gsub(s, "[^%d]0", function(m)
+		return string.gsub(m, "0", repl)
 	end)
-	return tostring(string.gsub(f, "^0", ""))
+	return tostring(string.gsub(f, "^0", repl))
 end
 
 -- usage: (format-yymmdd #0 "%Y年%m月%d日（%a）" " ")
@@ -848,7 +848,7 @@ local function format_yymmdd(t)
 	local mm = tostring(ymd:sub(3, 4))
 	local dd = tostring(ymd:sub(5, 6))
 	local ff = os.date(fmt, os.time({year=yy,month=mm,day=dd}))
-	return pad_zero(ff, padchar)
+	return replace_removable_zero(ff, padchar)
 end
 
 -- usage: (format-this-year #0 #0 "%Y年%m月%d日（%a）" " ")
@@ -860,7 +860,7 @@ local function format_this_year(t)
 	local padchar = t[4]
 	local yy = tostring(os.date("%Y"))
 	local ff = os.date(fmt, os.time({year=yy,month=mm,day=dd}))
-	return pad_zero(ff, padchar)
+	return replace_removable_zero(ff, padchar)
 end
 
 local function day_delta(fmt, diff)
