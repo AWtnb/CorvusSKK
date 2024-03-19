@@ -863,6 +863,18 @@ local function format_this_year(t)
 	return replace_removable_zero(ff, padchar)
 end
 
+-- usage: (format-this-month #0 "%Y年%m月%d日（%a）" " ")
+-- usage: (format-this-month #0 "%d日（%a）" "")
+local function format_this_month(t)
+	local dd = t[1]
+	local fmt = t[2]
+	local padchar = t[3]
+	local yy = tostring(os.date("%Y"))
+	local mm = tostring(os.date("%m"))
+	local ff = os.date(fmt, os.time({year=yy,month=mm,day=dd}))
+	return replace_removable_zero(ff, padchar)
+end
+
 local function day_delta(fmt, diff)
 	local yy = tostring(os.date("%Y"))
 	local mm = tostring(os.date("%m"))
@@ -970,6 +982,22 @@ local function format_proof(t)
 	return prefix .. idx .. "校" .. append .. suffix
 end
 
+-- usage: (format-book-heading #0)
+local function format_book_heading(t)
+	local count = tonumber(t[1]) + 1
+	local step = {"部", "章", "節", "項", "小"}
+	local h = ""
+	if count <= #step then
+		h = step[count]
+	else
+		h = step[#step]
+		for _ = 1, (count - #step) do
+			h = h .. "々"
+		end
+	end
+	return h .. "見出し"
+end
+
 -- 関数テーブル
 local skk_gadget_func_table_org = {
 	{"concat", concat},
@@ -1001,12 +1029,14 @@ local skk_gadget_func_table_org = {
 	{"skk-strftime", skk_strftime},
 	{"format-yymmdd", format_yymmdd},
 	{"format-this-year", format_this_year},
+	{"format-this-month", format_this_month},
 	{"to-comma-separated", to_comma_separated},
 	{"to-japanese-unit", to_japanese_unit},
 	{"skk-day-plus", skk_day_plus},
 	{"skk-day-minus", skk_day_minus},
 	{"format-hhmm", format_hhmm},
 	{"format-proof", format_proof},
+	{"format-book-heading", format_book_heading},
 }
 local skk_gadget_func_table = {
 }
