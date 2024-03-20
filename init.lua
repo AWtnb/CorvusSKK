@@ -833,6 +833,9 @@ end
 ]]--
 
 local function replace_removable_zero(s, repl)
+	if tonumber(repl) == 0 then
+		return s
+	end
 	local f = string.gsub(s, "[^%d]0", function(m)
 		return string.gsub(m, "0", repl)
 	end)
