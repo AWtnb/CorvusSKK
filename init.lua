@@ -833,6 +833,9 @@ end
 ]]--
 
 local function replace_removable_zero(s, repl)
+	if tonumber(repl) == 0 then
+		return s
+	end
 	local f = string.gsub(s, "[^%d]0", function(m)
 		return string.gsub(m, "0", repl)
 	end)
@@ -998,6 +1001,11 @@ local function format_book_heading(t)
 	return h .. "見出し"
 end
 
+-- usage: (format-fraction #0 #0)
+local function format_fraction(t)
+	return string.format("%d分の%d", t[2], t[1])
+end
+
 -- 関数テーブル
 local skk_gadget_func_table_org = {
 	{"concat", concat},
@@ -1037,6 +1045,7 @@ local skk_gadget_func_table_org = {
 	{"format-hhmm", format_hhmm},
 	{"format-proof", format_proof},
 	{"format-book-heading", format_book_heading},
+	{"format-fraction", format_fraction},
 }
 local skk_gadget_func_table = {
 }
