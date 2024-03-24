@@ -847,9 +847,9 @@ local function format_yymmdd(t)
 	local ymd = t[1]
 	local fmt = t[2]
 	local padchar = t[3]
-	local yy = "20" .. tostring(ymd:sub(1, 2))
-	local mm = tostring(ymd:sub(3, 4))
-	local dd = tostring(ymd:sub(5, 6))
+	local yy = "20" .. string.sub(ymd, 1, 2)
+	local mm = string.sub(ymd, 3, 4)
+	local dd = string.sub(ymd, 5, 6)
 	local ff = os.date(fmt, os.time({year=yy,month=mm,day=dd}))
 	return replace_removable_zero(ff, padchar)
 end
@@ -951,11 +951,11 @@ end
 local function format_hhmm(t)
 	local hhmm = t[1]
 	if string.len(hhmm) == 2 then
-		return tostring(tonumber(hhmm:sub(1, 2))) .. "時"
+		return tostring(tonumber(string.sub(hhmm, 1, 2))) .. "時"
 	end
 	local fmt = t[2]
-	local hh = tonumber(hhmm:sub(1, 2))
-	local mm = tonumber(hhmm:sub(3, 4))
+	local hh = tonumber(string.sub(hhmm, 1, 2))
+	local mm = tonumber(string.sub(hhmm, 3, 4))
 	return string.format(fmt, hh, mm)
 end
 
@@ -999,6 +999,31 @@ local function format_book_heading(t)
 		end
 	end
 	return h .. "見出し"
+end
+
+-- usage: (format-credit-card-1 #0)
+local function format_credit_card_1(t)
+	local yyyymm = t[1]
+	local yyyy = string.sub(yyyymm, 1, 4)
+	local mm = string.sub(yyyymm, 5, 6)
+	local mmMinus1 = tostring(tonumber(mm) - 1)
+	local mmMinus2 = tostring(tonumber(mm) - 2)
+	local f1 = os.date("%Y_%m月請求分_", os.time({year=yyyy,month=mm,day=1}))
+	local f2 = os.date("%m16-", os.time({year=yyyy,month=mmMinus2,day=1}))
+	local f3 = os.date("%m15", os.time({year=yyyy,month=mmMinus1,day=1}))
+	return f1 .. f2 .. f3
+end
+
+-- usage: (format-credit-card-2 #0)
+local function format_credit_card_2(t)
+	local yyyymm = t[1]
+	local yyyy = string.sub(yyyymm, 1, 4)
+	local mm = string.sub(yyyymm, 5, 6)
+	local mmMinus1 = tostring(tonumber(mm) - 1)
+	local f1 = os.date("%Y_%m月請求分_", os.time({year=yyyy,month=mm,day=1}))
+	local f2 = os.date("%m01-", os.time({year=yyyy,month=mmMinus1,day=1}))
+	local f3 = os.date("%m%d", os.time({year=yyyy,month=mm,day=0}))
+	return f1 .. f2 .. f3
 end
 
 -- usage: (format-fraction #0 #0)
@@ -1046,6 +1071,8 @@ local skk_gadget_func_table_org = {
 	{"format-proof", format_proof},
 	{"format-book-heading", format_book_heading},
 	{"format-fraction", format_fraction},
+	{"format-credit-card-1", format_credit_card_1},
+	{"format-credit-card-2", format_credit_card_2},
 }
 local skk_gadget_func_table = {
 }
