@@ -1031,6 +1031,12 @@ local function format_fraction(t)
 	return string.format("%d分の%d", t[2], t[1])
 end
 
+-- usage: (format-day-of-week #0 "（%s）")
+local function format_day_of_week(t)
+	local ds = {"月", "火", "水", "木", "金", "土", "日"}
+	return string.format(t[2], ds[tonumber(t[1])])
+end
+
 -- 関数テーブル
 local skk_gadget_func_table_org = {
 	{"concat", concat},
@@ -1073,6 +1079,7 @@ local skk_gadget_func_table_org = {
 	{"format-fraction", format_fraction},
 	{"format-credit-card-1", format_credit_card_1},
 	{"format-credit-card-2", format_credit_card_2},
+	{"format-day-of-week", format_day_of_week},
 }
 local skk_gadget_func_table = {
 }
