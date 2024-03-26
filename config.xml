@@ -643,6 +643,15 @@
       <row ro="k8" hi="八" ka="八" an="八" so="0" />
       <row ro="k9" hi="九" ka="九" an="九" so="0" />
       <row ro="k0" hi="〇" ka="〇" an="〇" so="0" />
+      <row ro="k!" hi="壱" ka="壱" an="壱" so="0" />
+      <row ro="k&quot;" hi="弍" ka="弍" an="弍" so="0" />
+      <row ro="k#" hi="参" ka="参" an="参" so="0" />
+      <row ro="k$" hi="肆" ka="肆" an="肆" so="0" />
+      <row ro="k%" hi="伍" ka="伍" an="伍" so="0" />
+      <row ro="k&amp;" hi="陸" ka="陸" an="陸" so="0" />
+      <row ro="k'" hi="漆" ka="漆" an="漆" so="0" />
+      <row ro="k(" hi="捌" ka="捌" an="捌" so="0" />
+      <row ro="k)" hi="玖" ka="玖" an="玖" so="0" />
       <row ro="m1" hi="①" ka="①" an="①" so="0" />
       <row ro="m2" hi="②" ka="②" an="②" so="0" />
       <row ro="m3" hi="③" ka="③" an="③" so="0" />
@@ -670,13 +679,6 @@
       <row ro="r(" hi="Ⅷ" ka="Ⅷ" an="Ⅷ" so="0" />
       <row ro="r9" hi="ⅸ" ka="ⅸ" an="ⅸ" so="0" />
       <row ro="r)" hi="Ⅸ" ka="Ⅸ" an="Ⅸ" so="0" />
-      <row ro="y1" hi="（月）" ka="（月）" an="(月)" so="0" />
-      <row ro="y2" hi="（火）" ka="（火）" an="(火)" so="0" />
-      <row ro="y3" hi="（水）" ka="（水）" an="(水)" so="0" />
-      <row ro="y4" hi="（木）" ka="（木）" an="(木)" so="0" />
-      <row ro="y5" hi="（金）" ka="（金）" an="(金)" so="0" />
-      <row ro="y6" hi="（土）" ka="（土）" an="(土)" so="0" />
-      <row ro="y7" hi="（日）" ka="（日）" an="(日)" so="0" />
       <row ro="y8" hi="〈" ka="〈" an="〈" so="0" />
       <row ro="y9" hi="〉" ka="〉" an="〉" so="0" />
       <row ro="y(" hi="《" ka="《" an="《" so="0" />
@@ -689,6 +691,7 @@
       <row ro="zB" hi="◦" ka="◦" an="◦" so="0" />
       <row ro="z`" hi="々" ka="々" an="z`" so="0" />
       <row ro="zx" hi="！" ka="！" an="!" so="0" />
+      <row ro="zX" hi="!?" ka="!?" an="!?" so="0" />
       <row ro="z&lt;" hi="〈" ka="〈" an="&lt;" so="0" />
       <row ro="z>" hi="〉" ka="〉" an=">" so="0" />
       <row ro="x&lt;" hi="《" ka="《" an="&lt;" so="0" />
