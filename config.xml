@@ -594,7 +594,6 @@
       <row ro="z," hi="…" ka="…" an="…" so="0" />
       <row ro="z-" hi="――" ka="――" an="――" so="0" />
       <row ro="z^" hi="〜" ka="〜" an="~" so="0" />
-      <row ro="z~" hi="≠" ka="≠" an="≠" so="0" />
       <row ro="z." hi="…" ka="…" an="…" so="0" />
       <row ro="z/" hi="・" ka="・" an="・" so="0" />
       <row ro="z(" hi="【" ka="【" an="【" so="0" />
@@ -630,6 +629,7 @@
       <row ro="x4" hi="◆" ka="◆" an="◆" so="0" />
       <row ro="x$" hi="◇" ka="◇" an="◇" so="0" />
       <row ro="z=" hi="≒" ka="≒" an="≒" so="0" />
+      <row ro="x=" hi="≠" ka="≠" an="≠" so="0" />
       <row ro="z@" hi="〃" ka="〃" an="〃" so="0" />
       <row ro="zg" hi="〓" ka="〓" an="〓" so="0" />
       <row ro="gt" hi="〓" ka="〓" an="〓" so="0" />
