@@ -568,7 +568,7 @@
       <row ro="(" hi="（" ka="（" an="(" so="0" />
       <row ro=")" hi="）" ka="）" an=")" so="0" />
       <row ro="*" hi="*" ka="*" an="*" so="0" />
-      <row ro="+" hi="＋" ka="＋" an="+" so="0" />
+      <row ro="+" hi="+" ka="+" an="+" so="0" />
       <row ro="," hi="、" ka="、" an="､" so="0" />
       <row ro="-" hi="ー" ka="ー" an="ｰ" so="0" />
       <row ro="." hi="。" ka="。" an="｡" so="0" />
@@ -696,6 +696,8 @@
       <row ro="z>" hi="〉" ka="〉" an=">" so="0" />
       <row ro="x&lt;" hi="《" ka="《" an="&lt;" so="0" />
       <row ro="x>" hi="》" ka="》" an=">" so="0" />
+      <row ro="z*" hi="×" ka="×" an="*" so="0" />
+      <row ro="z+" hi="＋" ka="＋" an="+" so="0" />
     </list>
   </section>
   <section name="jlatin">
