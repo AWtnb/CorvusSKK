@@ -699,6 +699,11 @@
       <row ro="z*" hi="×" ka="×" an="*" so="0" />
       <row ro="z+" hi="＋" ka="＋" an="+" so="0" />
       <row ro="x-" hi="-" ka="-" an="-" so="0" />
+      <row ro="n-" hi="–" ka="–" an="–" so="0" />
+      <row ro="d-" hi="゠" ka="゠" an="゠" so="0" />
+      <row ro="h-" hi="‐" ka="‐" an="‐" so="0" />
+      <row ro="h=" hi="゠" ka="゠" an="゠" so="0" />
+      <row ro="m-" hi="—" ka="—" an="—" so="0" />
     </list>
   </section>
   <section name="jlatin">
