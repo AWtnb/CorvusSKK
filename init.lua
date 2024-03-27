@@ -1037,6 +1037,16 @@ local function format_day_of_week(t)
 	return string.format(t[2], ds[tonumber(t[1])])
 end
 
+-- usage: (format-markdown-heading #0)
+local function format_markdown_heading(t)
+	local heading = ""
+	local count = tonumber(t[1])
+	for _ = 1, math.min(6, count) do
+		heading = heading .. "#"
+	end
+	return heading .. " "
+end
+
 -- 関数テーブル
 local skk_gadget_func_table_org = {
 	{"concat", concat},
@@ -1080,6 +1090,7 @@ local skk_gadget_func_table_org = {
 	{"format-credit-card-1", format_credit_card_1},
 	{"format-credit-card-2", format_credit_card_2},
 	{"format-day-of-week", format_day_of_week},
+	{"format-markdown-heading", format_markdown_heading},
 }
 local skk_gadget_func_table = {
 }
