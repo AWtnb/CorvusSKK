@@ -1047,7 +1047,7 @@ local function format_markdown_heading(t)
 	return heading .. " "
 end
 
--- usage: (resolve-user-profile "%s\Desktop\")
+-- usage: (resolve-user-profile "%s\\Desktop\\")
 local function resolve_user_profile(t)
 	return string.format(t[1], os.getenv("USERPROFILE"))
 end
