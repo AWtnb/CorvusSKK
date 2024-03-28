@@ -1047,6 +1047,11 @@ local function format_markdown_heading(t)
 	return heading .. " "
 end
 
+-- usage: (resolve-user-profile "%s\Desktop\")
+local function resolve_user_profile(t)
+	return string.format(t[1], os.getenv("USERPROFILE"))
+end
+
 -- 関数テーブル
 local skk_gadget_func_table_org = {
 	{"concat", concat},
@@ -1091,6 +1096,7 @@ local skk_gadget_func_table_org = {
 	{"format-credit-card-2", format_credit_card_2},
 	{"format-day-of-week", format_day_of_week},
 	{"format-markdown-heading", format_markdown_heading},
+	{"resolve-user-profile", resolve_user_profile},
 }
 local skk_gadget_func_table = {
 }
