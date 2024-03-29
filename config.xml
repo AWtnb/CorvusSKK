@@ -39,7 +39,7 @@
     <key name="stacompmulti" value="0" />
     <key name="dynamiccomp" value="1" />
     <key name="dyncompmulti" value="0" />
-    <key name="compuserdic" value="1" />
+    <key name="compuserdic" value="0" />
     <key name="compincback" value="0" />
   </section>
   <section name="font">
