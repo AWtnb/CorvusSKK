@@ -661,6 +661,15 @@
       <row ro="m7" hi="⑦" ka="⑦" an="⑦" so="0" />
       <row ro="m8" hi="⑧" ka="⑧" an="⑧" so="0" />
       <row ro="m9" hi="⑨" ka="⑨" an="⑨" so="0" />
+      <row ro="m!" hi="❶" ka="❶" an="❶" so="0" />
+      <row ro="m&quot;" hi="❷" ka="❷" an="❷" so="0" />
+      <row ro="m#" hi="❸" ka="❸" an="❸" so="0" />
+      <row ro="m$" hi="❹" ka="❹" an="❹" so="0" />
+      <row ro="m%" hi="❺" ka="❺" an="❺" so="0" />
+      <row ro="m&amp;" hi="❻" ka="❻" an="❻" so="0" />
+      <row ro="m'" hi="❼" ka="❼" an="❼" so="0" />
+      <row ro="m(" hi="❽" ka="❽" an="❽" so="0" />
+      <row ro="m)" hi="❾" ka="❾" an="❾" so="0" />
       <row ro="r1" hi="ⅰ" ka="ⅰ" an="ⅰ" so="0" />
       <row ro="r!" hi="Ⅰ" ka="Ⅰ" an="Ⅰ" so="0" />
       <row ro="r2" hi="ⅱ" ka="ⅱ" an="ⅱ" so="0" />
