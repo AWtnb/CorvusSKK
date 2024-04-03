@@ -715,6 +715,7 @@
       <row ro="m-" hi="—" ka="—" an="—" so="0" />
       <row ro="k-" hi="─" ka="─" an="─" so="0" />
       <row ro="k=" hi="│" ka="│" an="│" so="0" />
+      <row ro="lz" hi="～" ka="～" an="~" so="0" />
     </list>
   </section>
   <section name="jlatin">
