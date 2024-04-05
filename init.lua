@@ -836,10 +836,10 @@ local function replace_removable_zero(s, repl)
 	if tonumber(repl) == 0 then
 		return s
 	end
-	local f = string.gsub(s, "[^%d]0", function(m)
-		return string.gsub(m, "0", repl)
+	local f = string.gsub(s, "[^%d]0+", function(m)
+		return string.sub(m, 1, 1)
 	end)
-	return tostring(string.gsub(f, "^0", repl))
+	return tostring(string.gsub(f, "^0+", repl))
 end
 
 -- usage: (format-yymmdd #0 "%Y年%m月%d日（%a）" " ")
@@ -942,7 +942,9 @@ local function to_japanese_unit(t)
 		j = j + 1
 	end
 	local offset = string.len(u)
- 	return string.sub(str2, offset + 1) .. unit
+	local f = string.sub(str2, offset + 1)
+	f = replace_removable_zero(string.gsub(f, "0000[^%d]*", ""), "")
+ 	return f .. unit
 end
 
 -- usage: (format-hhmm #0 "%d時%d分")
