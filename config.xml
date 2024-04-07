@@ -4,6 +4,8 @@
     <list>
       <row path="https://skk-dev.github.io/dict/SKK-JISYO.L.gz" enabled="1" />
       <row path="https://skk-dev.github.io/dict/SKK-JISYO.lisp.gz" enabled="1" />
+      <row path="https://skk-dev.github.io/dict/SKK-JISYO.geo.gz" enabled="1" />
+      <row path="https://raw.githubusercontent.com/skk-dev/dict/master/zipcode/SKK-JISYO.zipcode" enabled="1" />
     </list>
   </section>
   <section name="server">
