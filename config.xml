@@ -613,8 +613,11 @@
       <row ro="z;" hi="゛" ka="゛" an="ﾞ" so="0" />
       <row ro="z:" hi="゜" ka="゜" an="ﾟ" so="0" />
       <row ro="z4" hi="■" ka="■" an="■" so="0" />
+      <row ro="l4" hi="■" ka="■" an="■" so="0" />
       <row ro="z3" hi="▲" ka="▲" an="▲" so="0" />
+      <row ro="l3" hi="▲" ka="▲" an="▲" so="0" />
       <row ro="z5" hi="★" ka="★" an="★" so="0" />
+      <row ro="l5" hi="★" ka="★" an="★" so="0" />
       <row ro="z8" hi="〔" ka="〔" an="〔" so="0" />
       <row ro="z9" hi="〕" ka="〕" an="〕" so="0" />
       <row ro="x8" hi="▶" ka="▶" an="▶" so="0" />
@@ -622,9 +625,13 @@
       <row ro="x(" hi="▷" ka="▷" an="▷" so="0" />
       <row ro="x)" hi="◁" ka="◁" an="◁" so="0" />
       <row ro="z$" hi="□" ka="□" an="□" so="0" />
+      <row ro="l$" hi="□" ka="□" an="□" so="0" />
       <row ro="z#" hi="△" ka="△" an="△" so="0" />
+      <row ro="l#" hi="△" ka="△" an="△" so="0" />
       <row ro="z%" hi="☆" ka="☆" an="☆" so="0" />
+      <row ro="l%" hi="☆" ka="☆" an="☆" so="0" />
       <row ro="z0" hi="●" ka="●" an="●" so="0" />
+      <row ro="l0" hi="●" ka="●" an="●" so="0" />
       <row ro="x0" hi="○" ka="○" an="○" so="0" />
       <row ro="x3" hi="▼" ka="▼" an="▼" so="0" />
       <row ro="x#" hi="▽" ka="▽" an="▽" so="0" />
@@ -718,6 +725,7 @@
       <row ro="k-" hi="─" ka="─" an="─" so="0" />
       <row ro="k=" hi="│" ka="│" an="│" so="0" />
       <row ro="lz" hi="～" ka="～" an="~" so="0" />
+      <row ro="hk" hi="■" ka="■" an="■" so="0" />
     </list>
   </section>
   <section name="jlatin">
