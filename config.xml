@@ -620,10 +620,10 @@
       <row ro="l5" hi="★" ka="★" an="★" so="0" />
       <row ro="z8" hi="〔" ka="〔" an="〔" so="0" />
       <row ro="z9" hi="〕" ka="〕" an="〕" so="0" />
-      <row ro="x8" hi="▶" ka="▶" an="▶" so="0" />
-      <row ro="x9" hi="◀" ka="◀" an="◀" so="0" />
-      <row ro="x(" hi="▷" ka="▷" an="▷" so="0" />
-      <row ro="x)" hi="◁" ka="◁" an="◁" so="0" />
+      <row ro="x8" hi="◀" ka="◀" an="◀" so="0" />
+      <row ro="x9" hi="▶" ka="▶" an="▶" so="0" />
+      <row ro="x(" hi="◁" ka="◁" an="◁" so="0" />
+      <row ro="x)" hi="▷" ka="▷" an="▷" so="0" />
       <row ro="z$" hi="□" ka="□" an="□" so="0" />
       <row ro="l$" hi="□" ka="□" an="□" so="0" />
       <row ro="z#" hi="△" ka="△" an="△" so="0" />
