@@ -164,7 +164,7 @@
     <key name="prevcomp" value="S\x09" />
     <key name="compcand" value="" />
     <key name="hint" value="" />
-    <key name="convpoint" value="C\xBB" />
+    <key name="convpoint" value="S\x30" />
     <key name="direct" value="" />
     <key name="enter" value="\x0D" />
     <key name="cancel" value="\x1B" />
