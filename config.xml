@@ -720,6 +720,7 @@
       <row ro="lx" hi="×" ka="×" an="*" so="0" />
       <row ro="z+" hi="＋" ka="＋" an="+" so="0" />
       <row ro="lX" hi="＋" ka="＋" an="+" so="0" />
+      <row ro="l/" hi="÷" ka="÷" an="÷" so="0" />
       <row ro="l-" hi="−" ka="−" an="−" so="0" />
       <row ro="x-" hi="-" ka="-" an="-" so="0" />
       <row ro="n-" hi="–" ka="–" an="–" so="0" />
