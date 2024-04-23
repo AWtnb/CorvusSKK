@@ -1054,6 +1054,31 @@ local function resolve_user_profile(t)
 	return string.format(t[1], os.getenv("USERPROFILE"))
 end
 
+
+local function getCheckDigit(isbn12)
+	local total = 0
+	for i = 1, #isbn12 do
+		local n = tonumber(isbn12:sub(i, i))
+		if i % 2 == 0 then
+			total = total + n * 3
+		else
+			total = total + n
+		end
+	end
+	return (10 - (total % 10)) % 10
+end
+
+-- usage: (format-japanese-isbn #0)
+local function format_japanese_isbn(t)
+	local code = tostring(t[1])
+	if string.len(t[1]) == 5 then
+		code = "641" .. code
+	end
+	local code12 = "9784" .. code
+	return code12 .. getCheckDigit(code12)
+end
+
+
 -- 関数テーブル
 local skk_gadget_func_table_org = {
 	{"concat", concat},
@@ -1099,6 +1124,7 @@ local skk_gadget_func_table_org = {
 	{"format-day-of-week", format_day_of_week},
 	{"format-markdown-heading", format_markdown_heading},
 	{"resolve-user-profile", resolve_user_profile},
+	{"format-japanese-isbn", format_japanese_isbn},
 }
 local skk_gadget_func_table = {
 }
