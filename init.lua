@@ -487,6 +487,16 @@ local function current_time_string(t)
 end
 
 -- format-time-string
+-- usage: (format-time-string "%Y%m%d")
+-- usage: (format-time-string "%Y年%m月%d日")
+-- usage: (format-time-string "%Y/%m/%d")
+-- usage: (format-time-string "%Y-%m-%d")
+-- usage: (format-time-string "%Y%m%d_%H%M%S" (current-time))
+-- usage: (format-time-string "%Y_%m")
+-- usage: (format-time-string "%Y/%m/%d")
+-- usage: (format-time-string "%Y-%m-%d")
+-- usage: (replace-removable-zero (format-time-string "%Y年%m月%d日") "")
+-- usage: (format-time-string "%Y%m%d")
 local function format_time_string(t)
 	local format = t[1]
 	local time = tonumber(t[2])
@@ -832,7 +842,9 @@ end
 	additional
 ]]--
 
-local function replace_removable_zero(s, repl)
+local function replace_removable_zero(t)
+	local s = t[1]
+	local repl = t[2]
 	if tonumber(repl) == 0 then
 		return s
 	end
@@ -851,7 +863,7 @@ local function format_yymmdd(t)
 	local mm = string.sub(ymd, 3, 4)
 	local dd = string.sub(ymd, 5, 6)
 	local ff = os.date(fmt, os.time({year=yy,month=mm,day=dd}))
-	return replace_removable_zero(ff, padchar)
+	return replace_removable_zero({ff, padchar})
 end
 
 -- usage: (format-this-year #0 #0 "%Y年%m月%d日（%a）" " ")
@@ -863,7 +875,7 @@ local function format_this_year(t)
 	local padchar = t[4]
 	local yy = tostring(os.date("%Y"))
 	local ff = os.date(fmt, os.time({year=yy,month=mm,day=dd}))
-	return replace_removable_zero(ff, padchar)
+	return replace_removable_zero({ff, padchar})
 end
 
 -- usage: (format-this-month #0 "%Y年%m月%d日（%a）" " ")
@@ -875,7 +887,7 @@ local function format_this_month(t)
 	local yy = tostring(os.date("%Y"))
 	local mm = tostring(os.date("%m"))
 	local ff = os.date(fmt, os.time({year=yy,month=mm,day=dd}))
-	return replace_removable_zero(ff, padchar)
+	return replace_removable_zero({ff, padchar})
 end
 
 local function day_delta(fmt, diff)
@@ -943,7 +955,7 @@ local function to_japanese_unit(t)
 	end
 	local offset = string.len(u)
 	local f = string.sub(str2, offset + 1)
-	f = replace_removable_zero(string.gsub(f, "0000[^%d]*", ""), "")
+	f = replace_removable_zero({string.gsub(f, "0000[^%d]*", ""), ""})
  	return f .. unit
 end
 
@@ -1125,6 +1137,7 @@ local skk_gadget_func_table_org = {
 	{"format-markdown-heading", format_markdown_heading},
 	{"resolve-user-profile", resolve_user_profile},
 	{"format-japanese-isbn", format_japanese_isbn},
+	{"replace-removable-zero", replace_removable_zero},
 }
 local skk_gadget_func_table = {
 }
