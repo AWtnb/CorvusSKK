@@ -718,10 +718,7 @@
       <row ro="x>" hi="》" ka="》" an=">" so="0" />
       <row ro="z*" hi="×" ka="×" an="*" so="0" />
       <row ro="z+" hi="＋" ka="＋" an="+" so="0" />
-      <row ro="lt" hi="＋" ka="＋" an="+" so="0" />
-      <row ro="lx" hi="×" ka="×" an="*" so="0" />
-      <row ro="lw" hi="÷" ka="÷" an="÷" so="0" />
-      <row ro="lm" hi="−" ka="−" an="−" so="0" />
+      <row ro="s-" hi="−" ka="−" an="−" so="0" />
       <row ro="x-" hi="-" ka="-" an="-" so="0" />
       <row ro="n-" hi="–" ka="–" an="–" so="0" />
       <row ro="d-" hi="゠" ka="゠" an="゠" so="0" />
