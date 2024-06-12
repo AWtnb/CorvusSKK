@@ -303,7 +303,7 @@
       <row ro="sho" hi="しょ" ka="ショ" an="ｼｮ" so="0" />
       <row ro="tya" hi="ちゃ" ka="チャ" an="ﾁｬ" so="0" />
       <row ro="tyi" hi="ちぃ" ka="チィ" an="ﾁｨ" so="0" />
-      <row ro="tyu" hi="ちゅ" ka="チュ" an="ﾁｭ" so="0" />
+      <!-- <row ro="tyu" hi="ちゅ" ka="チュ" an="ﾁｭ" so="0" /> -->
       <row ro="tye" hi="ちぇ" ka="チェ" an="ﾁｪ" so="0" />
       <row ro="tyo" hi="ちょ" ka="チョ" an="ﾁｮ" so="0" />
       <row ro="cha" hi="ちゃ" ka="チャ" an="ﾁｬ" so="0" />
@@ -735,10 +735,13 @@
       <row ro="lz" hi="～" ka="～" an="~" so="0" />
       <row ro="x@" hi="ゝ" ka="ヽ" an="ヽ" so="0" />
       <row ro="x`" hi="〻" ka="〻" an="〻" so="0" />
+      <row ro="tyu" hi="という" ka="トイウ" an="ﾄｲｳ" so="0" />
       <row ro="gma" hi="ございま" ka="ゴザイマ" an="ｺﾞｻﾞｲﾏ" so="0" />
+      <row ro="zma" hi="存じま" ka="ゾンジマ" an="ｿﾞﾝｼﾞﾏ" so="0" />
       <row ro="tma" hi="たしま" ka="タシマ" an="ﾀｼﾏ" so="0" />
       <row ro="tda" hi="ただ" ka="タダ" an="ﾀﾀﾞ" so="0" />
       <row ro="sda" hi="せていただ" ka="セテイタダ" an="ｾﾃｲﾀﾀﾞ" so="0" />
+      <row ro="mge" hi="申し上げ" ka="モウシアゲ" an="ﾓｳｼｱｹﾞ" so="0" />
     </list>
   </section>
   <section name="jlatin">
