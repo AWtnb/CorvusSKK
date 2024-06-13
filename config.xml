@@ -157,7 +157,7 @@
     <key name="ascii" value="" />
     <key name="jmode" value="C\x4A" />
     <key name="abbrev" value="" />
-    <key name="affix" value="" />
+    <key name="affix" value="S\xDB|S\xDD" />
     <key name="nextcand" value="\x20|\x28" />
     <key name="prevcand" value="S\x20|\x26" />
     <key name="purgedic" value="C\x2E" />
