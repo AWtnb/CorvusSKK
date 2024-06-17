@@ -739,7 +739,7 @@
       <row ro="gma" hi="ございま" ka="ゴザイマ" an="ｺﾞｻﾞｲﾏ" so="0" />
       <row ro="zma" hi="存じま" ka="ゾンジマ" an="ｿﾞﾝｼﾞﾏ" so="0" />
       <row ro="tma" hi="いたしま" ka="イタシマ" an="ｲﾀｼﾏ" so="0" />
-      <row ro="tda" hi="いただ" ka="イタダ" an="ｲﾀﾀﾞ" so="0" />
+      <row ro="lda" hi="いただ" ka="イタダ" an="ｲﾀﾀﾞ" so="0" />
       <row ro="sda" hi="させていただ" ka="サセテイタダ" an="ｻｾﾃｲﾀﾀﾞ" so="0" />
       <row ro="mge" hi="申し上げ" ka="モウシアゲ" an="ﾓｳｼｱｹﾞ" so="0" />
     </list>
