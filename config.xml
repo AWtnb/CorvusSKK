@@ -638,6 +638,8 @@
       <row ro="l0" hi="●" ka="●" an="●" so="0" />
       <row ro="z1" hi="●" ka="●" an="●" so="0" />
       <row ro="l1" hi="●" ka="●" an="●" so="0" />
+      <row ro="z2" hi="◎" ka="◎" an="◎" so="0" />
+      <row ro="l2" hi="◎" ka="◎" an="◎" so="0" />
       <row ro="z!" hi="○" ka="○" an="○" so="0" />
       <row ro="l!" hi="○" ka="○" an="○" so="0" />
       <row ro="x3" hi="▼" ka="▼" an="▼" so="0" />
