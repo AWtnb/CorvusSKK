@@ -742,8 +742,6 @@
       <row ro="zma" hi="存じま" ka="ゾンジマ" an="ｿﾞﾝｼﾞﾏ" so="0" />
       <row ro="tma" hi="いたしま" ka="イタシマ" an="ｲﾀｼﾏ" so="0" />
       <row ro="td" hi="ただ" ka="タダ" an="ﾀﾀﾞ" so="0" />
-      <row ro="tda" hi="いただ" ka="イタダ" an="ｲﾀﾀﾞ" so="0" />
-      <row ro="tdma" hi="いただきま" ka="イタダキマ" an="ｲﾀﾀﾞｷﾏ" so="0" />
       <row ro="sda" hi="させていただ" ka="サセテイタダ" an="ｻｾﾃｲﾀﾀﾞ" so="0" />
       <row ro="mge" hi="申し上げ" ka="モウシアゲ" an="ﾓｳｼｱｹﾞ" so="0" />
     </list>
