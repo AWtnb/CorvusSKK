@@ -973,21 +973,26 @@ local function format_hhmm(t)
 	return string.format(fmt, hh, mm)
 end
 
--- usage: (format-proof #0)
--- usage: (concat "要" (format-proof #0) "ゲラ")
+-- usage: (format-proof #0 4)
+-- usage: (concat "要" (format-proof #0 4) "ゲラ")
 local function format_proof(t)
 	local count = tonumber(t[1])
+	local finish = tonumber(t[2])
 	if count < 1 then
 		count = 1
 	end
-	local step = {"初", "再", "三", "念"}
+	local step = {"初", "再", "三", "四", "五" ,"六" ,"七" ,"八" ,"九"}
 	local idx = ""
 	local append = ""
-	if count <= #step then
-		idx = step[count]
+	if count < finish then
+		if count <= #step then
+			idx = step[count]
+		else
+			idx = tostring(count)
+		end
 	else
-		idx = step[#step]
-		for _ = 1, (count - #step) do
+		idx = "念"
+		for _ = 1, (count - finish) do
 			idx = idx .. "々"
 		end
 		if 5 < count then
