@@ -849,7 +849,7 @@ local function replace_removable_zero(t)
 		return s
 	end
 	local f = string.gsub(s, "[^%d]0+", function(m)
-		return string.sub(m, 1, 1)
+		return string.sub(m, 1, 1) .. repl
 	end)
 	return tostring(string.gsub(f, "^0+", repl))
 end
