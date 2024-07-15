@@ -854,40 +854,54 @@ local function replace_removable_zero(t)
 	return tostring(string.gsub(f, "^0+", repl))
 end
 
--- usage: (format-yymmdd #0 "%Y年%m月%d日（%a）" " ")
+-- usage: (replace-removable-zero (format-yymmdd #0 "%Y年%m月%d日（%a）"), "")
 local function format_yymmdd(t)
 	local ymd = t[1]
 	local fmt = t[2]
-	local padchar = t[3]
 	local yy = "20" .. string.sub(ymd, 1, 2)
 	local mm = string.sub(ymd, 3, 4)
 	local dd = string.sub(ymd, 5, 6)
 	local ff = os.date(fmt, os.time({year=yy,month=mm,day=dd}))
-	return replace_removable_zero({ff, padchar})
+	return ff
 end
 
--- usage: (format-this-year #0 #0 "%Y年%m月%d日（%a）" " ")
--- usage: (format-this-year #0 #0 "%m月%d日（%a）" "")
+-- usage: (replace-removable-zero (format-upcoming-day #0 #0 "%Y年%m月%d日（%a）") "")
+-- usage: (replace-removable-zero (format-upcoming-day #0 #0 "%m月%d日（%a）") "")
+local function format_upcoming_day(t)
+	local mm = t[1]
+	local dd = t[2]
+	local fmt = t[3]
+	local yy = tostring(os.date("%Y"))
+
+	local today = os.time({year=tostring(os.date("%Y")), month=tostring(os.date("%m")), day=tostring(os.date("%d"))})
+	local ts = os.time({year=yy,month=mm,day=dd})
+	if os.difftime(ts, today) < 0 then
+		ts = os.time({year=tostring(tonumber(yy)+1),month=mm,day=dd})
+	end
+	local ff = os.date(fmt, ts)
+	return ff
+end
+
+-- usage: (replace-removable-zero (format-this-year #0 #0 "%Y年%m月%d日（%a）") "0")
+-- usage: (replace-removable-zero (format-this-year #0 #0 "%m月%d日（%a）") "")
 local function format_this_year(t)
 	local mm = t[1]
 	local dd = t[2]
 	local fmt = t[3]
-	local padchar = t[4]
 	local yy = tostring(os.date("%Y"))
 	local ff = os.date(fmt, os.time({year=yy,month=mm,day=dd}))
-	return replace_removable_zero({ff, padchar})
+	return ff
 end
 
--- usage: (format-this-month #0 "%Y年%m月%d日（%a）" " ")
--- usage: (format-this-month #0 "%d日（%a）" "")
+-- usage: (replace-removable-zero (format-this-month #0 "%Y年%m月%d日（%a）") " ")
+-- usage: (replace-removable-zero (format-this-month #0 "%d日（%a）") "")
 local function format_this_month(t)
 	local dd = t[1]
 	local fmt = t[2]
-	local padchar = t[3]
 	local yy = tostring(os.date("%Y"))
 	local mm = tostring(os.date("%m"))
 	local ff = os.date(fmt, os.time({year=yy,month=mm,day=dd}))
-	return replace_removable_zero({ff, padchar})
+	return ff
 end
 
 local function day_delta(fmt, diff)
@@ -1126,6 +1140,7 @@ local skk_gadget_func_table_org = {
 	{"skk-strftime", skk_strftime},
 	{"format-yymmdd", format_yymmdd},
 	{"format-this-year", format_this_year},
+	{"format-upcoming-day", format_upcoming_day},
 	{"format-this-month", format_this_month},
 	{"to-comma-separated", to_comma_separated},
 	{"to-japanese-unit", to_japanese_unit},
