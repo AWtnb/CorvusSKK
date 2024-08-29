@@ -742,6 +742,7 @@
       <row ro="tj" hi="という" ka="トイウ" an="ﾄｲｳ" so="0" />
       <row ro="ds" hi="です" ka="デス" an="ﾃﾞｽ" so="0" />
       <row ro="ms" hi="ます" ka="マス" an="ﾏｽ" so="0" />
+      <row ro="kd" hi="くだ" ka="クダ" an="ｸﾀﾞ" so="0" />
       <row ro="gma" hi="ございま" ka="ゴザイマ" an="ｺﾞｻﾞｲﾏ" so="0" />
       <row ro="zma" hi="存じま" ka="ゾンジマ" an="ｿﾞﾝｼﾞﾏ" so="0" />
       <row ro="tma" hi="いたしま" ka="イタシマ" an="ｲﾀｼﾏ" so="0" />
