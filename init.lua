@@ -1109,7 +1109,7 @@ local function format_japanese_isbn(t)
 end
 
 -- https://getwebtips.net/blog/2022/7/20/python-coding-challenge-convert-integer-into-roman-numeral/
-local function int_to_roman(i, lower)
+local function to_roman(i, lower)
 	local values = {{1000, "M"}, {900, "CM"}, {500, "D"}, {400, "CD"}, {100, "C"}, {90, "XC"}, {50, "L"}, {40, "XL"},
 					{10, "X"}, {9, "IX"}, {5, "V"}, {4, "IV"}, {1, "I"}}
 	local ret = ""
@@ -1119,10 +1119,10 @@ local function int_to_roman(i, lower)
 		if lower then
 			r = string.lower(r)
 		end
-		local rest = math.floor(i / n)
+		local q = math.floor(i / n)
 
-		if rest > 0 then
-			ret = ret .. r:rep(rest)
+		if q > 0 then
+			ret = ret .. r:rep(q)
 			i = i % n
 		end
 
@@ -1137,13 +1137,13 @@ end
 -- usage: (format-roman-lower #0)
 local function format_roman_lower(t)
 	local i = tonumber(t[1])
-	return int_to_roman(i, true)
+	return to_roman(i, true)
 end
 
 -- usage: (format-roman-upper #0)
 local function format_roman_upper(t)
 	local i = tonumber(t[1])
-	return int_to_roman(i, false)
+	return to_roman(i, false)
 end
 
 -- 関数テーブル
