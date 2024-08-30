@@ -705,6 +705,8 @@
       <row ro="r8" hi="ⅷ" ka="ⅷ" an="ⅷ" so="0" />
       <row ro="r(" hi="Ⅷ" ka="Ⅷ" an="Ⅷ" so="0" />
       <row ro="r9" hi="ⅸ" ka="ⅸ" an="ⅸ" so="0" />
+      <row ro="rx" hi="ⅹ" ka="ⅹ" an="ⅹ" so="0" />
+      <row ro="rX" hi="Ⅹ" ka="Ⅹ" an="Ⅹ" so="0" />
       <row ro="r)" hi="Ⅸ" ka="Ⅸ" an="Ⅸ" so="0" />
       <row ro="y8" hi="〈" ka="〈" an="〈" so="0" />
       <row ro="y9" hi="〉" ka="〉" an="〉" so="0" />
