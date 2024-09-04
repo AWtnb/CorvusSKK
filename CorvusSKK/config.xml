@@ -607,6 +607,7 @@
       <row ro="z{" hi="［" ka="［" an="［" so="0" />
       <row ro="z}" hi="］" ka="］" an="］" so="0" />
       <row ro="zs" hi="／" ka="／" an="/" so="0" />
+      <row ro="ls" hi="／" ka="／" an="/" so="0" />
       <row ro="zh" hi="←" ka="←" an="←" so="0" />
       <row ro="zj" hi="↓" ka="↓" an="↓" so="0" />
       <row ro="zk" hi="↑" ka="↑" an="↑" so="0" />
