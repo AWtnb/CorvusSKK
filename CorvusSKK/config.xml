@@ -14,7 +14,7 @@
     <key name="host" value="localhost" />
     <key name="port" value="1178" />
     <key name="encoding" value="0" />
-    <key name="timeout" value="1000" />
+    <key name="timeout" value="500" />
   </section>
   <section name="userdict">
     <key name="backupdir" value="%USERPROFILE%\Personal\crvsskkbc" />
