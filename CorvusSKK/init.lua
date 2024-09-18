@@ -1078,10 +1078,16 @@ local function format_markdown_heading(t)
 	return heading .. " "
 end
 
+-- usage: (get-env-var "USERPROFILE")
+-- usage: (concat (get-env-var "USERPROFILE") "\\Desktop")
+local function get_env_variable(t)
+	return os.getenv(t[1])
+end
+
 -- usage: (resolve-user-profile "%s\\Desktop\\")
 -- usage: (concat (resolve-user-profile "%s\\Desktop\\") (format-time-string "%Y%m%d_%H%M%S" (current-time)))
 local function resolve_user_profile(t)
-	return string.format(t[1], os.getenv("USERPROFILE"))
+	return string.format(t[1], get_env_variable({"USERPROFILE"}))
 end
 
 
@@ -1191,6 +1197,7 @@ local skk_gadget_func_table_org = {
 	{"format-credit-card-2", format_credit_card_2},
 	{"format-day-of-week", format_day_of_week},
 	{"format-markdown-heading", format_markdown_heading},
+	{"get-env-var", get_env_variable},
 	{"resolve-user-profile", resolve_user_profile},
 	{"format-japanese-isbn", format_japanese_isbn},
 	{"format-roman-lower", format_roman_lower},
