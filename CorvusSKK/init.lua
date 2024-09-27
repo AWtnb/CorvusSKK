@@ -928,11 +928,10 @@ local function skk_day_plus(t)
 	return day_delta(fmt, diff)
 end
 
--- usage: (to-comma-separated #0 "字")
+-- usage: (concat (to-comma-separated #0) "円")
 local function to_comma_separated(t)
 	-- https://www.mathkuro.com/game-dev/lua-convert-number-to-currency-style-string/
 	local num = t[1]
-	local unit = t[2]
 	local str1 = tostring(num)
 	local str2 = ""
 
@@ -943,13 +942,12 @@ local function to_comma_separated(t)
 	  i = i + 3
 	end
 
-	return string.sub(str2, 2) .. unit
+	return string.sub(str2, 2)
 end
 
--- usage: (to-japanese-unit #0 "円")
+-- usage: (concat (to-japanese-unit #0) "円")
 local function to_japanese_unit(t)
 	local num = t[1]
-	local unit = t[2]
 	local units = {"万", "億", "兆", "京", "垓", "𥝱", "穣"}
 	local str1 = tostring(num)
 	local str2 = ""
@@ -970,7 +968,7 @@ local function to_japanese_unit(t)
 	local offset = string.len(u)
 	local f = string.sub(str2, offset + 1)
 	f = replace_removable_zero({string.gsub(f, "0000[^%d]*", ""), ""})
- 	return f .. unit
+ 	return f
 end
 
 -- usage: (format-hhmm #0 "%d時%d分")
