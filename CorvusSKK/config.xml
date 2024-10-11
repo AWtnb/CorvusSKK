@@ -46,7 +46,7 @@
     <key name="compincback" value="0" />
   </section>
   <section name="font">
-    <key name="name" value="IBM Plex Sans JP" />
+    <key name="name" value="UDEV Gothic" />
     <key name="size" value="12" />
     <key name="weight" value="400" />
     <key name="italic" value="0" />
