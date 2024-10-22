@@ -882,6 +882,25 @@ local function format_upcoming_day(t)
 	return ff
 end
 
+-- usage: (replace-removable-zero (format-upcoming-day-of-week #0 "%d日（%a）") "")
+local function format_upcoming_day_of_week(t)
+	local idx = tonumber(t[1]) % 7
+	local fmt = t[2]
+
+	local yy = tostring(os.date("%Y"))
+	local mm = tostring(os.date("%m"))
+	local dd = tostring(os.date("%d"))
+
+	for i = 1, 7, 1 do
+		local ts = os.time({year=yy, month=mm, day=tostring(tonumber(dd)+i)})
+		local di = tonumber(os.date("%w", ts))
+		if di == idx then
+			return os.date(fmt, ts)
+		end
+	end
+	return os.date(fmt, os.time())
+end
+
 -- usage: (replace-removable-zero (format-this-year #0 #0 "%Y年%m月%d日（%a）") "0")
 -- usage: (replace-removable-zero (format-this-year #0 #0 "%m月%d日（%a）") "")
 local function format_this_year(t)
@@ -1182,6 +1201,7 @@ local skk_gadget_func_table_org = {
 	{"format-yymmdd", format_yymmdd},
 	{"format-this-year", format_this_year},
 	{"format-upcoming-day", format_upcoming_day},
+	{"format-upcoming-day-of-week", format_upcoming_day_of_week},
 	{"format-this-month", format_this_month},
 	{"to-comma-separated", to_comma_separated},
 	{"to-japanese-unit", to_japanese_unit},
