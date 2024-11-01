@@ -1160,12 +1160,20 @@ end
 -- usage: (format-roman-lower #0)
 local function format_roman_lower(t)
 	local i = tonumber(t[1])
+	local letters = { "\u{2170}", "\u{2171}", "\u{2172}", "\u{2173}", "\u{2174}", "\u{2175}", "\u{2176}", "\u{2177}", "\u{2178}", "\u{2179}"}
+	if i <= #letters then
+		return letters[i]
+	end
 	return to_roman(i, true)
 end
 
 -- usage: (format-roman-upper #0)
 local function format_roman_upper(t)
 	local i = tonumber(t[1])
+	local letters = { "\u{2160}", "\u{2161}", "\u{2162}", "\u{2163}", "\u{2164}", "\u{2165}", "\u{2166}", "\u{2167}", "\u{2168}", "\u{2169}"}
+	if i <= #letters then
+		return letters[i]
+	end
 	return to_roman(i, false)
 end
 
