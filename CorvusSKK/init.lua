@@ -1491,11 +1491,6 @@ local function skk_convert_key(key, okuri)
 		end
 	end
 
-	-- CUSTOME: アルファベット小文字のみの場合は先頭1文字を大文字にする候補も出す
-	if (string.match(key, "^[a-z]+")) then
-		ret = string.upper(key:sub(1, 1)) .. key:sub(2)
-	end
-
 	return ret
 end
 
