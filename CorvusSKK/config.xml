@@ -34,7 +34,7 @@
     <key name="srchallokuri" value="1" />
     <key name="delcvposcncl" value="0" />
     <key name="delokuricncl" value="1" />
-    <key name="backincenter" value="0" />
+    <key name="backincenter" value="1" />
     <key name="addcandktkn" value="0" />
     <key name="entogglekana" value="1" />
     <key name="setbydirect" value="0" />
@@ -432,7 +432,20 @@
       <row ro="hwyu" hi="ふゅ" ka="フュ" an="ﾌｭ" so="0" />
       <row ro="hwye" hi="ふぇ" ka="フェ" an="ﾌｪ" so="0" />
       <row ro="hwyo" hi="ふょ" ka="フョ" an="ﾌｮ" so="0" />
-      <row ro="n" hi="ん" ka="ン" an="ﾝ" so="0" />
+      <row ro="nk" hi="ん" ka="ン" an="ﾝ" so="1" />
+      <row ro="ns" hi="ん" ka="ン" an="ﾝ" so="1" />
+      <row ro="nt" hi="ん" ka="ン" an="ﾝ" so="1" />
+      <row ro="nh" hi="ん" ka="ン" an="ﾝ" so="1" />
+      <row ro="nm" hi="ん" ka="ン" an="ﾝ" so="1" />
+      <row ro="nr" hi="ん" ka="ン" an="ﾝ" so="1" />
+      <row ro="nw" hi="ん" ka="ン" an="ﾝ" so="1" />
+      <row ro="nb" hi="ん" ka="ン" an="ﾝ" so="1" />
+      <row ro="np" hi="ん" ka="ン" an="ﾝ" so="1" />
+      <row ro="nc" hi="ん" ka="ン" an="ﾝ" so="1" />
+      <row ro="nd" hi="ん" ka="ン" an="ﾝ" so="1" />
+      <row ro="nf" hi="ん" ka="ン" an="ﾝ" so="1" />
+      <row ro="ng" hi="ん" ka="ン" an="ﾝ" so="1" />
+      <row ro="nj" hi="ん" ka="ン" an="ﾝ" so="1" />
       <row ro="nn" hi="ん" ka="ン" an="ﾝ" so="0" />
       <row ro="n'" hi="ん" ka="ン" an="ﾝ" so="0" />
       <row ro="mb" hi="ん" ka="ン" an="ﾝ" so="1" />
