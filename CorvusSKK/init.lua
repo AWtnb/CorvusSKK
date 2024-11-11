@@ -1458,6 +1458,16 @@ local function skk_convert_candidate(key, candidate, okuri)
 		end
 	end
 
+	-- 郵便番号変換
+	if string.match(candidate, "[都道府県]") then
+		if string.match(key, "%d%d%d%-%d%d%d%d") then
+			ret = key .. " " .. candidate
+		end
+		if string.match(key, "%d%d%d%d%d%d%d") then
+			ret = string.sub(key, 1, 3) .. "-" .. string.sub(key, 4) .. " " .. candidate
+		end
+	end
+
 	-- 実行変換
 	if (enable_skk_convert_gadget) then
 		if (string.match(temp, "^%(.+%)$")) then
