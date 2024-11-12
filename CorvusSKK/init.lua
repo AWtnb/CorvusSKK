@@ -1495,7 +1495,7 @@ local function skk_convert_key(key, okuri)
 	end
 
 	-- 郵便番号検索のためにハイフンを取り除く
-	if string.match(key, "%d%d%d%-%d%d%d%d") then
+	if string.match(key, "^%d%d%d%-%d%d%d%d$") then
 		return string.gsub(key, "-", "")
 	end
 
