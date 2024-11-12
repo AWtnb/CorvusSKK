@@ -311,6 +311,8 @@
       <row ro="chu" hi="ちゅ" ka="チュ" an="ﾁｭ" so="0" />
       <row ro="che" hi="ちぇ" ka="チェ" an="ﾁｪ" so="0" />
       <row ro="cho" hi="ちょ" ka="チョ" an="ﾁｮ" so="0" />
+      <row ro="ca" hi="か" ka="カ" an="ｶ" so="0" />
+      <row ro="cu" hi="く" ka="ク" an="ｸ" so="0" />
       <row ro="co" hi="こ" ka="コ" an="ｺ" so="0" />
       <row ro="nya" hi="にゃ" ka="ニャ" an="ﾆｬ" so="0" />
       <row ro="nyi" hi="にぃ" ka="ニィ" an="ﾆｨ" so="0" />
