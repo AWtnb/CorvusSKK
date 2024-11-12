@@ -848,7 +848,7 @@ local function replace_removable_zero(t)
 	if tonumber(repl) == 0 then
 		return s
 	end
-	local f = string.gsub(s, "[^%d]0+", function(m)
+	local f = string.gsub(s, "%D0+", function(m)
 		return string.sub(m, 1, 1) .. repl
 	end)
 	return tostring(string.gsub(f, "^0+", repl))
@@ -986,7 +986,7 @@ local function to_japanese_unit(t)
 	end
 	local offset = string.len(u)
 	local f = string.sub(str2, offset + 1)
-	f = replace_removable_zero({string.gsub(f, "0000[^%d]*", ""), ""})
+	f = replace_removable_zero({string.gsub(f, "0000%D*", ""), ""})
  	return f
 end
 
