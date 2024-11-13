@@ -635,36 +635,40 @@
       <row ro="zL" hi="⇒" ka="⇒" an="⇒" so="0" />
       <row ro="z;" hi="゛" ka="゛" an="ﾞ" so="0" />
       <row ro="z:" hi="゜" ka="゜" an="ﾟ" so="0" />
-      <row ro="z4" hi="■" ka="■" an="■" so="0" />
-      <row ro="l4" hi="■" ka="■" an="■" so="0" />
-      <row ro="z3" hi="▲" ka="▲" an="▲" so="0" />
-      <row ro="l3" hi="▲" ka="▲" an="▲" so="0" />
-      <row ro="z5" hi="★" ka="★" an="★" so="0" />
-      <row ro="l5" hi="★" ka="★" an="★" so="0" />
-      <row ro="z8" hi="〔" ka="〔" an="〔" so="0" />
-      <row ro="z9" hi="〕" ka="〕" an="〕" so="0" />
-      <row ro="x8" hi="◀" ka="◀" an="◀" so="0" />
-      <row ro="x9" hi="▶" ka="▶" an="▶" so="0" />
-      <row ro="x(" hi="◁" ka="◁" an="◁" so="0" />
-      <row ro="x)" hi="▷" ka="▷" an="▷" so="0" />
-      <row ro="z$" hi="□" ka="□" an="□" so="0" />
-      <row ro="l$" hi="□" ka="□" an="□" so="0" />
-      <row ro="z#" hi="△" ka="△" an="△" so="0" />
-      <row ro="l#" hi="△" ka="△" an="△" so="0" />
-      <row ro="z%" hi="☆" ka="☆" an="☆" so="0" />
-      <row ro="l%" hi="☆" ka="☆" an="☆" so="0" />
-      <row ro="z0" hi="●" ka="●" an="●" so="0" />
-      <row ro="l0" hi="●" ka="●" an="●" so="0" />
+      <row ro="z0" hi="◎" ka="◎" an="◎" so="0" />
+      <row ro="l0" hi="◎" ka="◎" an="◎" so="0" />
       <row ro="z1" hi="●" ka="●" an="●" so="0" />
       <row ro="l1" hi="●" ka="●" an="●" so="0" />
-      <row ro="z2" hi="◎" ka="◎" an="◎" so="0" />
-      <row ro="l2" hi="◎" ka="◎" an="◎" so="0" />
       <row ro="z!" hi="○" ka="○" an="○" so="0" />
       <row ro="l!" hi="○" ka="○" an="○" so="0" />
+      <row ro="z2" hi="“" ka="“" an="“" so="0" />
+      <row ro="l2" hi="“" ka="“" an="“" so="0" />
+      <row ro="z&quot;" hi="”" ka="”" an="”" so="0" />
+      <row ro="l&quot;" hi="”" ka="”" an="”" so="0" />
+      <row ro="z3" hi="▲" ka="▲" an="▲" so="0" />
+      <row ro="l3" hi="▲" ka="▲" an="▲" so="0" />
+      <row ro="z#" hi="△" ka="△" an="△" so="0" />
+      <row ro="l#" hi="△" ka="△" an="△" so="0" />
+      <row ro="z4" hi="■" ka="■" an="■" so="0" />
+      <row ro="l4" hi="■" ka="■" an="■" so="0" />
+      <row ro="z$" hi="□" ka="□" an="□" so="0" />
+      <row ro="l$" hi="□" ka="□" an="□" so="0" />
+      <row ro="z5" hi="★" ka="★" an="★" so="0" />
+      <row ro="l5" hi="★" ka="★" an="★" so="0" />
+      <row ro="z%" hi="☆" ka="☆" an="☆" so="0" />
+      <row ro="l%" hi="☆" ka="☆" an="☆" so="0" />
+      <row ro="z8" hi="〔" ka="〔" an="〔" so="0" />
+      <row ro="l8" hi="〔" ka="〔" an="〔" so="0" />
+      <row ro="z9" hi="〕" ka="〕" an="〕" so="0" />
+      <row ro="l9" hi="〕" ka="〕" an="〕" so="0" />
       <row ro="x3" hi="▼" ka="▼" an="▼" so="0" />
       <row ro="x#" hi="▽" ka="▽" an="▽" so="0" />
       <row ro="x4" hi="◆" ka="◆" an="◆" so="0" />
       <row ro="x$" hi="◇" ka="◇" an="◇" so="0" />
+      <row ro="x8" hi="◀" ka="◀" an="◀" so="0" />
+      <row ro="x9" hi="▶" ka="▶" an="▶" so="0" />
+      <row ro="x(" hi="◁" ka="◁" an="◁" so="0" />
+      <row ro="x)" hi="▷" ka="▷" an="▷" so="0" />
       <row ro="z=" hi="≒" ka="≒" an="≒" so="0" />
       <row ro="x=" hi="≠" ka="≠" an="≠" so="0" />
       <row ro="z@" hi="〃" ka="〃" an="〃" so="0" />
