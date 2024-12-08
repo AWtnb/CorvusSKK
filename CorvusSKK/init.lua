@@ -1458,21 +1458,21 @@ local function skk_convert_candidate(key, candidate, okuri)
 		end
 	end
 
-	-- 郵便番号変換
-	if string.match(candidate, "[都道府県]") then
-		if string.match(key, "%d%d%d%-%d%d%d%d") then
-			ret = key .. " " .. candidate
-		end
-		if string.match(key, "%d%d%d%d%d%d%d") then
-			ret = string.sub(key, 1, 3) .. "-" .. string.sub(key, 4) .. " " .. candidate
-		end
-	end
-
 	-- 実行変換
 	if (enable_skk_convert_gadget) then
 		if (string.match(temp, "^%(.+%)$")) then
 			temp = skk_convert_gadget(key, temp)
 			ret = temp
+		end
+	end
+
+	-- 郵便番号変換
+	if string.match(candidate, "[都道府県]") then
+		if string.match(key, "%d%d%d%-%d%d%d%d") then
+			return key .. " " .. candidate
+		end
+		if string.match(key, "%d%d%d%d%d%d%d") then
+			return string.sub(key, 1, 3) .. "-" .. string.sub(key, 4) .. " " .. candidate
 		end
 	end
 
@@ -1494,16 +1494,16 @@ local function skk_convert_key(key, okuri)
 		return ""
 	end
 
-	-- 郵便番号検索のためにハイフンを取り除く
-	if string.match(key, "^%d%d%d%-%d%d%d%d$") then
-		return string.gsub(key, "-", "")
-	end
-
 	-- 数値変換
 	if (enable_skk_convert_num) then
 		if (string.find(key, "%d+")) then
 			ret = string.gsub(key, "%d+", "#")
 		end
+	end
+
+	-- 郵便番号検索のためにハイフンを取り除く
+	if string.match(key, "^%d%d%d%-%d%d%d%d$") then
+		return string.gsub(key, "-", "")
 	end
 
 	return ret
