@@ -125,7 +125,7 @@
     <key name="kana" value="q|\ci" />
     <key name="convchar" value="\co" />
     <key name="jlatin" value="Q" />
-    <key name="ascii" value="L" />
+    <key name="ascii" value="L|@" />
     <key name="jmode" value="" />
     <key name="abbrev" value="/" />
     <key name="affix" value="&lt;|>" />
