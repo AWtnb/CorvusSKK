@@ -995,8 +995,15 @@ end
 -- usage: (format-hhmm #0 "%02d:%02d")
 local function format_hhmm(t)
 	local hhmm = t[1]
-	if string.len(hhmm) == 2 then
-		return tostring(tonumber(string.sub(hhmm, 1, 2))) .. "時"
+	if 4 < string.len(hhmm) then
+		hhmm = string.sub(hhmm, 1, 4)
+	else
+		if string.len(hhmm) % 2 == 1 then
+			hhmm = "0" .. hhmm
+		end
+		if string.len(hhmm) == 2 then
+			hhmm = hhmm .. "00"
+		end
 	end
 	local fmt = t[2]
 	local hh = tonumber(string.sub(hhmm, 1, 2))
