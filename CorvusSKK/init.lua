@@ -1008,7 +1008,7 @@ local function format_hhmm(t)
 	local fmt = t[2]
 	local hh = tonumber(string.sub(hhmm, 1, 2))
 	local mm = tonumber(string.sub(hhmm, 3, 4))
-	return string.format(fmt, hh, mm)
+	return string.gsub(string.format(fmt, hh, mm), "時0+分", "時")
 end
 
 -- usage: (format-proof #0 4)
