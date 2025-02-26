@@ -1612,6 +1612,9 @@ end
 -- 辞書追加
 function lua_skk_add(okuriari, key, candidate, annotation, okuri)
 
+	-- エントリ先頭にスペースが含まれないようにする
+	candidate = string.gsub(candidate, "^ +", "")
+
 	--[[
 	-- 例) 送りありのときユーザー辞書に登録しない
 	if (okuriari) then
