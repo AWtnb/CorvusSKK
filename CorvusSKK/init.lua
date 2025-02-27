@@ -1476,10 +1476,10 @@ local function skk_convert_candidate(key, candidate, okuri)
 	-- 郵便番号変換
 	if string.match(candidate, "[都道府県]") then
 		if string.match(key, "^%d%d%d%-%d%d%d%d$") then
-			return key .. " " .. candidate
+			ret = key .. " " .. candidate
 		end
 		if string.match(key, "^%d%d%d%d%d%d%d$") then
-			return string.sub(key, 1, 3) .. "-" .. string.sub(key, 4) .. " " .. candidate
+			ret = string.sub(key, 1, 3) .. "-" .. string.sub(key, 4) .. " " .. candidate
 		end
 	end
 
@@ -1509,9 +1509,9 @@ local function skk_convert_key(key, okuri)
 	end
 
 	-- 郵便番号検索のためにハイフンを取り除く
-	if string.match(key, "^%d%d%d%-%d%d%d%d$") then
-		return string.gsub(key, "-", "")
-	end
+	-- if string.match(key, "^%d%d%d%-%d%d%d%d$") then
+	-- 	return string.gsub(key, "-", "")
+	-- end
 
 	return ret
 end
@@ -1521,6 +1521,11 @@ end
 --   "/<C1><;A1>/<C2><;A2>/.../<Cn><;An>/\n"
 local function skk_search(key, okuri)
 	local ret = ""
+
+	-- 郵便番号辞書（数字7桁）を検索するためにハイフンを削除しておく
+	if string.match(key, "^%d%d%d%-%d%d%d%d$") then
+		key = string.gsub(key, "-", "")
+	end
 
 	-- ユーザー辞書検索
 	ret = ret .. crvmgr.search_user_dictionary(key, okuri)
