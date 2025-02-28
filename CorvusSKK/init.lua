@@ -1501,6 +1501,13 @@ local function skk_convert_key(key, okuri)
 	return ret
 end
 
+
+local function add_prefix_to_skkdict_entry(pref, ent)
+	return string.gsub(ent, "/%D", function(m)
+		return "/" .. pref .. string.sub(m, 2)
+	end)
+end
+
 -- 辞書検索処理
 --   検索結果のフォーマットはSKK辞書の候補部分と同じ
 --   "/<C1><;A1>/<C2><;A2>/.../<Cn><;An>/\n"
@@ -1516,16 +1523,15 @@ local function skk_search(key, okuri)
 
 	-- 郵便番号変換（郵便番号SKK辞書は数字7桁）
 	if 0 < string.len(from_skk_dict) and string.match(key, "^%d%d%d%d%d%d%d$") then
-		local postalcode = string.sub(key, 1, 3) .. "-" .. string.sub(key, 4)
-		local ent = "/" .. postalcode .. " " .. string.sub(from_skk_dict, 2)
-		ret = ret .. ent
+		local pref = string.sub(key, 1, 3) .. "-" .. string.sub(key, 4) .. " "
+		ret = ret .. add_prefix_to_skkdict_entry(pref, from_skk_dict)
 	end
 	if string.match(key, "^%d%d%d%-%d%d%d%d$") then
 		local k = string.gsub(key, "-", "")
 		local s = crvmgr.search_skk_dictionary(k, okuri)
 		if 0 < string.len(s) then
-			local ent = "/" .. key .. " " .. string.sub(s, 2)
-			ret = ret .. ent
+			local pref = key .. " "
+			ret = ret .. add_prefix_to_skkdict_entry(pref, s)
 		end
 	end
 
