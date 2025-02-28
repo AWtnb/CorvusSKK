@@ -1473,16 +1473,6 @@ local function skk_convert_candidate(key, candidate, okuri)
 		end
 	end
 
-	-- 郵便番号変換
-	if string.match(candidate, "[都道府県]") then
-		if string.match(key, "^%d%d%d%-%d%d%d%d$") then
-			ret = key .. " " .. candidate
-		end
-		if string.match(key, "^%d%d%d%d%d%d%d$") then
-			ret = string.sub(key, 1, 3) .. "-" .. string.sub(key, 4) .. " " .. candidate
-		end
-	end
-
 	return ret
 end
 
@@ -1508,11 +1498,6 @@ local function skk_convert_key(key, okuri)
 		end
 	end
 
-	-- 郵便番号検索のためにハイフンを取り除く
-	-- if string.match(key, "^%d%d%d%-%d%d%d%d$") then
-	-- 	return string.gsub(key, "-", "")
-	-- end
-
 	return ret
 end
 
@@ -1522,16 +1507,27 @@ end
 local function skk_search(key, okuri)
 	local ret = ""
 
-	-- 郵便番号辞書（数字7桁）を検索するためにハイフンを削除しておく
-	if string.match(key, "^%d%d%d%-%d%d%d%d$") then
-		key = string.gsub(key, "-", "")
-	end
-
 	-- ユーザー辞書検索
 	ret = ret .. crvmgr.search_user_dictionary(key, okuri)
 
 	-- SKK辞書検索
-	ret = ret .. crvmgr.search_skk_dictionary(key, okuri)
+	local from_skk_dict = crvmgr.search_skk_dictionary(key, okuri)
+	ret = ret .. from_skk_dict
+
+	-- 郵便番号変換（郵便番号SKK辞書は数字7桁）
+	if 0 < string.len(from_skk_dict) and string.match(key, "^%d%d%d%d%d%d%d$") then
+		local postalcode = string.sub(key, 1, 3) .. "-" .. string.sub(key, 4)
+		local ent = "/" .. postalcode .. " " .. string.sub(from_skk_dict, 2)
+		ret = ret .. ent
+	end
+	if string.match(key, "^%d%d%d%-%d%d%d%d$") then
+		local k = string.gsub(key, "-", "")
+		local s = crvmgr.search_skk_dictionary(k, okuri)
+		if 0 < string.len(s) then
+			local ent = "/" .. key .. " " .. string.sub(s, 2)
+			ret = ret .. ent
+		end
+	end
 
 	-- SKK辞書サーバー検索
 	ret = ret .. crvmgr.search_skk_server(key)
