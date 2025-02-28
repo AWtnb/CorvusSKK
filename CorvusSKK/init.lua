@@ -1503,7 +1503,7 @@ end
 
 
 local function add_prefix_to_skkdict_entry(pref, ent)
-	return string.gsub(ent, "/%D", function(m)
+	return string.gsub(ent, "/.", function(m)
 		return "/" .. pref .. string.sub(m, 2)
 	end)
 end
