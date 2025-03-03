@@ -1613,6 +1613,9 @@ end
 
 -- 逆検索
 function lua_skk_reverse(candidate)
+	-- エントリの前後からスペースを取り除く
+	candidate = string.gsub(candidate, "^ +", "")
+	candidate = string.gsub(candidate, " +$", "")
 	return crvmgr.reverse(candidate)
 end
 
