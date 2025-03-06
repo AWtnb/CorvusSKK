@@ -1535,6 +1535,11 @@ local function skk_search(key, okuri)
 		end
 	end
 
+	-- Capital Case
+	if string.match(key, "^[a-z]+$") then
+		ret = ret .. "/" .. string.upper(string.sub(key, 1, 1)) .. string.sub(key, 2) .. "/\n"
+	end
+
 	-- SKK辞書サーバー検索
 	ret = ret .. crvmgr.search_skk_server(key)
 
