@@ -1501,6 +1501,16 @@ local function skk_convert_key(key, okuri)
 	return ret
 end
 
+local function to_skkdict_entry(t)
+	local ret = ""
+	if #t < 1 then
+		return ret
+	end
+	for i = 1, #t do
+		ret = ret .. "/" .. t[i]
+	end
+	return ret .. "/\n"
+end
 
 local function add_prefix_to_skkdict_entry(pref, ent)
 	return string.gsub(ent, "/%C", function(m)
@@ -1535,9 +1545,10 @@ local function skk_search(key, okuri)
 		end
 	end
 
-	-- Capital Case
+	-- Capital Case と UPPER CASE を追加
 	if string.match(key, "^[a-z]+$") then
-		ret = ret .. "/" .. string.upper(string.sub(key, 1, 1)) .. string.sub(key, 2) .. "/\n"
+		local c = string.upper(string.sub(key, 1, 1)) .. string.sub(key, 2)
+		ret = ret .. to_skkdict_entry({c, string.upper(key)})
 	end
 
 	-- SKK辞書サーバー検索
