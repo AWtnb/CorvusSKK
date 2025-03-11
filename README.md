@@ -8,12 +8,17 @@ CorvusSKKの個人用カスタマイズ。
 $d = "CorvusSKK"; New-Item -Path ($env:APPDATA | Join-Path -ChildPath $d) -Value ($pwd.Path | Join-Path -ChildPath $d) -ItemType Junction
 ```
 
-- サーバを使用する場合、 [`crvskkserv.ini`](crvskkserv.ini) を `crvskkserv.exe` と同じフォルダにコピーするかシンボリックリンクを作成する。
-- Syncthing使用時は下記の内容を `.stignore` に記載して同期の対象外にする。
+### SKKサーバ
 
-    ```
-    CorvusSKK/*dict.txt
-    ```
+1. [リポジトリ](https://github.com/nathancorvussolis/crvskkserv/releases/) から最新版をダウンロード
+1. [`set-startup.ps1`](set-startup.ps1) を実行してスタートアップに登録（`crvskkserv.exe` のパスを引数に指定する）
+1. [`crvskkserv.ini`](crvskkserv.ini) を `crvskkserv.exe` と同じフォルダにコピーするかシンボリックリンクを作成する。
+
+Syncthing使用時は下記の内容を `.stignore` に記載して同期の対象外にする。
+
+```
+CorvusSKK/*dict.txt
+```
 
 ## Windowsシステム設定
 
