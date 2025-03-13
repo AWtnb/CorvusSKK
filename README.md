@@ -12,6 +12,11 @@ $d = "CorvusSKK"; New-Item -Path ($env:APPDATA | Join-Path -ChildPath $d) -Value
 
 1. [リポジトリ](https://github.com/nathancorvussolis/crvskkserv/releases/) から最新版をダウンロード
 1. [`set-startup.ps1`](set-startup.ps1) を実行してスタートアップに登録（`crvskkserv.exe` のパスを引数に指定する）
+
+   ```
+   .\set-startup.ps1 "$env:USERPROFILE\Personal\crvskkserv\crvskkserv.exe"
+   ```
+
 1. [`crvskkserv.ini`](crvskkserv.ini) を `crvskkserv.exe` と同じフォルダにコピーするかシンボリックリンクを作成する。
 
 Syncthing使用時は下記の内容を `.stignore` に記載して同期の対象外にする。
