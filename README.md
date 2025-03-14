@@ -17,8 +17,6 @@ $d = "CorvusSKK"; New-Item -Path ($env:APPDATA | Join-Path -ChildPath $d) -Value
    .\set-startup.ps1 "$env:USERPROFILE\Personal\crvskkserv\crvskkserv.exe"
    ```
 
-1. [`crvskkserv.ini`](crvskkserv.ini) を `crvskkserv.exe` と同じフォルダにコピーするかシンボリックリンクを作成する。
-
 Syncthing使用時は下記の内容を `.stignore` に記載して同期の対象外にする。
 
 ```

@@ -1551,8 +1551,14 @@ local function skk_search(key, okuri)
 		ret = ret .. to_skkdict_entry({c, string.upper(key)})
 	end
 
-	-- SKK辞書サーバー検索
-	ret = ret .. crvmgr.search_skk_server(key)
+	--[[
+		SKK辞書サーバー検索
+		- 英数から始まる場合は Google 日本語入力 CGI APIへの問い合わせを除外する。
+		- crvskkserv.ini で正規表現を書く方法もあるが、設定の一元管理のために init.lua で設定しておく。
+	--]]
+	if not string.match(key, "^%w.+") then
+		ret = ret .. crvmgr.search_skk_server(key)
+	end
 
 	if (okuri == "") then
 		-- Unicodeコードポイント変換
