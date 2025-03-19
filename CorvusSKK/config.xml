@@ -129,12 +129,12 @@
     <key name="jmode" value="" />
     <key name="abbrev" value="/" />
     <key name="affix" value="&lt;|>" />
-    <key name="nextcand" value="" />
-    <key name="prevcand" value="" />
+    <key name="nextcand" value="\cn" />
+    <key name="prevcand" value="\cb" />
     <key name="purgedic" value="X|\cd" />
     <key name="nextcomp" value="" />
     <key name="prevcomp" value="" />
-    <key name="compcand" value="\cn" />
+    <key name="compcand" value="" />
     <key name="hint" value="\cs" />
     <key name="convpoint" value="" />
     <key name="direct" value="[0-9]" />
