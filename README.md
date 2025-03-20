@@ -1,6 +1,6 @@
 # README
 
-CorvusSKKの個人用カスタマイズ。
+[CorvusSKK](https://nathancorvussolis.github.io/)の個人用カスタマイズ。
 
 ## Install
 
@@ -20,7 +20,7 @@ $d = "CorvusSKK"; New-Item -Path ($env:APPDATA | Join-Path -ChildPath $d) -Value
 Syncthing使用時は下記の内容を `.stignore` に記載して同期の対象外にする。
 
 ```
-CorvusSKK/*dict.txt
+(?d)CorvusSKK/*dict.txt
 ```
 
 ## Windowsシステム設定
