@@ -93,15 +93,15 @@
     <key name="convannot" value="0,0,0x000000,0,0xFFFFFF,3,0,0,0x000000,2" />
   </section>
   <section name="selkey">
-    <key name="1" value="ａAa" />
-    <key name="2" value="ｂBb" />
-    <key name="3" value="ｃCc" />
-    <key name="4" value="ｄDd" />
-    <key name="5" value="ｅEe" />
-    <key name="6" value="ｆFf" />
-    <key name="7" value="ｇGg" />
-    <key name="8" value="ｈHh" />
-    <key name="9" value="ｉIi" />
+    <key name="1" value="Aaａ" />
+    <key name="2" value="Bbｂ" />
+    <key name="3" value="Ccｃ" />
+    <key name="4" value="Ddｄ" />
+    <key name="5" value="Eeｅ" />
+    <key name="6" value="Ffｆ" />
+    <key name="7" value="Ggｇ" />
+    <key name="8" value="Hhｈ" />
+    <key name="9" value="Iiｉ" />
   </section>
   <section name="preservedkeyon">
     <list>
