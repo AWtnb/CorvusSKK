@@ -839,9 +839,19 @@ end
 
 
 --[[
-	additional
+	==============================
+	追加関数
+	==============================
 ]]--
 
+
+--[[
+
+消しても問題ないゼロ（非数字のすぐ後ろにあるゼロ）を任意の文字に置換する
+
+usage: (replace-removable-zero "01月01日", "")
+
+]]--
 local function replace_removable_zero(t)
 	local s = t[1]
 	local repl = t[2]
@@ -854,7 +864,13 @@ local function replace_removable_zero(t)
 	return tostring(string.gsub(f, "^0+", repl))
 end
 
--- usage: (replace-removable-zero (format-yymmdd #0 "%Y年%m月%d日（%a）"), "")
+--[[
+
+yymmddを任意のフォーマットに変換する
+
+usage: (replace-removable-zero (format-yymmdd #0 "%Y年%m月%d日（%a）"), "")
+
+]]--
 local function format_yymmdd(t)
 	local ymd = t[1]
 	local fmt = t[2]
@@ -865,8 +881,15 @@ local function format_yymmdd(t)
 	return ff
 end
 
--- usage: (replace-removable-zero (format-upcoming-day #0 #0 "%Y年%m月%d日（%a）") "")
--- usage: (replace-removable-zero (format-upcoming-day #0 #0 "%m月%d日（%a）") "")
+--[[
+
+月と日を指定して一番近い未来の日付を任意のフォーマットに変換する
+（年末に翌年の日付に言及するケースなど）
+
+- usage: (replace-removable-zero (format-upcoming-day #0 #0 "%Y年%m月%d日（%a）") "")
+- usage: (replace-removable-zero (format-upcoming-day #0 #0 "%m月%d日（%a）") "")
+
+]]--
 local function format_upcoming_day(t)
 	local mm = t[1]
 	local dd = t[2]
@@ -882,7 +905,38 @@ local function format_upcoming_day(t)
 	return ff
 end
 
--- usage: (replace-removable-zero (format-upcoming-day-of-week #0 "%d日（%a）") "")
+--[[
+
+月と日を指定して一番近い過去の日付を任意のフォーマットに変換する
+（年始に前年の日付に言及するケースなど）
+
+- usage: (replace-removable-zero (format-last-day #0 #0 "%Y年%m月%d日（%a）") "")
+- usage: (replace-removable-zero (format-last-day #0 #0 "%m月%d日（%a）") "")
+
+--]]
+local function format_last_day(t)
+	local mm = t[1]
+	local dd = t[2]
+	local fmt = t[3]
+	local yy = tostring(os.date("%Y"))
+
+	local today = os.time({year=tostring(os.date("%Y")), month=tostring(os.date("%m")), day=tostring(os.date("%d"))})
+	local ts = os.time({year=yy,month=mm,day=dd})
+	if os.difftime(today, ts) < 0 then
+		ts = os.time({year=tostring(tonumber(yy)-1),month=mm,day=dd})
+	end
+	local ff = os.date(fmt, ts)
+	return ff
+end
+
+--[[
+
+日を指定して一番近い未来の日付を任意のフォーマットに変換する
+（翌週の日付に言及するケースなど）
+
+- usage: (replace-removable-zero (format-upcoming-day-of-week #0 "%d日（%a）") "")
+
+]]--
 local function format_upcoming_day_of_week(t)
 	local idx = tonumber(t[1]) % 7
 	local fmt = t[2]
@@ -901,8 +955,40 @@ local function format_upcoming_day_of_week(t)
 	return os.date(fmt, os.time())
 end
 
--- usage: (replace-removable-zero (format-this-year #0 #0 "%Y年%m月%d日（%a）") "0")
--- usage: (replace-removable-zero (format-this-year #0 #0 "%m月%d日（%a）") "")
+--[[
+
+日を指定して一番近い過去の日付を任意のフォーマットに変換する
+（前週の日付に言及するケースなど）
+
+- usage: (replace-removable-zero (format-last-day-of-week #0 "%d日（%a）") "")
+
+]]--
+local function format_last_day_of_week(t)
+	local idx = tonumber(t[1]) % 7
+	local fmt = t[2]
+
+	local yy = tostring(os.date("%Y"))
+	local mm = tostring(os.date("%m"))
+	local dd = tostring(os.date("%d"))
+
+	for i = 1, 7, 1 do
+		local ts = os.time({year=yy, month=mm, day=tostring(tonumber(dd)-i)})
+		local di = tonumber(os.date("%w", ts))
+		if di == idx then
+			return os.date(fmt, ts)
+		end
+	end
+	return os.date(fmt, os.time())
+end
+
+--[[
+
+月と日を指定して現在の年の日付を任意のフォーマットに変換する
+
+- usage: (replace-removable-zero (format-this-year #0 #0 "%Y年%m月%d日（%a）") "0")
+- usage: (replace-removable-zero (format-this-year #0 #0 "%m月%d日（%a）") "")
+
+]]--
 local function format_this_year(t)
 	local mm = t[1]
 	local dd = t[2]
@@ -912,8 +998,14 @@ local function format_this_year(t)
 	return ff
 end
 
--- usage: (replace-removable-zero (format-this-month #0 "%Y年%m月%d日（%a）") " ")
--- usage: (replace-removable-zero (format-this-month #0 "%d日（%a）") "")
+--[[
+
+日を指定して現在の月の日付を任意のフォーマットに変換する
+
+- usage: (replace-removable-zero (format-this-month #0 "%Y年%m月%d日（%a）") " ")
+- usage: (replace-removable-zero (format-this-month #0 "%d日（%a）") "")
+
+]]--
 local function format_this_month(t)
 	local dd = t[1]
 	local fmt = t[2]
@@ -923,31 +1015,47 @@ local function format_this_month(t)
 	return ff
 end
 
-local function day_delta(fmt, diff)
-	local yy = tostring(os.date("%Y"))
-	local mm = tostring(os.date("%m"))
-	local dd = tostring(tonumber(os.date("%d")) + tonumber(diff))
-	local f = tostring(os.date(fmt, os.time({year=yy,month=mm,day=dd})))
-	return string.gsub(string.gsub(f, "年0", "年"), "月0", "月")
-end
+--[[
 
--- usage: (skk-day-minus "%Y%m%d" #0)
--- usage: (skk-day-minus "%Y年%m月%d日（%a）" #0)
-local function skk_day_minus(t)
-	local fmt = t[1]
-	local diff = -1 * tonumber(t[2])
-	return day_delta(fmt, diff)
-end
+日数を指定してN日後の日付を任意のフォーマットに変換する
 
--- usage: (skk-day-plus "%Y%m%d" #0)
--- usage: (skk-day-plus "%Y年%m月%d日（%a）" #0)
+- usage: (replace-removable-zero (skk-day-plus "%Y%m%d" #0) "")
+- usage: (replace-removable-zero (skk-day-plus "%Y年%m月%d日（%a）" #0) "")
+
+]]--
 local function skk_day_plus(t)
 	local fmt = t[1]
-	local diff = t[2]
-	return day_delta(fmt, diff)
+	local delta = t[2]
+	local yy = tostring(os.date("%Y"))
+	local mm = tostring(os.date("%m"))
+	local dd = tostring(tonumber(os.date("%d")) + tonumber(delta))
+	return  tostring(os.date(fmt, os.time({year=yy,month=mm,day=dd})))
 end
 
--- usage: (concat (to-comma-separated #0) "円")
+--[[
+
+日数を指定してN日前の日付を任意のフォーマットに変換する
+
+- usage: (replace-removable-zero (skk-day-minus "%Y%m%d" #0) "")
+- usage: (replace-removable-zero (skk-day-minus "%Y年%m月%d日（%a）" #0) "")
+
+]]--
+local function skk_day_minus(t)
+	local fmt = t[1]
+	local delta = t[2]
+	local yy = tostring(os.date("%Y"))
+	local mm = tostring(os.date("%m"))
+	local dd = tostring(tonumber(os.date("%d")) - tonumber(delta))
+	return  tostring(os.date(fmt, os.time({year=yy,month=mm,day=dd})))
+end
+
+--[[
+
+桁区切りのコンマを挿入する
+
+- usage: (concat (to-comma-separated #0) "円")
+
+]]--
 local function to_comma_separated(t)
 	-- https://www.mathkuro.com/game-dev/lua-convert-number-to-currency-style-string/
 	local num = t[1]
@@ -964,7 +1072,13 @@ local function to_comma_separated(t)
 	return string.sub(str2, 2)
 end
 
--- usage: (concat (to-japanese-unit #0) "円")
+--[[
+
+日本語の位取りを入れる
+
+- usage: (concat (to-japanese-unit #0) "円")
+
+]]--
 local function to_japanese_unit(t)
 	local num = t[1]
 	local units = {"万", "億", "兆", "京", "垓", "𥝱", "穣"}
@@ -990,9 +1104,15 @@ local function to_japanese_unit(t)
  	return f
 end
 
--- usage: (format-hhmm #0 "%d時%d分")
--- usage: (format-hhmm #0 "%02d時%02d分")
--- usage: (format-hhmm #0 "%02d:%02d")
+--[[
+
+hhmmを任意のフォーマットに変換する
+
+- usage: (format-hhmm #0 "%d時%d分")
+- usage: (format-hhmm #0 "%02d時%02d分")
+- usage: (format-hhmm #0 "%02d:%02d")
+
+]]--
 local function format_hhmm(t)
 	local hhmm = t[1]
 	if 4 < string.len(hhmm) then
@@ -1011,8 +1131,16 @@ local function format_hhmm(t)
 	return string.gsub(string.format(fmt, hh, mm), "時0+分", "時")
 end
 
--- usage: (format-proof #0 4)
--- usage: (concat "要" (format-proof #0 4) "ゲラ")
+--[[
+
+校数への変換。
+1→初（初校）、2→再（再校）とする。
+第2引数で何校で校了とするか指定。校了以降は念校、念々校……として、5以上なら数値も付記する。
+
+- usage: (format-proof #0 4)
+- usage: (concat "要" (format-proof #0 4) "ゲラ")
+
+]]--
 local function format_proof(t)
 	local count = tonumber(t[1])
 	local finish = tonumber(t[2])
@@ -1040,7 +1168,13 @@ local function format_proof(t)
 	return idx .. "校" .. append
 end
 
--- usage: (format-book-heading #0)
+--[[
+
+見出し変換
+
+- usage: (format-book-heading #0)
+
+]]--
 local function format_book_heading(t)
 	local count = tonumber(t[1]) + 1
 	local step = {"部", "章", "節", "項", "小"}
@@ -1056,7 +1190,14 @@ local function format_book_heading(t)
 	return h .. "見出し"
 end
 
--- usage: (format-credit-card-1 #0)
+--[[
+
+クレジットカード請求日付変換
+（前々月16日〜前月15日）
+
+- usage: (format-credit-card-1 #0)
+
+]]--
 local function format_credit_card_1(t)
 	local yyyymm = t[1]
 	local yyyy = string.sub(yyyymm, 1, 4)
@@ -1069,7 +1210,14 @@ local function format_credit_card_1(t)
 	return f1 .. f2 .. f3
 end
 
--- usage: (format-credit-card-2 #0)
+--[[
+
+クレジットカード請求日付変換
+（前月1日〜前月末日）
+
+- usage: (format-credit-card-2 #0)
+
+]]--
 local function format_credit_card_2(t)
 	local yyyymm = t[1]
 	local yyyy = string.sub(yyyymm, 1, 4)
@@ -1081,18 +1229,37 @@ local function format_credit_card_2(t)
 	return f1 .. f2 .. f3
 end
 
--- usage: (format-fraction #0 #0)
+--[[
+
+分数変換
+
+- usage: (format-fraction #0 #0)
+
+]]--
 local function format_fraction(t)
 	return string.format("%d分の%d", t[2], t[1])
 end
 
--- usage: (format-day-of-week #0 "（%s）")
+--[[
+
+任意のフォーマットで曜日に変換する
+（月曜日＝1）
+
+- usage: (format-day-of-week #0 "（%s）")
+
+]]--
 local function format_day_of_week(t)
 	local ds = {"月", "火", "水", "木", "金", "土", "日"}
 	return string.format(t[2], ds[tonumber(t[1])])
 end
 
--- usage: (format-markdown-heading #0)
+--[[
+
+Markdown見出し変換
+
+- usage: (format-markdown-heading #0)
+
+]]--
 local function format_markdown_heading(t)
 	local heading = ""
 	local count = tonumber(t[1])
@@ -1102,19 +1269,24 @@ local function format_markdown_heading(t)
 	return heading .. " "
 end
 
--- usage: (get-env-var "USERPROFILE")
--- usage: (concat (get-env-var "USERPROFILE") "\\Desktop")
-local function get_env_variable(t)
-	return os.getenv(t[1])
-end
 
--- usage: (resolve-user-profile "%s\\Desktop\\")
--- usage: (concat (resolve-user-profile "%s\\Desktop\\") (format-time-string "%Y%m%d_%H%M%S" (current-time)))
+--[[
+
+環境変数 %USERPROFILE% の展開
+
+- usage: (resolve-user-profile "%s\\Desktop\\")
+- usage: (concat (resolve-user-profile "%s\\Desktop\\") (format-time-string "%Y%m%d_%H%M%S" (current-time)))
+
+]]--
 local function resolve_user_profile(t)
-	return string.format(t[1], get_env_variable({"USERPROFILE"}))
+	return string.format(t[1], os.getenv("USERPROFILE"))
 end
 
+--[[
 
+チェックデジット計算
+
+]]--
 local function getCheckDigit(isbn12)
 	local total = 0
 	for i = 1, #isbn12 do
@@ -1128,7 +1300,14 @@ local function getCheckDigit(isbn12)
 	return (10 - (total % 10)) % 10
 end
 
--- usage: (format-japanese-isbn #0)
+--[[
+
+日本のISBNに変換
+（5桁なら9784641始まりとする）
+
+- usage: (format-japanese-isbn #0)
+
+]]--
 local function format_japanese_isbn(t)
 	local code = tostring(t[1])
 	if string.len(t[1]) == 5 then
@@ -1138,7 +1317,13 @@ local function format_japanese_isbn(t)
 	return code12 .. getCheckDigit(code12)
 end
 
--- https://getwebtips.net/blog/2022/7/20/python-coding-challenge-convert-integer-into-roman-numeral/
+--[[
+
+ローマ数字に変換
+
+https://getwebtips.net/blog/2022/7/20/python-coding-challenge-convert-integer-into-roman-numeral/
+
+]]--
 local function to_roman(i, lower)
 	local values = {{1000, "M"}, {900, "CM"}, {500, "D"}, {400, "CD"}, {100, "C"}, {90, "XC"}, {50, "L"}, {40, "XL"},
 					{10, "X"}, {9, "IX"}, {5, "V"}, {4, "IV"}, {1, "I"}}
@@ -1164,7 +1349,13 @@ local function to_roman(i, lower)
 	return ret
 end
 
--- usage: (format-roman-lower #0)
+--[[
+
+ローマ数字（小文字）変換
+
+- usage: (format-roman-lower #0)
+
+]]--
 local function format_roman_lower(t)
 	local i = tonumber(t[1])
 	local letters = { "\u{2170}", "\u{2171}", "\u{2172}", "\u{2173}", "\u{2174}", "\u{2175}", "\u{2176}", "\u{2177}", "\u{2178}", "\u{2179}"}
@@ -1174,7 +1365,13 @@ local function format_roman_lower(t)
 	return to_roman(i, true)
 end
 
--- usage: (format-roman-upper #0)
+--[[
+
+ローマ数字（大文字）変換
+
+- usage: (format-roman-upper #0)
+
+]]--
 local function format_roman_upper(t)
 	local i = tonumber(t[1])
 	local letters = { "\u{2160}", "\u{2161}", "\u{2162}", "\u{2163}", "\u{2164}", "\u{2165}", "\u{2166}", "\u{2167}", "\u{2168}", "\u{2169}"}
@@ -1216,7 +1413,9 @@ local skk_gadget_func_table_org = {
 	{"format-yymmdd", format_yymmdd},
 	{"format-this-year", format_this_year},
 	{"format-upcoming-day", format_upcoming_day},
+	{"format-last-day", format_last_day},
 	{"format-upcoming-day-of-week", format_upcoming_day_of_week},
+	{"format-last-day-of-week", format_last_day_of_week},
 	{"format-this-month", format_this_month},
 	{"to-comma-separated", to_comma_separated},
 	{"to-japanese-unit", to_japanese_unit},
@@ -1230,7 +1429,6 @@ local skk_gadget_func_table_org = {
 	{"format-credit-card-2", format_credit_card_2},
 	{"format-day-of-week", format_day_of_week},
 	{"format-markdown-heading", format_markdown_heading},
-	{"get-env-var", get_env_variable},
 	{"resolve-user-profile", resolve_user_profile},
 	{"format-japanese-isbn", format_japanese_isbn},
 	{"format-roman-lower", format_roman_lower},
