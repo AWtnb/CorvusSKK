@@ -838,18 +838,11 @@ local function skk_strftime(t)
 end
 
 
---[[
-	==============================
-	追加関数
-	==============================
-]]--
-
-
---[[
+--[[ #custom
 
 消しても問題ないゼロ（非数字のすぐ後ろにあるゼロ）を任意の文字に置換する
 
-usage: (replace-removable-zero "01月01日", "")
+- usage: (replace-removable-zero "01月01日", "")
 
 ]]--
 local function replace_removable_zero(t)
@@ -864,11 +857,11 @@ local function replace_removable_zero(t)
 	return tostring(string.gsub(f, "^0+", repl))
 end
 
---[[
+--[[ #custom
 
 yymmddを任意のフォーマットに変換する
 
-usage: (replace-removable-zero (format-yymmdd #0 "%Y年%m月%d日（%a）"), "")
+- usage: (replace-removable-zero (format-yymmdd #0 "%Y年%m月%d日（%a）"), "")
 
 ]]--
 local function format_yymmdd(t)
@@ -881,7 +874,7 @@ local function format_yymmdd(t)
 	return ff
 end
 
---[[
+--[[ #custom
 
 月と日を指定して一番近い未来の日付を任意のフォーマットに変換する
 （年末に翌年の日付に言及するケースなど）
@@ -905,7 +898,7 @@ local function format_upcoming_day(t)
 	return ff
 end
 
---[[
+--[[ #custom
 
 月と日を指定して一番近い過去の日付を任意のフォーマットに変換する
 （年始に前年の日付に言及するケースなど）
@@ -929,7 +922,7 @@ local function format_last_day(t)
 	return ff
 end
 
---[[
+--[[ #custom
 
 日を指定して一番近い未来の日付を任意のフォーマットに変換する
 （翌週の日付に言及するケースなど）
@@ -955,7 +948,7 @@ local function format_upcoming_day_of_week(t)
 	return os.date(fmt, os.time())
 end
 
---[[
+--[[ #custom
 
 日を指定して一番近い過去の日付を任意のフォーマットに変換する
 （前週の日付に言及するケースなど）
@@ -981,7 +974,7 @@ local function format_last_day_of_week(t)
 	return os.date(fmt, os.time())
 end
 
---[[
+--[[ #custom
 
 月と日を指定して現在の年の日付を任意のフォーマットに変換する
 
@@ -998,7 +991,7 @@ local function format_this_year(t)
 	return ff
 end
 
---[[
+--[[ #custom
 
 日を指定して現在の月の日付を任意のフォーマットに変換する
 
@@ -1015,7 +1008,7 @@ local function format_this_month(t)
 	return ff
 end
 
---[[
+--[[ #custom
 
 日数を指定してN日後の日付を任意のフォーマットに変換する
 
@@ -1032,7 +1025,7 @@ local function skk_day_plus(t)
 	return  tostring(os.date(fmt, os.time({year=yy,month=mm,day=dd})))
 end
 
---[[
+--[[ #custom
 
 日数を指定してN日前の日付を任意のフォーマットに変換する
 
@@ -1049,7 +1042,7 @@ local function skk_day_minus(t)
 	return  tostring(os.date(fmt, os.time({year=yy,month=mm,day=dd})))
 end
 
---[[
+--[[ #custom
 
 桁区切りのコンマを挿入する
 
@@ -1072,7 +1065,7 @@ local function to_comma_separated(t)
 	return string.sub(str2, 2)
 end
 
---[[
+--[[ #custom
 
 日本語の位取りを入れる
 
@@ -1104,7 +1097,7 @@ local function to_japanese_unit(t)
  	return f
 end
 
---[[
+--[[ #custom
 
 hhmmを任意のフォーマットに変換する
 
@@ -1131,7 +1124,7 @@ local function format_hhmm(t)
 	return string.gsub(string.format(fmt, hh, mm), "時0+分", "時")
 end
 
---[[
+--[[ #custom
 
 校数への変換。
 1→初（初校）、2→再（再校）とする。
@@ -1168,7 +1161,7 @@ local function format_proof(t)
 	return idx .. "校" .. append
 end
 
---[[
+--[[ #custom
 
 見出し変換
 
@@ -1190,7 +1183,7 @@ local function format_book_heading(t)
 	return h .. "見出し"
 end
 
---[[
+--[[ #custom
 
 クレジットカード請求日付変換
 （前々月16日〜前月15日）
@@ -1210,7 +1203,7 @@ local function format_credit_card_1(t)
 	return f1 .. f2 .. f3
 end
 
---[[
+--[[ #custom
 
 クレジットカード請求日付変換
 （前月1日〜前月末日）
@@ -1229,7 +1222,7 @@ local function format_credit_card_2(t)
 	return f1 .. f2 .. f3
 end
 
---[[
+--[[ #custom
 
 分数変換
 
@@ -1240,7 +1233,7 @@ local function format_fraction(t)
 	return string.format("%d分の%d", t[2], t[1])
 end
 
---[[
+--[[ #custom
 
 任意のフォーマットで曜日に変換する
 （月曜日＝1）
@@ -1253,7 +1246,7 @@ local function format_day_of_week(t)
 	return string.format(t[2], ds[tonumber(t[1])])
 end
 
---[[
+--[[ #custom
 
 Markdown見出し変換
 
@@ -1270,7 +1263,7 @@ local function format_markdown_heading(t)
 end
 
 
---[[
+--[[ #custom
 
 環境変数 %USERPROFILE% の展開
 
@@ -1282,7 +1275,7 @@ local function resolve_user_profile(t)
 	return string.format(t[1], os.getenv("USERPROFILE"))
 end
 
---[[
+--[[ #custom
 
 チェックデジット計算
 
@@ -1300,7 +1293,7 @@ local function getCheckDigit(isbn12)
 	return (10 - (total % 10)) % 10
 end
 
---[[
+--[[ #custom
 
 日本のISBNに変換
 （5桁なら9784641始まりとする）
@@ -1317,7 +1310,7 @@ local function format_japanese_isbn(t)
 	return code12 .. getCheckDigit(code12)
 end
 
---[[
+--[[ #custom
 
 ローマ数字に変換
 
@@ -1349,7 +1342,7 @@ local function to_roman(i, lower)
 	return ret
 end
 
---[[
+--[[ #custom
 
 ローマ数字（小文字）変換
 
@@ -1365,7 +1358,7 @@ local function format_roman_lower(t)
 	return to_roman(i, true)
 end
 
---[[
+--[[ #custom
 
 ローマ数字（大文字）変換
 
