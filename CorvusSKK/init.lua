@@ -1835,6 +1835,73 @@ function lua_skk_reverse(candidate)
 	return crvmgr.reverse(candidate)
 end
 
+
+--[[
+
+カタカナを平仮名に変換する
+
+]]--
+
+local function make_katakana_to_hiragana_conversion_table()
+	local katakana = "ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモヤャユュヨョラリルレロワヲンヴヵヶ"
+	local hiragana = "ぁあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすずせぜそぞただちぢっつづてでとどなにぬねのはばぱひびぴふぶぷへべぺほぼぽまみむめもやゃゆゅよょらりるれろわをんゔゕゖ"
+
+	local table = {}
+	for i = 1, #katakana, 3 do  -- UTF-8 のカタカナ・ひらがなは3バイトずつ
+	  local k = string.sub(katakana, i, i + 2)
+	  local h = string.sub(hiragana, i, i + 2)
+	  table[k] = h
+	end
+	return table
+end
+
+local katakana_hiragana_conversion_table = make_katakana_to_hiragana_conversion_table()
+
+local function katakana_to_hiragana(s)
+	local result = ""
+	local i = 1
+	while i <= #s do
+		local char = string.sub(s, i, i + 2)  -- UTF-8 の3バイト取得
+		local kata = katakana_hiragana_conversion_table[char]
+		if kata then
+			result = result .. kata
+		else
+			result = result .. char
+		end
+		i = i + 3
+	end
+	return result
+end
+
+local function is_all_katakana_bytes(s)
+	local i = 1
+	local len = #s
+	while i <= len do
+		if i + 2 > len then
+			return false
+		end -- 3バイト未満で終わる場合は false
+
+		-- UTF-8 の3バイトを取得
+		local b1 = string.byte(s, i)
+		local b2 = string.byte(s, i + 1)
+		local b3 = string.byte(s, i + 2)
+
+		-- カタカナの範囲チェック
+		local is_katakana =
+			(b1 == 0xE3 and b2 == 0x82 and b3 >= 0xA1 and b3 <= 0xBF) or -- U+30A1 〜 U+30BF (ァ〜タ)
+			(b1 == 0xE3 and b2 == 0x83 and b3 >= 0x80 and b3 <= 0xB6) or -- U+30C0 〜 U+30F6 (ダ〜ヶ)
+			(b1 == 0xE3 and b2 == 0x80 and b3 == 0xBC) -- U+30FC (ー)
+
+		if not is_katakana then
+			return false
+		end
+
+		i = i + 3 -- 3バイト進める
+	end
+	return true
+end
+
+
 -- 辞書追加
 function lua_skk_add(okuriari, key, candidate, annotation, okuri)
 
@@ -1920,6 +1987,15 @@ function lua_skk_add(okuriari, key, candidate, annotation, okuri)
 	--]]
 
 	crvmgr.add(okuriari, key, candidate, annotation, okuri)
+
+	-- 英数→カタカナで登録したとき、ひらがなから英数にも変換できるように登録する
+	if string.match(key, "^[A-Za-z]+$") then
+		if is_all_katakana_bytes(candidate) then
+			local hira = katakana_to_hiragana(candidate)
+			crvmgr.add(okuriari, hira, key, annotation, okuri)
+		end
+	end
+
 end
 
 -- 辞書削除
