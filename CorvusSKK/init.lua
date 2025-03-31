@@ -1836,27 +1836,30 @@ function lua_skk_reverse(candidate)
 end
 
 
---[[
+--[[ #custom
 
-カタカナを平仮名に変換する
+カタカナひらがなの変換テーブル
 
 ]]--
-
-local function make_katakana_to_hiragana_conversion_table()
+local katakana_hiragana_conversion_table = (function ()
 	local katakana = "ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモヤャユュヨョラリルレロワヲンヴヵヶ"
 	local hiragana = "ぁあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすずせぜそぞただちぢっつづてでとどなにぬねのはばぱひびぴふぶぷへべぺほぼぽまみむめもやゃゆゅよょらりるれろわをんゔゕゖ"
 
 	local table = {}
 	for i = 1, #katakana, 3 do  -- UTF-8 のカタカナ・ひらがなは3バイトずつ
-	  local k = string.sub(katakana, i, i + 2)
-	  local h = string.sub(hiragana, i, i + 2)
-	  table[k] = h
+		local k = string.sub(katakana, i, i + 2)
+		local h = string.sub(hiragana, i, i + 2)
+		table[k] = h
 	end
 	return table
-end
+end)()
 
-local katakana_hiragana_conversion_table = make_katakana_to_hiragana_conversion_table()
+--[[ #custom
 
+カタカナをひらがなに変換する
+
+
+]]--
 local function katakana_to_hiragana(s)
 	local result = ""
 	local i = 1
@@ -1873,11 +1876,16 @@ local function katakana_to_hiragana(s)
 	return result
 end
 
+--[[ #custom
+
+文字列がすべてカタカナか判定する
+
+]]--
 local function is_all_katakana_bytes(s)
 	local i = 1
 	local len = #s
 	while i <= len do
-		if i + 2 > len then
+		if len < i + 2 then
 			return false
 		end -- 3バイト未満で終わる場合は false
 
@@ -1890,7 +1898,7 @@ local function is_all_katakana_bytes(s)
 		local is_katakana =
 			(b1 == 0xE3 and b2 == 0x82 and b3 >= 0xA1 and b3 <= 0xBF) or -- U+30A1 〜 U+30BF (ァ〜タ)
 			(b1 == 0xE3 and b2 == 0x83 and b3 >= 0x80 and b3 <= 0xB6) or -- U+30C0 〜 U+30F6 (ダ〜ヶ)
-			(b1 == 0xE3 and b2 == 0x80 and b3 == 0xBC) -- U+30FC (ー)
+			(b1 == 0xE3 and b2 == 0x83 and b3 == 0xBC) -- U+30FC (ー)
 
 		if not is_katakana then
 			return false
