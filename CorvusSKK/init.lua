@@ -1896,8 +1896,8 @@ local function is_all_katakana_bytes(s)
 
 		-- カタカナの範囲チェック
 		local is_katakana =
-			(b1 == 0xE3 and b2 == 0x82 and b3 >= 0xA1 and b3 <= 0xBF) or -- U+30A1 〜 U+30BF (ァ〜タ)
-			(b1 == 0xE3 and b2 == 0x83 and b3 >= 0x80 and b3 <= 0xB6) or -- U+30C0 〜 U+30F6 (ダ〜ヶ)
+			(b1 == 0xE3 and b2 == 0x82 and (0xA1 <= b3 and b3 <= 0xBF)) or -- U+30A1 〜 U+30BF (ァ〜タ)
+			(b1 == 0xE3 and b2 == 0x83 and (0x80 <= b3 and b3 <= 0xB6)) or -- U+30C0 〜 U+30F6 (ダ〜ヶ)
 			(b1 == 0xE3 and b2 == 0x83 and b3 == 0xBC) -- U+30FC (ー)
 
 		if not is_katakana then
