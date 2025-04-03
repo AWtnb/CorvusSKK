@@ -1243,7 +1243,8 @@ end
 ]]--
 local function format_day_of_week(t)
 	local ds = {"月", "火", "水", "木", "金", "土", "日"}
-	return string.format(t[2], ds[tonumber(t[1])])
+	local n = (tonumber(t[1]) - 1) % 7 + 1
+	return string.format(t[2], ds[n])
 end
 
 --[[ #custom
