@@ -1739,8 +1739,8 @@ local function skk_search(key, okuri)
 
 	-- Capital Case と UPPER CASE を追加
 	if string.match(key, "^[a-z]+$") then
-		local c = string.upper(string.sub(key, 1, 1)) .. string.sub(key, 2)
-		ret = ret .. to_skkdict_entry({c, string.upper(key)})
+		local cap = string.upper(string.sub(key, 1, 1)) .. string.sub(key, 2)
+		ret = ret .. to_skkdict_entry({cap, string.upper(key)})
 	end
 
 	--[[
