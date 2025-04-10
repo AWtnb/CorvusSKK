@@ -1739,10 +1739,10 @@ local function skk_search(key, okuri)
 
 	--[[
 		SKK辞書サーバー検索
-		- 英数から始まる場合、接辞の>で終わる場合は Google 日本語入力 CGI APIへの問い合わせを除外する。
+		- 英数・記号から始まる場合、接辞の>で終わる場合は Google 日本語入力 CGI APIへの問い合わせを除外する。
 		- crvskkserv.ini で正規表現を書く方法もあるが、設定の一元管理のために init.lua で設定しておく。
 	--]]
-	if not string.match(key, "^[a-zA-Z0-9#].+") then
+	if not string.match(key, "^[a-zA-Z0-9%p].+") then
 		local tail = string.sub(key, string.len(key))
 		if tail ~= ">" then
 			ret = ret .. crvmgr.search_skk_server(key)
@@ -1999,13 +1999,12 @@ function lua_skk_add(okuriari, key, candidate, annotation, okuri)
 			crvmgr.add(okuriari, lc, key, annotation, okuri)
 		end
 
-		-- 英数→カタカナで登録したとき、ひらがなから英数にも変換できるように登録する
+		-- 英数→カタカナで登録したとき、ドル記号＋ひらがなから英数にも変換できるように登録する
 		if is_all_katakana_bytes(candidate) then
 			local hira = katakana_to_hiragana(candidate)
 			local cap = string.upper(string.sub(key, 1, 1)) .. string.sub(key, 2)
-			crvmgr.add(okuriari, hira, cap, annotation, okuri)
-			crvmgr.add(okuriari, hira, key, annotation, okuri)
-
+			crvmgr.add(okuriari, "$"..hira, cap, annotation, okuri)
+			crvmgr.add(okuriari, "$"..hira, key, annotation, okuri)
 		end
 	end
 
