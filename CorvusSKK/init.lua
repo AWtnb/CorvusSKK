@@ -2001,9 +2001,14 @@ function lua_skk_add(okuriari, key, candidate, annotation, okuri)
 	if string.match(key, "^[A-Za-z]+$") then
 		if is_all_katakana_bytes(candidate) then
 			local hira = katakana_to_hiragana(candidate)
+			if 0 < string.len(crvmgr.search_user_dictionary(hira, okuri))then
+				-- そのひらがなで既に登録されていたら何もしない
+				return
+			end
 			local cap = string.upper(string.sub(key, 1, 1)) .. string.sub(key, 2)
 			crvmgr.add(okuriari, hira, cap, annotation, okuri)
 			crvmgr.add(okuriari, hira, key, annotation, okuri)
+
 		end
 	end
 
