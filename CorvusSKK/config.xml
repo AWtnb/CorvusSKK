@@ -769,6 +769,8 @@
       <row ro="d," hi="で、" ka="デ、" an="ﾃﾞ､" so="0" />
       <row ro="s," hi="し、" ka="シ、" an="ｼ､" so="0" />
       <row ro="s." hi="す。" ka="ス。" an="ｽ｡" so="0" />
+      <row ro="tg" hi="たが" ka="タガ" an="ﾀｶﾞ" so="0" />
+      <row ro="sg" hi="すが" ka="スガ" an="ｽｶﾞ" so="0" />
       <row ro="g," hi="が、" ka="ガ、" an="ｶﾞ､" so="0" />
       <row ro="t," hi="て、" ka="テ、" an="ﾃ､" so="0" />
       <row ro="t." hi="た。" ka="タ。" an="ﾀ｡" so="0" />
