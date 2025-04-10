@@ -1737,12 +1737,6 @@ local function skk_search(key, okuri)
 		end
 	end
 
-	-- Capital Case と UPPER CASE を追加
-	if string.match(key, "^[a-z]+$") then
-		local cap = string.upper(string.sub(key, 1, 1)) .. string.sub(key, 2)
-		ret = ret .. to_skkdict_entry({cap, string.upper(key)})
-	end
-
 	--[[
 		SKK辞書サーバー検索
 		- 英数から始まる場合、接辞の>で終わる場合は Google 日本語入力 CGI APIへの問い合わせを除外する。
@@ -1997,13 +1991,20 @@ function lua_skk_add(okuriari, key, candidate, annotation, okuri)
 
 	crvmgr.add(okuriari, key, candidate, annotation, okuri)
 
-	-- 英数→カタカナで登録したとき、ひらがなから英数にも変換できるように登録する
 	if string.match(key, "^[A-Za-z]+$") then
+		-- Capital Caseで登録したとき、lowercase→Capitai Caseとlowercase→見出し語の変換も追加
+		if string.match(key, "^[A-Z]") then
+			local lc = string.lower(key)
+			crvmgr.add(okuriari, lc, candidate, annotation, okuri)
+			crvmgr.add(okuriari, lc, key, annotation, okuri)
+		end
+
+		-- 英数→カタカナで登録したとき、ひらがなから英数にも変換できるように登録する
 		if is_all_katakana_bytes(candidate) then
 			local hira = katakana_to_hiragana(candidate)
 			local cap = string.upper(string.sub(key, 1, 1)) .. string.sub(key, 2)
-			crvmgr.add(okuriari, hira, cap, annotation.."[LUA]", okuri)
-			crvmgr.add(okuriari, hira, key, annotation.."[LUA]", okuri)
+			crvmgr.add(okuriari, hira, cap, annotation, okuri)
+			crvmgr.add(okuriari, hira, key, annotation, okuri)
 
 		end
 	end
