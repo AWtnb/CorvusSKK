@@ -2014,6 +2014,17 @@ end
 
 -- 辞書削除
 function lua_skk_delete(okuriari, key, candidate)
+	-- ドル記号＋ひらがなから英数への辞書登録も削除する
+	if string.match(key, "^[A-Za-z]+$") then
+		if is_all_katakana_bytes(candidate) then
+			local hira = katakana_to_hiragana(candidate)
+			local cap = string.upper(string.sub(key, 1, 1)) .. string.sub(key, 2)
+			local upp = string.upper(key)
+			crvmgr.delete(okuriari, "$"..hira, key)
+			crvmgr.delete(okuriari, "$"..hira, cap)
+			crvmgr.delete(okuriari, "$"..hira, upp)
+		end
+	end
 	crvmgr.delete(okuriari, key, candidate)
 end
 
