@@ -777,6 +777,7 @@
       <row ro="kt" hi="こと" ka="コト" an="ｺﾄ" so="0" />
       <row ro="mge" hi="申し上げ" ka="モウシアゲ" an="ﾓｳｼｱｹﾞ" so="0" />
       <row ro="ms" hi="ます" ka="マス" an="ﾏｽ" so="0" />
+      <row ro="mt" hi="また" ka="マタ" an="ﾏﾀ" so="0" />
       <row ro="s," hi="し、" ka="シ、" an="ｼ､" so="0" />
       <row ro="s." hi="す。" ka="ス。" an="ｽ｡" so="0" />
       <row ro="sda" hi="させていただ" ka="サセテイタダ" an="ｻｾﾃｲﾀﾀﾞ" so="0" />
