@@ -782,7 +782,8 @@
       <row ro="ms" hi="ます" ka="マス" an="ﾏｽ" so="0" />
       <row ro="dk" hi="でき" ka="デキ" an="ﾃﾞｷ" so="0" />
       <row ro="sn" hi="せん" ka="セン" an="ｾﾝ" so="0" />
-      <row ro="st" hi="した" ka="シタ" an="ｼﾀ" so="0" />
+      <row ro="st" hi="して" ka="シテ" an="ｼﾃ" so="0" />
+      <row ro="tm" hi="ため" ka="タメ" an="ﾀﾒ" so="0" />
       <row ro="tr" hi="たら" ka="タラ" an="ﾀﾗ" so="0" />
       <row ro="yr" hi="より" ka="ヨリ" an="ﾖﾘ" so="0" />
       <row ro="kr" hi="から" ka="カラ" an="ｶﾗ" so="0" />
