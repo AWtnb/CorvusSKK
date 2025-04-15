@@ -1297,18 +1297,31 @@ end
 --[[ #custom
 
 日本のISBNに変換
-（5桁なら9784641始まりとする）
+
+- 5桁なら `9784641` 始まりとする
+- 第2引数があればそれを区切り文字とする。 `-` の場合は `nnn-n-nnn-nnnnn-n`
+
 
 - usage: (format-japanese-isbn #0)
+- usage: (format-japanese-isbn #0 "-")
 
 ]]--
 local function format_japanese_isbn(t)
 	local code = tostring(t[1])
+	local sep = ""
+	if 1 < #t then
+		sep = tostring(t[2])
+	end
 	if string.len(t[1]) == 5 then
 		code = "641" .. code
 	end
 	local code12 = "9784" .. code
-	return code12 .. getCheckDigit(code12)
+	local code13 = code12 .. getCheckDigit(code12)
+	return string.sub(code13, 1, 3)
+		.. sep .. string.sub(code13, 4, 4)
+		.. sep .. string.sub(code13, 5, 7)
+		.. sep .. string.sub(code13, 8, 12)
+		.. sep .. string.sub(code13, 13, 13)
 end
 
 --[[ #custom
