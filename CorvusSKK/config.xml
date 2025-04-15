@@ -770,6 +770,7 @@
       <row ro="dk" hi="でき" ka="デキ" an="ﾃﾞｷ" so="0" />
       <row ro="ds." hi="です。" ka="デス。" an="ﾃﾞｽ｡" so="0" />
       <row ro="dsg" hi="ですが" ka="デスガ" an="ﾃﾞｽｶﾞ" so="0" />
+      <row ro="dsk" hi="ですか" ka="デスカ" an="ﾃﾞｽｶ" so="0" />
       <row ro="dsnd" hi="ですので" ka="デスノデ" an="ﾃﾞｽﾉﾃﾞ" so="0" />
       <row ro="dsne" hi="ですね" ka="デスネ" an="ﾃﾞｽﾈ" so="0" />
       <row ro="dst" hi="でして" ka="デシテ" an="ﾃﾞｼﾃ" so="0" />
@@ -784,6 +785,7 @@
       <row ro="mge" hi="申し上げ" ka="モウシアゲ" an="ﾓｳｼｱｹﾞ" so="0" />
       <row ro="ms." hi="ます。" ka="マス。" an="ﾏｽ｡" so="0" />
       <row ro="msg" hi="ますが" ka="マスガ" an="ﾏｽｶﾞ" so="0" />
+      <row ro="msk" hi="ますか" ka="マスカ" an="ﾏｽｶ" so="0" />
       <row ro="msnd" hi="ますので" ka="マスノデ" an="ﾏｽﾉﾃﾞ" so="0" />
       <row ro="msne" hi="ますね" ka="マスネ" an="ﾏｽﾈ" so="0" />
       <row ro="mst" hi="まして" ka="マシテ" an="ﾏｼﾃ" so="0" />
