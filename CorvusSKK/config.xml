@@ -780,6 +780,7 @@
       <row ro="s." hi="す。" ka="ス。" an="ｽ｡" so="0" />
       <row ro="sda" hi="させていただ" ka="サセテイタダ" an="ｻｾﾃｲﾀﾀﾞ" so="0" />
       <row ro="sg" hi="すが" ka="スガ" an="ｽｶﾞ" so="0" />
+      <row ro="sK" hi="すが" ka="スガ" an="ｽｶﾞ" so="0" />
       <row ro="sk" hi="すか" ka="スカ" an="ｽｶ" so="0" />
       <row ro="snd" hi="すので" ka="スノデ" an="ｽﾉﾃﾞ" so="0" />
       <row ro="sne" hi="すね" ka="スネ" an="ｽﾈ" so="0" />
@@ -795,11 +796,11 @@
       <row ro="tga" hi="たが" ka="タガ" an="ﾀｶﾞ" so="0" />
       <row ro="tj" hi="という" ka="トイウ" an="ﾄｲｳ" so="0" />
       <row ro="tk" hi="つきまして" ka="ツキマシテ" an="ﾂｷﾏｼﾃ" so="0" />
-      <row ro="tme" hi="ため" ka="タメ" an="ﾀﾒ" so="0" />
       <row ro="tma" hi="いたしま" ka="イタシマ" an="ｲﾀｼﾏ" so="0" />
       <row ro="tnd" hi="たので" ka="タノデ" an="ﾀﾉﾃﾞ" so="0" />
       <row ro="tnk" hi="とのこと" ka="トノコト" an="ﾄﾉｺﾄ" so="0" />
       <row ro="yj" hi="よう" ka="ヨウ" an="ﾖｳ" so="0" />
+      <row ro="yO" hi="よう" ka="ヨウ" an="ﾖｳ" so="0" />
       <row ro="yna" hi="ような" ka="ヨウナ" an="ﾖｳﾅ" so="0" />
       <row ro="yni" hi="ように" ka="ヨウニ" an="ﾖｳﾆ" so="0" />
       <row ro="yr" hi="より" ka="ヨリ" an="ﾖﾘ" so="0" />
