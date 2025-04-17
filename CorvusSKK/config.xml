@@ -798,11 +798,13 @@
       <row ro="sxN" hi="先生方" ka="センセイガタ" an="ｾﾝｾｲｶﾞﾀ" so="0" />
       <row ro="t," hi="て、" ka="テ、" an="ﾃ､" so="0" />
       <row ro="t." hi="た。" ka="タ。" an="ﾀ｡" so="0" />
+      <row ro="t1" hi="た！" ka="タ！" an="ﾀ!" so="0" />
       <row ro="tda" hi="いただ" ka="イタダ" an="ｲﾀﾀﾞ" so="0" />
       <row ro="tga" hi="たが" ka="タガ" an="ﾀｶﾞ" so="0" />
       <row ro="tj" hi="という" ka="トイウ" an="ﾄｲｳ" so="0" />
       <row ro="tk" hi="つきまして" ka="ツキマシテ" an="ﾂｷﾏｼﾃ" so="0" />
       <row ro="tma" hi="いたしま" ka="イタシマ" an="ｲﾀｼﾏ" so="0" />
+      <row ro="tN" hi="た？" ka="タ？" an="ﾀ?" so="0" />
       <row ro="tnd" hi="たので" ka="タノデ" an="ﾀﾉﾃﾞ" so="0" />
       <row ro="tnk" hi="とのこと" ka="トノコト" an="ﾄﾉｺﾄ" so="0" />
       <row ro="yj" hi="よう" ka="ヨウ" an="ﾖｳ" so="0" />
