@@ -783,12 +783,14 @@
       <row ro="shk" hi="しょうか" ka="ショウカ" an="ｼｮｳｶ" so="0" />
       <row ro="sK" hi="すが" ka="スガ" an="ｽｶﾞ" so="0" />
       <row ro="sk" hi="すか" ka="スカ" an="ｽｶ" so="0" />
+      <row ro="sN" hi="す？" ka="ス？" an="ｽ?" so="0" />
       <row ro="snd" hi="すので" ka="スノデ" an="ｽﾉﾃﾞ" so="0" />
       <row ro="sne" hi="すね" ka="スネ" an="ｽﾈ" so="0" />
       <row ro="snn" hi="せん" ka="セン" an="ｾﾝ" so="0" />
       <row ro="sr" hi="する" ka="スル" an="ｽﾙ" so="0" />
       <row ro="sto" hi="すと" ka="スト" an="ｽﾄ" so="0" />
       <row ro="str" hi="したら" ka="シタラ" an="ｼﾀﾗ" so="0" />
+      <row ro="sX" hi="す！" ka="ス！" an="ｽ!" so="0" />
       <row ro="sxm" hi="様" ka="サマ" an="ｻﾏ" so="0" />
       <row ro="sxM" hi="様方" ka="サマガタ" an="ｻﾏｶﾞﾀ" so="0" />
       <row ro="sxn" hi="先生" ka="センセイ" an="ｾﾝｾｲ" so="0" />
