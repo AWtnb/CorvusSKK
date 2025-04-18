@@ -776,6 +776,7 @@
       <row ro="kt" hi="こと" ka="コト" an="ｺﾄ" so="0" />
       <row ro="mge" hi="申し上げ" ka="モウシアゲ" an="ﾓｳｼｱｹﾞ" so="0" />
       <row ro="mt" hi="また" ka="マタ" an="ﾏﾀ" so="0" />
+      <row ro="nld" hi="ので" ka="ノデ" an="ﾉﾃﾞ" so="0" />
       <row ro="rb" hi="れば" ka="レバ" an="ﾚﾊﾞ" so="0" />
       <row ro="s," hi="し、" ka="シ、" an="ｼ､" so="0" />
       <row ro="s." hi="す。" ka="ス。" an="ｽ｡" so="0" />
@@ -785,17 +786,16 @@
       <row ro="shk" hi="しょうか" ka="ショウカ" an="ｼｮｳｶ" so="0" />
       <row ro="sK" hi="すが" ka="スガ" an="ｽｶﾞ" so="0" />
       <row ro="sk" hi="すか" ka="スカ" an="ｽｶ" so="0" />
+      <row ro="smx" hi="様" ka="サマ" an="ｻﾏ" so="0" />
+      <row ro="smX" hi="様方" ka="サマガタ" an="ｻﾏｶﾞﾀ" so="0" />
       <row ro="sN" hi="す？" ka="ス？" an="ｽ?" so="0" />
-      <row ro="snd" hi="すので" ka="スノデ" an="ｽﾉﾃﾞ" so="0" />
       <row ro="sne" hi="すね" ka="スネ" an="ｽﾈ" so="0" />
       <row ro="snn" hi="せん" ka="セン" an="ｾﾝ" so="0" />
+      <row ro="snx" hi="先生" ka="センセイ" an="ｾﾝｾｲ" so="0" />
+      <row ro="snX" hi="先生方" ka="センセイガタ" an="ｾﾝｾｲｶﾞﾀ" so="0" />
       <row ro="sr" hi="する" ka="スル" an="ｽﾙ" so="0" />
       <row ro="sto" hi="すと" ka="スト" an="ｽﾄ" so="0" />
       <row ro="str" hi="したら" ka="シタラ" an="ｼﾀﾗ" so="0" />
-      <row ro="smx" hi="様" ka="サマ" an="ｻﾏ" so="0" />
-      <row ro="smX" hi="様方" ka="サマガタ" an="ｻﾏｶﾞﾀ" so="0" />
-      <row ro="snx" hi="先生" ka="センセイ" an="ｾﾝｾｲ" so="0" />
-      <row ro="snX" hi="先生方" ka="センセイガタ" an="ｾﾝｾｲｶﾞﾀ" so="0" />
       <row ro="t," hi="て、" ka="テ、" an="ﾃ､" so="0" />
       <row ro="t." hi="た。" ka="タ。" an="ﾀ｡" so="0" />
       <row ro="t1" hi="た！" ka="タ！" an="ﾀ!" so="0" />
@@ -805,7 +805,6 @@
       <row ro="tk" hi="つきまして" ka="ツキマシテ" an="ﾂｷﾏｼﾃ" so="0" />
       <row ro="tma" hi="いたしま" ka="イタシマ" an="ｲﾀｼﾏ" so="0" />
       <row ro="tN" hi="た？" ka="タ？" an="ﾀ?" so="0" />
-      <row ro="tnd" hi="たので" ka="タノデ" an="ﾀﾉﾃﾞ" so="0" />
       <row ro="tnk" hi="とのこと" ka="トノコト" an="ﾄﾉｺﾄ" so="0" />
       <row ro="yj" hi="よう" ka="ヨウ" an="ﾖｳ" so="0" />
       <row ro="yna" hi="ような" ka="ヨウナ" an="ﾖｳﾅ" so="0" />
