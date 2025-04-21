@@ -2005,21 +2005,24 @@ function lua_skk_add(okuriari, key, candidate, annotation, okuri)
 	crvmgr.add(okuriari, key, candidate, annotation, okuri)
 
 	if string.match(key, "^[A-Za-z]+$") then
-		-- Capital Caseで登録したとき、lowercase→Capitai Caseとlowercase→見出し語の変換も追加
+		-- 例： `Harry` で `ハリー` と変換できるよう辞書登録したとき、 `harry` で `Harry` にも `ハリー` にも変換できるようにする
 		if string.match(key, "^[A-Z]") then
 			local low = string.lower(key)
 			crvmgr.add(okuriari, low, candidate, annotation, okuri)
 			crvmgr.add(okuriari, low, key, annotation, okuri)
 		end
 
-		-- 英数→カタカナで登録したとき、ドル記号＋ひらがなから英数にも変換できるように登録する
+		-- 例：`April` で `エイプリル` と変換できるよう辞書登録したとき、 `$えいぷりる` で `april` `April` `APRIL` と変換できるようにする
 		if is_all_katakana_bytes(candidate) then
 			local hira = katakana_to_hiragana(candidate)
-			local cap = string.upper(string.sub(key, 1, 1)) .. string.sub(key, 2)
+			local hira_key = "$" .. hira
 			local upp = string.upper(key)
-			crvmgr.add(okuriari, "$"..hira, upp, annotation, okuri)
-			crvmgr.add(okuriari, "$"..hira, cap, annotation, okuri)
-			crvmgr.add(okuriari, "$"..hira, key, annotation, okuri)
+			crvmgr.add(okuriari, hira_key, upp, annotation, okuri)
+			local cap = string.upper(string.sub(key, 1, 1)) .. string.sub(key, 2)
+			crvmgr.add(okuriari, hira_key, cap, annotation, okuri)
+			local low = string.lower(key)
+			crvmgr.add(okuriari, hira_key, low, annotation, okuri)
+			crvmgr.add(okuriari, hira_key, key, annotation, okuri)
 		end
 	end
 
@@ -2033,9 +2036,11 @@ function lua_skk_delete(okuriari, key, candidate)
 			local hira = katakana_to_hiragana(candidate)
 			local cap = string.upper(string.sub(key, 1, 1)) .. string.sub(key, 2)
 			local upp = string.upper(key)
+			local low = string.lower(key)
 			crvmgr.delete(okuriari, "$"..hira, key)
 			crvmgr.delete(okuriari, "$"..hira, cap)
 			crvmgr.delete(okuriari, "$"..hira, upp)
+			crvmgr.delete(okuriari, "$"..hira, low)
 		end
 	end
 	crvmgr.delete(okuriari, key, candidate)
