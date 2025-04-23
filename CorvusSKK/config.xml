@@ -125,7 +125,7 @@
     <key name="kana" value="q|\ci" />
     <key name="convchar" value="\co" />
     <key name="jlatin" value="Q" />
-    <key name="ascii" value="L" />
+    <key name="ascii" value="L|\ct" />
     <key name="jmode" value="" />
     <key name="abbrev" value="/" />
     <key name="affix" value="&lt;|>" />
@@ -769,12 +769,14 @@
       <row ro="d," hi="で、" ka="デ、" an="ﾃﾞ､" so="0" />
       <row ro="g," hi="が、" ka="ガ、" an="ｶﾞ､" so="0" />
       <row ro="gma" hi="ございま" ka="ゴザイマ" an="ｺﾞｻﾞｲﾏ" so="0" />
+      <row ro="hlu" hi="ほう" ka="ホウ" an="ﾎｳ" so="0" />
       <row ro="k." hi="か。" ka="カ。" an="ｶ｡" so="0" />
       <row ro="kda" hi="くだ" ka="クダ" an="ｸﾀﾞ" so="0" />
       <row ro="kn" hi="件" ka="ケン" an="ｹﾝ" so="0" />
       <row ro="kN" hi="か？" ka="カ？" an="ｶ?" so="0" />
       <row ro="kr" hi="から" ka="カラ" an="ｶﾗ" so="0" />
-      <row ro="kt" hi="こと" ka="コト" an="ｺﾄ" so="0" />
+      <row ro="kta" hi="方" ka="カタ" an="ｶﾀ" so="0" />
+      <row ro="kto" hi="こと" ka="コト" an="ｺﾄ" so="0" />
       <row ro="lta" hi="いた" ka="イタ" an="ｲﾀ" so="0" />
       <row ro="lte" hi="いて" ka="イテ" an="ｲﾃ" so="0" />
       <row ro="mge" hi="申し上げ" ka="モウシアゲ" an="ﾓｳｼｱｹﾞ" so="0" />
