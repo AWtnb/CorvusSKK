@@ -780,6 +780,7 @@
       <row ro="sml" hi="様" ka="サマ" an="ｻﾏ" so="0" />
       <row ro="smL" hi="様方" ka="サマガタ" an="ｻﾏｶﾞﾀ" so="0" />
       <row ro="sN" hi="す？" ka="ス？" an="ｽ?" so="0" />
+      <row ro="snd" hi="すので" ka="スノデ" an="ｽﾉﾃﾞ" so="0" />
       <row ro="sne" hi="すね" ka="スネ" an="ｽﾈ" so="0" />
       <row ro="snl" hi="先生" ka="センセイ" an="ｾﾝｾｲ" so="0" />
       <row ro="snL" hi="先生方" ka="センセイガタ" an="ｾﾝｾｲｶﾞﾀ" so="0" />
