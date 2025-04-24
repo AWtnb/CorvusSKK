@@ -747,6 +747,12 @@
       <row ro="x@" hi="ゝ" ka="ヽ" an="ヽ" so="0" />
       <row ro="x`" hi="〻" ka="〻" an="〻" so="0" />
       <row ro="d," hi="で、" ka="デ、" an="ﾃﾞ､" so="0" />
+      <row ro="ds." hi="です。" ka="デス。" an="ﾃﾞｽ｡" so="0" />
+      <row ro="dsg" hi="ですが" ka="デスガ" an="ﾃﾞｽｶﾞ" so="0" />
+      <row ro="dsi" hi="でし" ka="デシ" an="ﾃﾞｼ" so="0" />
+      <row ro="dsnd" hi="ですので" ka="デスノデ" an="ﾃﾞｽﾉﾃﾞ" so="0" />
+      <row ro="dst" hi="でした" ka="デシタ" an="ﾃﾞｼﾀ" so="0" />
+      <row ro="dsu" hi="です" ka="デス" an="ﾃﾞｽ" so="0" />
       <row ro="g," hi="が、" ka="ガ、" an="ｶﾞ､" so="0" />
       <row ro="gma" hi="ございま" ka="ゴザイマ" an="ｺﾞｻﾞｲﾏ" so="0" />
       <row ro="hlu" hi="ほう" ka="ホウ" an="ﾎｳ" so="0" />
@@ -758,6 +764,12 @@
       <row ro="kta" hi="方" ka="カタ" an="ｶﾀ" so="0" />
       <row ro="kto" hi="こと" ka="コト" an="ｺﾄ" so="0" />
       <row ro="mge" hi="申し上げ" ka="モウシアゲ" an="ﾓｳｼｱｹﾞ" so="0" />
+      <row ro="ms." hi="ます。" ka="マス。" an="ﾏｽ｡" so="0" />
+      <row ro="msg" hi="ますが" ka="マスガ" an="ﾏｽｶﾞ" so="0" />
+      <row ro="msi" hi="まし" ka="マシ" an="ﾏｼ" so="0" />
+      <row ro="msnd" hi="ますので" ka="マスノデ" an="ﾏｽﾉﾃﾞ" so="0" />
+      <row ro="mst" hi="ました" ka="マシタ" an="ﾏｼﾀ" so="0" />
+      <row ro="msu" hi="ます" ka="マス" an="ﾏｽ" so="0" />
       <row ro="mta" hi="また" ka="マタ" an="ﾏﾀ" so="0" />
       <row ro="n," hi="に、" ka="ニ、" an="ﾆ､" so="0" />
       <row ro="n." hi="ね。" ka="ネ。" an="ﾈ｡" so="0" />
