@@ -808,6 +808,7 @@
       <row ro="sli" hi="さい。" ka="サイ。" an="ｻｲ｡" so="0" />
       <row ro="sml" hi="様" ka="サマ" an="ｻﾏ" so="0" />
       <row ro="smL" hi="様方" ka="サマガタ" an="ｻﾏｶﾞﾀ" so="0" />
+      <row ro="sms" hi="します" ka="シマス" an="ｼﾏｽ" so="0" />
       <row ro="sN" hi="す？" ka="ス？" an="ｽ?" so="0" />
       <row ro="snd" hi="すので" ka="スノデ" an="ｽﾉﾃﾞ" so="0" />
       <row ro="sne" hi="すね" ka="スネ" an="ｽﾈ" so="0" />
