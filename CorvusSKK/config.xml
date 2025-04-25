@@ -770,6 +770,8 @@
       <row ro="kta" hi="方" ka="カタ" an="ｶﾀ" so="0" />
       <row ro="kto" hi="こと" ka="コト" an="ｺﾄ" so="0" />
       <row ro="mge" hi="申し上げ" ka="モウシアゲ" an="ﾓｳｼｱｹﾞ" so="0" />
+      <row ro="mli" hi="まいり" ka="マイリ" an="ﾏｲﾘ" so="0" />
+      <row ro="mls" hi="まいります" ka="マイリマス" an="ﾏｲﾘﾏｽ" so="0" />
       <row ro="ms." hi="ます。" ka="マス。" an="ﾏｽ｡" so="0" />
       <row ro="msg" hi="ますが" ka="マスガ" an="ﾏｽｶﾞ" so="0" />
       <row ro="msh" hi="ましょう" ka="マショウ" an="ﾏｼｮｳ" so="0" />
