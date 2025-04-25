@@ -795,6 +795,7 @@
       <row ro="rN" hi="る？" ka="ル？" an="ﾙ?" so="0" />
       <row ro="rta" hi="れた" ka="レタ" an="ﾚﾀ" so="0" />
       <row ro="rte" hi="れて" ka="レテ" an="ﾚﾃ" so="0" />
+      <row ro="rto" hi="ると" ka="ルト" an="ﾙﾄ" so="0" />
       <row ro="s," hi="し、" ka="シ、" an="ｼ､" so="0" />
       <row ro="s." hi="す。" ka="ス。" an="ｽ｡" so="0" />
       <row ro="s1" hi="す！" ka="ス！" an="ｽ!" so="0" />
