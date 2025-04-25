@@ -761,6 +761,7 @@
       <row ro="dsy" hi="ですよ" ka="デスヨ" an="ﾃﾞｽﾖ" so="0" />
       <row ro="g," hi="が、" ka="ガ、" an="ｶﾞ､" so="0" />
       <row ro="gma" hi="ございま" ka="ゴザイマ" an="ｺﾞｻﾞｲﾏ" so="0" />
+      <row ro="h," hi="は、" ka="ハ、" an="ﾊ､" so="0" />
       <row ro="hlu" hi="ほう" ka="ホウ" an="ﾎｳ" so="0" />
       <row ro="k." hi="か。" ka="カ。" an="ｶ｡" so="0" />
       <row ro="kda" hi="くだ" ka="クダ" an="ｸﾀﾞ" so="0" />
@@ -842,6 +843,7 @@
       <row ro="tnd" hi="たので" ka="タノデ" an="ﾀﾉﾃﾞ" so="0" />
       <row ro="tnk" hi="とのこと" ka="トノコト" an="ﾄﾉｺﾄ" so="0" />
       <row ro="tra" hi="たら" ka="タラ" an="ﾀﾗ" so="0" />
+      <row ro="w," hi="を、" ka="ヲ、" an="ｦ､" so="0" />
       <row ro="yj" hi="よう" ka="ヨウ" an="ﾖｳ" so="0" />
       <row ro="yna" hi="ような" ka="ヨウナ" an="ﾖｳﾅ" so="0" />
       <row ro="yni" hi="ように" ka="ヨウニ" an="ﾖｳﾆ" so="0" />
