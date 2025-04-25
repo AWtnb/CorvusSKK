@@ -792,6 +792,7 @@
       <row ro="rba" hi="れば" ka="レバ" an="ﾚﾊﾞ" so="0" />
       <row ro="rle" hi="られ" ka="ラレ" an="ﾗﾚ" so="0" />
       <row ro="rlu" hi="れる" ka="レル" an="ﾚﾙ" so="0" />
+      <row ro="rN" hi="る？" ka="ル？" an="ﾙ?" so="0" />
       <row ro="rta" hi="れた" ka="レタ" an="ﾚﾀ" so="0" />
       <row ro="rte" hi="れて" ka="レテ" an="ﾚﾃ" so="0" />
       <row ro="s," hi="し、" ka="シ、" an="ｼ､" so="0" />
