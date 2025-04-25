@@ -2005,14 +2005,14 @@ function lua_skk_add(okuriari, key, candidate, annotation, okuri)
 	crvmgr.add(okuriari, key, candidate, annotation, okuri)
 
 	if string.match(key, "^[A-Za-z]+$") then
-		-- 例： `Harry` で `ハリー` と変換できるよう辞書登録したとき、 `harry` で `Harry` にも `ハリー` にも変換できるようにする
+		-- 例： `WHO` で `世界保健機関` と変換できるよう辞書登録したとき（大文字から始まるのが条件）、 `who` で `WHO` にも `世界保健機関` にも変換できるようにする
 		if string.match(key, "^[A-Z]") then
 			local low = string.lower(key)
 			crvmgr.add(okuriari, low, candidate, annotation, okuri)
 			crvmgr.add(okuriari, low, key, annotation, okuri)
 		end
 
-		-- 例：`April` で `エイプリル` と変換できるよう辞書登録したとき、 `$えいぷりる` で `april` `April` `APRIL` と変換できるようにする
+		-- 例：`April` で `エイプリル` と変換できるよう辞書登録したとき（すべてカタカナなのが条件）、 `$えいぷりる` で `april` `April` `APRIL` と変換できるようにする
 		if is_all_katakana_bytes(candidate) then
 			local hira = katakana_to_hiragana(candidate)
 			local hira_key = "$" .. hira
