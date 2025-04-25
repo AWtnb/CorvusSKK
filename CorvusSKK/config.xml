@@ -809,6 +809,8 @@
       <row ro="snl" hi="先生" ka="センセイ" an="ｾﾝｾｲ" so="0" />
       <row ro="snn" hi="せん" ka="セン" an="ｾﾝ" so="0" />
       <row ro="sre" hi="され" ka="サレ" an="ｻﾚ" so="0" />
+      <row ro="sxm" hi="様" ka="サマ" an="ｻﾏ" so="0" />
+      <row ro="sxn" hi="先生" ka="センセイ" an="ｾﾝｾｲ" so="0" />
       <row ro="sru" hi="する" ka="スル" an="ｽﾙ" so="0" />
       <row ro="st," hi="して、" ka="シテ、" an="ｼﾃ､" so="0" />
       <row ro="st." hi="した。" ka="シタ。" an="ｼﾀ｡" so="0" />
