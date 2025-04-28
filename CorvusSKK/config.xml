@@ -863,9 +863,13 @@
       <row ro="tx" hi="た！" ka="タ！" an="ﾀ!" so="0" />
       <row ro="w," hi="を、" ka="ヲ、" an="ｦ､" so="0" />
       <row ro="yj" hi="よう" ka="ヨウ" an="ﾖｳ" so="0" />
+      <row ro="yda" hi="ようだ" ka="ヨウダ" an="ﾖｳﾀﾞ" so="0" />
+      <row ro="yde" hi="ようで" ka="ヨウデ" an="ﾖｳﾃﾞ" so="0" />
+      <row ro="yka" hi="ようか" ka="ヨウカ" an="ﾖｳｶ" so="0" />
       <row ro="yna" hi="ような" ka="ヨウナ" an="ﾖｳﾅ" so="0" />
       <row ro="yni" hi="ように" ka="ヨウニ" an="ﾖｳﾆ" so="0" />
       <row ro="yri" hi="より" ka="ヨリ" an="ﾖﾘ" so="0" />
+      <row ro="yto" hi="ようと" ka="ヨウト" an="ﾖｳﾄ" so="0" />
       <row ro="zma" hi="存じま" ka="ゾンジマ" an="ｿﾞﾝｼﾞﾏ" so="0" />
     </list>
   </section>
