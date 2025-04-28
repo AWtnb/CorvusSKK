@@ -876,23 +876,37 @@ end
 
 --[[ #custom
 
-月と日を指定して一番近い未来の日付を任意のフォーマットに変換する
-（年末に翌年の日付に言及するケースなど）
+一番近い未来の日付を、最後の引数で指定したフォーマットに変換する
+
+引数が3つの場合は最初の2つからM月D日を計算する。M月D日が実行時点から見て過去であれば翌年のM月D日を返す。
+引数が2つの場合は第1引数からD日を取得する。D日が実行時点から見て過去であれば翌月のD日を返す。
 
 - usage: (replace-removable-zero (format-upcoming-day #0 #0 "%Y年%m月%d日（%a）") "")
 - usage: (replace-removable-zero (format-upcoming-day #0 #0 "%m月%d日（%a）") "")
+- usage: (replace-removable-zero (format-upcoming-day #0 "%d日（%a）") "")
 
 ]]--
 local function format_upcoming_day(t)
-	local mm = t[1]
-	local dd = t[2]
-	local fmt = t[3]
-	local yy = tostring(os.date("%Y"))
-
 	local today = os.time({year=tostring(os.date("%Y")), month=tostring(os.date("%m")), day=tostring(os.date("%d"))})
+
+	local yy = tostring(os.date("%Y"))
+	local mm = tostring(os.date("%m"))
+	local dd = t[1]
+	local fmt = t[2]
+
+	if 2 < #t then
+		mm = t[1]
+		dd = t[2]
+		fmt = t[3]
+	end
+
 	local ts = os.time({year=yy,month=mm,day=dd})
-	if os.difftime(ts, today) < 0 then
-		ts = os.time({year=tostring(tonumber(yy)+1),month=mm,day=dd})
+	if os.difftime(ts, today) <= 0 then
+		if 2 < #t then
+			ts = os.time({year=tostring(tonumber(yy)+1),month=mm,day=dd})
+		else
+			ts = os.time({year=yy,month=tostring(tonumber(mm)+1),day=dd})
+		end
 	end
 	local ff = os.date(fmt, ts)
 	return ff
