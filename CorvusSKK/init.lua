@@ -486,17 +486,23 @@ local function current_time_string(t)
 		d.hour, d.min, d.sec, d.year)
 end
 
--- format-time-string
--- usage: (format-time-string "%Y%m%d")
--- usage: (format-time-string "%Y年%m月%d日")
--- usage: (format-time-string "%Y/%m/%d")
--- usage: (format-time-string "%Y-%m-%d")
--- usage: (format-time-string "%Y%m%d_%H%M%S" (current-time))
--- usage: (format-time-string "%Y_%m")
--- usage: (format-time-string "%Y/%m/%d")
--- usage: (format-time-string "%Y-%m-%d")
--- usage: (replace-removable-zero (format-time-string "%Y年%m月%d日") "")
--- usage: (format-time-string "%Y%m%d")
+--[[
+format-time-string
+
+usage:
+
+- `(format-time-string "%Y%m%d")`
+- `(format-time-string "%Y年%m月%d日")`
+- `(format-time-string "%Y/%m/%d")`
+- `(format-time-string "%Y-%m-%d")`
+- `(format-time-string "%Y%m%d_%H%M%S" (current-time))`
+- `(format-time-string "%Y_%m")`
+- `(format-time-string "%Y/%m/%d")`
+- `(format-time-string "%Y-%m-%d")`
+- `(replace-removable-zero (format-time-string "%Y年%m月%d日") "")`
+- `(format-time-string "%Y%m%d")`
+
+]]--
 local function format_time_string(t)
 	local format = t[1]
 	local time = tonumber(t[2])
@@ -838,11 +844,13 @@ local function skk_strftime(t)
 end
 
 
---[[ #custom
+--[[
 
 消しても問題ないゼロ（非数字のすぐ後ろにあるゼロ）を任意の文字に置換する
 
-- usage: (replace-removable-zero "01月01日", "")
+usage:
+
+- `(replace-removable-zero "01月01日", "")`
 
 ]]--
 local function replace_removable_zero(t)
@@ -857,11 +865,13 @@ local function replace_removable_zero(t)
 	return tostring(string.gsub(f, "^0+", repl))
 end
 
---[[ #custom
+--[[
 
 yymmddを任意のフォーマットに変換する
 
-- usage: (replace-removable-zero (format-yymmdd #0 "%Y年%m月%d日（%a）"), "")
+usage:
+
+- `(replace-removable-zero (format-yymmdd #0 "%Y年%m月%d日（%a）"), "")`
 
 ]]--
 local function format_yymmdd(t)
@@ -874,16 +884,84 @@ local function format_yymmdd(t)
 	return ff
 end
 
---[[ #custom
+--[[
+
+最後の引数で指定したフォーマットで日付変換する
+
+- 引数が4つの場合は最初の3つからY年M月D日を計算する。
+- 引数が3つの場合は最初の2つから実行時点の年のM月D日を計算する。
+- 引数が2つの場合は実行時点の月のD日を取得する。
+
+usage:
+
+- `(replace-removable-zero (smart-format-day #0 #0 #0 "%Y年%m月%d日（%a）") "")`
+- `(replace-removable-zero (smart-format-day #0 #0 "%Y年%m月%d日（%a）") "")`
+- `(replace-removable-zero (smart-format-day #0 "%Y年%m月%d日（%a）") "")`
+
+]]--
+local function smart_format_day(t)
+	local yy = tostring(os.date("%Y"))
+	local mm = tostring(os.date("%m"))
+	local dd = t[1]
+	local fmt = t[2]
+	if 2 < #t then
+		mm = t[1]
+		dd = t[2]
+		fmt = t[3]
+		if 3 < #t then
+			yy = t[1]
+			if string.len(yy) == 2 then
+				yy = "20" .. yy
+			end
+			mm = t[2]
+			dd = t[3]
+			fmt = t[4]
+		end
+	end
+	local ts = os.time({year=yy,month=mm,day=dd})
+	return os.date(fmt, ts)
+end
+
+--[[
+
+月と日を指定して現在の年の日付を任意のフォーマットに変換する
+
+usage:
+
+- `(replace-removable-zero (format-this-year #0 #0 "%Y年%m月%d日（%a）") "0")`
+- `(replace-removable-zero (format-this-year #0 #0 "%m月%d日（%a）") "")`
+
+]]--
+local function format_this_year(t)
+	return smart_format_day(t)
+end
+
+--[[
+
+日を指定して現在の月の日付を任意のフォーマットに変換する
+
+usage:
+
+- `(replace-removable-zero (format-this-month #0 "%Y年%m月%d日（%a）") " ")`
+- `(replace-removable-zero (format-this-month #0 "%d日（%a）") "")`
+
+]]--
+local function format_this_month(t)
+	return smart_format_day(t)
+end
+
+--[[
 
 一番近い未来の日付を、最後の引数で指定したフォーマットに変換する
 
-引数が3つの場合は最初の2つからM月D日を計算する。M月D日が実行時点から見て過去であれば翌年のM月D日を返す。
-引数が2つの場合は第1引数からD日を取得する。D日が実行時点から見て過去であれば翌月のD日を返す。
+- 引数が3つの場合は最初の2つからM月D日を計算する。M月D日が実行時点から見て過去であれば翌年のM月D日を返す。
+- 引数が2つの場合は第1引数からD日を取得する。D日が実行時点から見て過去であれば翌月のD日を返す。
 
-- usage: (replace-removable-zero (format-upcoming-day #0 #0 "%Y年%m月%d日（%a）") "")
-- usage: (replace-removable-zero (format-upcoming-day #0 #0 "%m月%d日（%a）") "")
-- usage: (replace-removable-zero (format-upcoming-day #0 "%d日（%a）") "")
+usage:
+
+- `(replace-removable-zero (format-upcoming-day #0 #0 "%Y年%m月%d日（%a）") "")`
+- `(replace-removable-zero (format-upcoming-day #0 #0 "%m月%d日（%a）") "")`
+- `(replace-removable-zero (format-upcoming-day #0 "%d日（%a）") "")`
 
 ]]--
 local function format_upcoming_day(t)
@@ -908,20 +986,21 @@ local function format_upcoming_day(t)
 			ts = os.time({year=yy,month=tostring(tonumber(mm)+1),day=dd})
 		end
 	end
-	local ff = os.date(fmt, ts)
-	return ff
+	return os.date(fmt, ts)
 end
 
---[[ #custom
+--[[
 
 一番近い過去の日付を、最後の引数で指定したフォーマットに変換する
 
-引数が3つの場合は最初の2つからM月D日を計算する。M月D日が実行時点から見て未来であれば前年のM月D日を返す。
-引数が2つの場合は第1引数からD日を取得する。D日が実行時点から見て未来であれば前月のD日を返す。
+- 引数が3つの場合は最初の2つからM月D日を計算する。M月D日が実行時点から見て未来であれば前年のM月D日を返す。
+- 引数が2つの場合は第1引数からD日を取得する。D日が実行時点から見て未来であれば前月のD日を返す。
 
-- usage: (replace-removable-zero (format-last-day #0 #0 "%Y年%m月%d日（%a）") "")
-- usage: (replace-removable-zero (format-last-day #0 #0 "%m月%d日（%a）") "")
-- usage: (replace-removable-zero (format-last-day #0 "%d日（%a）") "")
+usage:
+
+- `(replace-removable-zero (format-last-day #0 #0 "%Y年%m月%d日（%a）") "")`
+- `(replace-removable-zero (format-last-day #0 #0 "%m月%d日（%a）") "")`
+- `(replace-removable-zero (format-last-day #0 "%d日（%a）") "")`
 
 --]]
 local function format_last_day(t)
@@ -946,16 +1025,17 @@ local function format_last_day(t)
 			ts = os.time({year=yy,month=tostring(tonumber(mm)-1),day=dd})
 		end
 	end
-	local ff = os.date(fmt, ts)
-	return ff
+	return os.date(fmt, ts)
 end
 
---[[ #custom
+--[[
 
 日を指定して一番近い未来の日付を任意のフォーマットに変換する
 （翌週の日付に言及するケースなど）
 
-- usage: (replace-removable-zero (format-upcoming-day-of-week #0 "%d日（%a）") "")
+usage:
+
+- `(replace-removable-zero (format-upcoming-day-of-week #0 "%d日（%a）") "")`
 
 ]]--
 local function format_upcoming_day_of_week(t)
@@ -976,12 +1056,14 @@ local function format_upcoming_day_of_week(t)
 	return os.date(fmt, os.time())
 end
 
---[[ #custom
+--[[
 
 日を指定して一番近い過去の日付を任意のフォーマットに変換する
 （前週の日付に言及するケースなど）
 
-- usage: (replace-removable-zero (format-last-day-of-week #0 "%d日（%a）") "")
+usage:
+
+- `(replace-removable-zero (format-last-day-of-week #0 "%d日（%a）") "")`
 
 ]]--
 local function format_last_day_of_week(t)
@@ -1002,46 +1084,15 @@ local function format_last_day_of_week(t)
 	return os.date(fmt, os.time())
 end
 
---[[ #custom
 
-月と日を指定して現在の年の日付を任意のフォーマットに変換する
-
-- usage: (replace-removable-zero (format-this-year #0 #0 "%Y年%m月%d日（%a）") "0")
-- usage: (replace-removable-zero (format-this-year #0 #0 "%m月%d日（%a）") "")
-
-]]--
-local function format_this_year(t)
-	local mm = t[1]
-	local dd = t[2]
-	local fmt = t[3]
-	local yy = tostring(os.date("%Y"))
-	local ff = os.date(fmt, os.time({year=yy,month=mm,day=dd}))
-	return ff
-end
-
---[[ #custom
-
-日を指定して現在の月の日付を任意のフォーマットに変換する
-
-- usage: (replace-removable-zero (format-this-month #0 "%Y年%m月%d日（%a）") " ")
-- usage: (replace-removable-zero (format-this-month #0 "%d日（%a）") "")
-
-]]--
-local function format_this_month(t)
-	local dd = t[1]
-	local fmt = t[2]
-	local yy = tostring(os.date("%Y"))
-	local mm = tostring(os.date("%m"))
-	local ff = os.date(fmt, os.time({year=yy,month=mm,day=dd}))
-	return ff
-end
-
---[[ #custom
+--[[
 
 日数を指定してN日後の日付を任意のフォーマットに変換する
 
-- usage: (replace-removable-zero (skk-day-plus "%Y%m%d" #0) "")
-- usage: (replace-removable-zero (skk-day-plus "%Y年%m月%d日（%a）" #0) "")
+usage:
+
+- `(replace-removable-zero (skk-day-plus "%Y%m%d" #0) "")`
+- `(replace-removable-zero (skk-day-plus "%Y年%m月%d日（%a）" #0) "")`
 
 ]]--
 local function skk_day_plus(t)
@@ -1053,12 +1104,14 @@ local function skk_day_plus(t)
 	return  tostring(os.date(fmt, os.time({year=yy,month=mm,day=dd})))
 end
 
---[[ #custom
+--[[
 
 日数を指定してN日前の日付を任意のフォーマットに変換する
 
-- usage: (replace-removable-zero (skk-day-minus "%Y%m%d" #0) "")
-- usage: (replace-removable-zero (skk-day-minus "%Y年%m月%d日（%a）" #0) "")
+usage:
+
+- `(replace-removable-zero (skk-day-minus "%Y%m%d" #0) "")`
+- `(replace-removable-zero (skk-day-minus "%Y年%m月%d日（%a）" #0) "")`
 
 ]]--
 local function skk_day_minus(t)
@@ -1070,11 +1123,13 @@ local function skk_day_minus(t)
 	return  tostring(os.date(fmt, os.time({year=yy,month=mm,day=dd})))
 end
 
---[[ #custom
+--[[
 
 桁区切りのコンマを挿入する
 
-- usage: (concat (to-comma-separated #0) "円")
+usage:
+
+- `(concat (to-comma-separated #0) "円")`
 
 ]]--
 local function to_comma_separated(t)
@@ -1093,11 +1148,11 @@ local function to_comma_separated(t)
 	return string.sub(str2, 2)
 end
 
---[[ #custom
+--[[
 
 日本語の位取りを入れる
 
-- usage: (concat (to-japanese-unit #0) "円")
+- `(concat (to-japanese-unit #0) "円")`
 
 ]]--
 local function to_japanese_unit(t)
@@ -1125,13 +1180,15 @@ local function to_japanese_unit(t)
  	return f
 end
 
---[[ #custom
+--[[
 
 hhmmを任意のフォーマットに変換する
 
-- usage: (format-hhmm #0 "%d時%d分")
-- usage: (format-hhmm #0 "%02d時%02d分")
-- usage: (format-hhmm #0 "%02d:%02d")
+usage:
+
+- `(format-hhmm #0 "%d時%d分")`
+- `(format-hhmm #0 "%02d時%02d分")`
+- `(format-hhmm #0 "%02d:%02d")`
 
 ]]--
 local function format_hhmm(t)
@@ -1152,14 +1209,16 @@ local function format_hhmm(t)
 	return string.gsub(string.format(fmt, hh, mm), "時0+分", "時")
 end
 
---[[ #custom
+--[[
 
 校数への変換。
 1→初（初校）、2→再（再校）とする。
 第2引数で何校で校了とするか指定。校了以降は念校、念々校……として、5以上なら数値も付記する。
 
-- usage: (format-proof #0 4)
-- usage: (concat "要" (format-proof #0 4) "ゲラ")
+usage:
+
+- `(format-proof #0 4)`
+- `(concat "要" (format-proof #0 4) "ゲラ")`
 
 ]]--
 local function format_proof(t)
@@ -1189,11 +1248,13 @@ local function format_proof(t)
 	return idx .. "校" .. append
 end
 
---[[ #custom
+--[[
 
 見出し変換
 
-- usage: (format-book-heading #0)
+usage:
+
+- `(format-book-heading #0)`
 
 ]]--
 local function format_book_heading(t)
@@ -1211,12 +1272,14 @@ local function format_book_heading(t)
 	return h .. "見出し"
 end
 
---[[ #custom
+--[[
 
 クレジットカード請求日付変換
 （前々月16日〜前月15日）
 
-- usage: (format-credit-card-1 #0)
+usage:
+
+- `(format-credit-card-1 #0)`
 
 ]]--
 local function format_credit_card_1(t)
@@ -1231,12 +1294,14 @@ local function format_credit_card_1(t)
 	return f1 .. f2 .. f3
 end
 
---[[ #custom
+--[[
 
 クレジットカード請求日付変換
 （前月1日〜前月末日）
 
-- usage: (format-credit-card-2 #0)
+usage:
+
+- `(format-credit-card-2 #0)`
 
 ]]--
 local function format_credit_card_2(t)
@@ -1250,23 +1315,27 @@ local function format_credit_card_2(t)
 	return f1 .. f2 .. f3
 end
 
---[[ #custom
+--[[
 
 分数変換
 
-- usage: (format-fraction #0 #0)
+usage:
+
+- `(format-fraction #0 #0)`
 
 ]]--
 local function format_fraction(t)
 	return string.format("%d分の%d", t[2], t[1])
 end
 
---[[ #custom
+--[[
 
 任意のフォーマットで曜日に変換する
 （月曜日＝1）
 
-- usage: (format-day-of-week #0 "（%s）")
+usage:
+
+- `(format-day-of-week #0 "（%s）")`
 
 ]]--
 local function format_day_of_week(t)
@@ -1275,11 +1344,13 @@ local function format_day_of_week(t)
 	return string.format(t[2], ds[n])
 end
 
---[[ #custom
+--[[
 
 Markdown見出し変換
 
-- usage: (format-markdown-heading #0)
+usage:
+
+- `(format-markdown-heading #0)`
 
 ]]--
 local function format_markdown_heading(t)
@@ -1292,19 +1363,21 @@ local function format_markdown_heading(t)
 end
 
 
---[[ #custom
+--[[
 
 環境変数 %USERPROFILE% の展開
 
-- usage: (resolve-user-profile "%s\\Desktop\\")
-- usage: (concat (resolve-user-profile "%s\\Desktop\\") (format-time-string "%Y%m%d_%H%M%S" (current-time)))
+usage:
+
+- `(resolve-user-profile "%s\\Desktop\\")`
+- `(concat (resolve-user-profile "%s\\Desktop\\") (format-time-string "%Y%m%d_%H%M%S" (current-time)))`
 
 ]]--
 local function resolve_user_profile(t)
 	return string.format(t[1], os.getenv("USERPROFILE"))
 end
 
---[[ #custom
+--[[
 
 チェックデジット計算
 
@@ -1322,7 +1395,7 @@ local function getCheckDigit(isbn12)
 	return (10 - (total % 10)) % 10
 end
 
---[[ #custom
+--[[
 
 日本のISBNに変換
 
@@ -1330,8 +1403,10 @@ end
 - 第2引数があればそれを区切り文字とする。 `-` の場合は `nnn-n-nnn-nnnnn-n`
 
 
-- usage: (format-japanese-isbn #0)
-- usage: (format-japanese-isbn #0 "-")
+usage:
+
+- `(format-japanese-isbn #0)`
+- `(format-japanese-isbn #0 "-")`
 
 ]]--
 local function format_japanese_isbn(t)
@@ -1352,7 +1427,7 @@ local function format_japanese_isbn(t)
 		.. sep .. string.sub(code13, 13, 13)
 end
 
---[[ #custom
+--[[
 
 ローマ数字に変換
 
@@ -1384,11 +1459,13 @@ local function to_roman(i, lower)
 	return ret
 end
 
---[[ #custom
+--[[
 
 ローマ数字（小文字）変換
 
-- usage: (format-roman-lower #0)
+usage:
+
+- `(format-roman-lower #0)`
 
 ]]--
 local function format_roman_lower(t)
@@ -1400,11 +1477,14 @@ local function format_roman_lower(t)
 	return to_roman(i, true)
 end
 
---[[ #custom
+--[[
 
 ローマ数字（大文字）変換
 
-- usage: (format-roman-upper #0)
+usage:
+
+
+- `(format-roman-upper #0)`
 
 ]]--
 local function format_roman_upper(t)
@@ -1445,6 +1525,7 @@ local skk_gadget_func_table_org = {
 	{"skk-gadget-units-conversion", skk_gadget_units_conversion},
 	{"skk-omikuji", skk_omikuji},
 	{"skk-strftime", skk_strftime},
+	{"smart-format-day", smart_format_day},
 	{"format-yymmdd", format_yymmdd},
 	{"format-this-year", format_this_year},
 	{"format-upcoming-day", format_upcoming_day},
@@ -1872,7 +1953,7 @@ function lua_skk_reverse(candidate)
 end
 
 
---[[ #custom
+--[[
 
 カタカナひらがなの変換テーブル
 
@@ -1890,7 +1971,7 @@ local katakana_hiragana_conversion_table = (function ()
 	return table
 end)()
 
---[[ #custom
+--[[
 
 カタカナをひらがなに変換する
 
@@ -1912,7 +1993,7 @@ local function katakana_to_hiragana(s)
 	return result
 end
 
---[[ #custom
+--[[
 
 文字列がすべてカタカナか判定する
 
