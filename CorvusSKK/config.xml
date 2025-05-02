@@ -819,20 +819,18 @@
       <row ro="sda" hi="させていただ" ka="サセテイタダ" an="ｻｾﾃｲﾀﾀﾞ" so="0" />
       <row ro="sde" hi="すで" ka="スデ" an="ｽﾃﾞ" so="0" />
       <row ro="sga" hi="すが" ka="スガ" an="ｽｶﾞ" so="0" />
+      <row ro="sge" hi="差し上げ" ka="サシアゲ" an="ｻｼｱｹﾞ" so="0" />
       <row ro="shh" hi="しょう" ka="ショウ" an="ｼｮｳ" so="0" />
       <row ro="shk" hi="しょうか" ka="ショウカ" an="ｼｮｳｶ" so="0" />
       <row ro="ska" hi="すか" ka="スカ" an="ｽｶ" so="0" />
       <row ro="sli" hi="さい。" ka="サイ。" an="ｻｲ｡" so="0" />
-      <row ro="sml" hi="様" ka="サマ" an="ｻﾏ" so="0" />
-      <row ro="smL" hi="様方" ka="サマガタ" an="ｻﾏｶﾞﾀ" so="0" />
       <row ro="sms" hi="します" ka="シマス" an="ｼﾏｽ" so="0" />
       <row ro="smx" hi="様" ka="サマ" an="ｻﾏ" so="0" />
       <row ro="smX" hi="様方" ka="サマガタ" an="ｻﾏｶﾞﾀ" so="0" />
       <row ro="sN" hi="す？" ka="ス？" an="ｽ?" so="0" />
       <row ro="snd" hi="すので" ka="スノデ" an="ｽﾉﾃﾞ" so="0" />
       <row ro="sne" hi="すね" ka="スネ" an="ｽﾈ" so="0" />
-      <row ro="snl" hi="先生" ka="センセイ" an="ｾﾝｾｲ" so="0" />
-      <row ro="snL" hi="先生方" ka="センセイガタ" an="ｾﾝｾｲｶﾞﾀ" so="0" />
+      <row ro="snl" hi="すので" ka="スノデ" an="ｽﾉﾃﾞ" so="0" />
       <row ro="snn" hi="せん" ka="セン" an="ｾﾝ" so="0" />
       <row ro="snx" hi="先生" ka="センセイ" an="ｾﾝｾｲ" so="0" />
       <row ro="snX" hi="先生方" ka="センセイガタ" an="ｾﾝｾｲｶﾞﾀ" so="0" />
