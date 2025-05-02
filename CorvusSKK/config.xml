@@ -795,7 +795,7 @@
       <row ro="msu" hi="ます" ka="マス" an="ﾏｽ" so="0" />
       <row ro="msy" hi="ますよ" ka="マスヨ" an="ﾏｽﾖ" so="0" />
       <row ro="mta" hi="また" ka="マタ" an="ﾏﾀ" so="0" />
-      <row ro="n0" hi="ので" ka="ノデ" an="ﾉﾃﾞ" so="0" />
+      <row ro="nd3" hi="ので" ka="ノデ" an="ﾉﾃﾞ" so="0" />
       <row ro="n," hi="に、" ka="ニ、" an="ﾆ､" so="0" />
       <row ro="n." hi="ね。" ka="ネ。" an="ﾈ｡" so="0" />
       <row ro="nla" hi="なら" ka="ナラ" an="ﾅﾗ" so="0" />
@@ -829,7 +829,6 @@
       <row ro="smx" hi="様" ka="サマ" an="ｻﾏ" so="0" />
       <row ro="smX" hi="様方" ka="サマガタ" an="ｻﾏｶﾞﾀ" so="0" />
       <row ro="sN" hi="す？" ka="ス？" an="ｽ?" so="0" />
-      <row ro="sn0" hi="すので" ka="スノデ" an="ｽﾉﾃﾞ" so="0" />
       <row ro="snd" hi="すので" ka="スノデ" an="ｽﾉﾃﾞ" so="0" />
       <row ro="sne" hi="すね" ka="スネ" an="ｽﾈ" so="0" />
       <row ro="snl" hi="すので" ka="スノデ" an="ｽﾉﾃﾞ" so="0" />
@@ -859,7 +858,6 @@
       <row ro="tma" hi="いたしま" ka="イタシマ" an="ｲﾀｼﾏ" so="0" />
       <row ro="tme" hi="ため" ka="タメ" an="ﾀﾒ" so="0" />
       <row ro="tN" hi="た？" ka="タ？" an="ﾀ?" so="0" />
-      <row ro="tn0" hi="たので" ka="タノデ" an="ﾀﾉﾃﾞ" so="0" />
       <row ro="tnd" hi="たので" ka="タノデ" an="ﾀﾉﾃﾞ" so="0" />
       <row ro="tnk" hi="とのこと" ka="トノコト" an="ﾄﾉｺﾄ" so="0" />
       <row ro="tnr" hi="となり" ka="トナリ" an="ﾄﾅﾘ" so="0" />
