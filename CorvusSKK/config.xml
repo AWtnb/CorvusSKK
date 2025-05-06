@@ -593,11 +593,11 @@
       <row ro="}" hi="}" ka="}" an="}" so="0" />
       <row ro="~" hi="〜" ka="〜" an="~" so="0" />
       <row ro="z " hi="　" ka="　" an="　" so="0" />
-      <row ro="z," hi="…" ka="…" an="…" so="0" />
       <row ro="z-" hi="――" ka="――" an="――" so="0" />
       <row ro="z^" hi="～" ka="～" an="~" so="0" />
       <row ro="z~" hi="〰" ka="〰" an="~" so="0" />
       <row ro="z." hi="…" ka="…" an="…" so="0" />
+      <row ro="h:" hi="‥" ka="‥" an="‥" so="0" />
       <row ro="z/" hi="・" ka="・" an="・" so="0" />
       <row ro="z(" hi="【" ka="【" an="【" so="0" />
       <row ro="z)" hi="】" ka="】" an="】" so="0" />
@@ -872,6 +872,7 @@
       <row ro="yni" hi="ように" ka="ヨウニ" an="ﾖｳﾆ" so="0" />
       <row ro="yri" hi="より" ka="ヨリ" an="ﾖﾘ" so="0" />
       <row ro="yto" hi="ようと" ka="ヨウト" an="ﾖｳﾄ" so="0" />
+      <row ro="z," hi="ず、" ka="ズ、" an="ｽﾞ､" so="0" />
       <row ro="zma" hi="存じま" ka="ゾンジマ" an="ｿﾞﾝｼﾞﾏ" so="0" />
     </list>
   </section>
