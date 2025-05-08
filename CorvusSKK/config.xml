@@ -833,7 +833,7 @@
       <row ro="shk" hi="しょうか" ka="ショウカ" an="ｼｮｳｶ" so="0" />
       <row ro="ska" hi="すか" ka="スカ" an="ｽｶ" so="0" />
       <row ro="sli" hi="さい。" ka="サイ。" an="ｻｲ｡" so="0" />
-      <row ro="sms" hi="します" ka="シマス" an="ｼﾏｽ" so="0" />
+      <row ro="sm." hi="します。" ka="シマス。" an="ｼﾏｽ｡" so="0" />
       <row ro="smx" hi="様" ka="サマ" an="ｻﾏ" so="0" />
       <row ro="smX" hi="様方" ka="サマガタ" an="ｻﾏｶﾞﾀ" so="0" />
       <row ro="sN" hi="す？" ka="ス？" an="ｽ?" so="0" />
