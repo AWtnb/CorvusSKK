@@ -801,8 +801,7 @@
       <row ro="msi" hi="まし" ka="マシ" an="ﾏｼ" so="0" />
       <row ro="msk" hi="ますか" ka="マスカ" an="ﾏｽｶ" so="0" />
       <row ro="msne" hi="ますね" ka="マスネ" an="ﾏｽﾈ" so="0" />
-      <row ro="msta" hi="ました" ka="マシタ" an="ﾏｼﾀ" so="0" />
-      <row ro="mste" hi="まして" ka="マシテ" an="ﾏｼﾃ" so="0" />
+      <row ro="mst" hi="まし" ka="マシ" an="ﾏｼ" so="1" />
       <row ro="msto" hi="ますと" ka="マスト" an="ﾏｽﾄ" so="0" />
       <row ro="msu" hi="ます" ka="マス" an="ﾏｽ" so="0" />
       <row ro="msy" hi="ますよ" ka="マスヨ" an="ﾏｽﾖ" so="0" />
@@ -856,7 +855,7 @@
       <row ro="t," hi="て、" ka="テ、" an="ﾃ､" so="0" />
       <row ro="t." hi="た。" ka="タ。" an="ﾀ｡" so="0" />
       <row ro="tba" hi="てば" ka="テバ" an="ﾃﾊﾞ" so="0" />
-      <row ro="tda" hi="いただ" ka="イタダ" an="ｲﾀﾀﾞ" so="0" />
+      <row ro="tdak" hi="いただ" ka="イタダ" an="ｲﾀﾀﾞ" so="1" />
       <row ro="tga" hi="たが" ka="タガ" an="ﾀｶﾞ" so="0" />
       <row ro="tj" hi="という" ka="トイウ" an="ﾄｲｳ" so="0" />
       <row ro="tkt" hi="つきまして" ka="ツキマシテ" an="ﾂｷﾏｼﾃ" so="0" />
