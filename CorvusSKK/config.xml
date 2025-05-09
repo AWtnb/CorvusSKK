@@ -754,6 +754,7 @@
       <row ro="cte" hi="せて" ka="セテ" an="ｾﾃ" so="0" />
       <row ro="d," hi="で、" ka="デ、" an="ﾃﾞ､" so="0" />
       <row ro="dki" hi="でき" ka="デキ" an="ﾃﾞｷ" so="0" />
+      <row ro="dri" hi="でおり" ka="デオリ" an="ﾃﾞｵﾘ" so="0" />
       <row ro="dru" hi="でいる" ka="デイル" an="ﾃﾞｲﾙ" so="0" />
       <row ro="ds." hi="です。" ka="デス。" an="ﾃﾞｽ｡" so="0" />
       <row ro="dsg" hi="ですが" ka="デスガ" an="ﾃﾞｽｶﾞ" so="0" />
@@ -808,7 +809,6 @@
       <row ro="mta" hi="また" ka="マタ" an="ﾏﾀ" so="0" />
       <row ro="mte" hi="めて" ka="メテ" an="ﾒﾃ" so="0" />
       <row ro="n," hi="に、" ka="ニ、" an="ﾆ､" so="0" />
-      <row ro="n;" hi="ので" ka="ノデ" an="ﾉﾃﾞ" so="0" />
       <row ro="n." hi="ね。" ka="ネ。" an="ﾈ｡" so="0" />
       <row ro="nla" hi="なら" ka="ナラ" an="ﾅﾗ" so="0" />
       <row ro="nld" hi="ので" ka="ノデ" an="ﾉﾃﾞ" so="0" />
@@ -870,6 +870,7 @@
       <row ro="tnk" hi="とのこと" ka="トノコト" an="ﾄﾉｺﾄ" so="0" />
       <row ro="tnr" hi="となり" ka="トナリ" an="ﾄﾅﾘ" so="0" />
       <row ro="tra" hi="たら" ka="タラ" an="ﾀﾗ" so="0" />
+      <row ro="tri" hi="ており" ka="テオリ" an="ﾃｵﾘ" so="0" />
       <row ro="tru" hi="ている" ka="テイル" an="ﾃｲﾙ" so="0" />
       <row ro="tx" hi="た！" ka="タ！" an="ﾀ!" so="0" />
       <row ro="w," hi="を、" ka="ヲ、" an="ｦ､" so="0" />
