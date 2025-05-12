@@ -875,7 +875,7 @@
       <row ro="yd" hi="よう" ka="ヨウ" an="ﾖｳ" so="1" />
       <row ro="yj" hi="よう" ka="ヨウ" an="ﾖｳ" so="0" />
       <row ro="yka" hi="ようか" ka="ヨウカ" an="ﾖｳｶ" so="0" />
-      <row ro="yn" hi="よう" ka="ヨウ" an="ﾖｳ" so="0" />
+      <row ro="yn" hi="よう" ka="ヨウ" an="ﾖｳ" so="1" />
       <row ro="yr" hi="よ" ka="ヨ" an="ﾖ" so="1" />
       <row ro="yto" hi="ようと" ka="ヨウト" an="ﾖｳﾄ" so="0" />
       <row ro="z," hi="ず、" ka="ズ、" an="ｽﾞ､" so="0" />
