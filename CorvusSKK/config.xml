@@ -792,6 +792,7 @@
       <row ro="mba" hi="めば" ka="メバ" an="ﾒﾊﾞ" so="0" />
       <row ro="mde" hi="まで" ka="マデ" an="ﾏﾃﾞ" so="0" />
       <row ro="mge" hi="申し上げ" ka="モウシアゲ" an="ﾓｳｼｱｹﾞ" so="0" />
+      <row ro="ml" hi="まい" ka="マイ" an="ﾏｲ" so="0" />
       <row ro="mno" hi="もの" ka="モノ" an="ﾓﾉ" so="0" />
       <row ro="mri" hi="まいり" ka="マイリ" an="ﾏｲﾘ" so="0" />
       <row ro="mru" hi="める" ka="メル" an="ﾒﾙ" so="0" />
@@ -837,6 +838,8 @@
       <row ro="ska" hi="すか" ka="スカ" an="ｽｶ" so="0" />
       <row ro="sli" hi="さい。" ka="サイ。" an="ｻｲ｡" so="0" />
       <row ro="sma" hi="しま" ka="シマ" an="ｼﾏ" so="0" />
+      <row ro="smi" hi="しまい" ka="シマイ" an="ｼﾏｲ" so="0" />
+      <row ro="sml" hi="しまい" ka="シマイ" an="ｼﾏｲ" so="0" />
       <row ro="smx" hi="様" ka="サマ" an="ｻﾏ" so="0" />
       <row ro="smX" hi="様方" ka="サマガタ" an="ｻﾏｶﾞﾀ" so="0" />
       <row ro="sN" hi="す？" ka="ス？" an="ｽ?" so="0" />
