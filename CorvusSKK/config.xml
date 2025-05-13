@@ -785,6 +785,7 @@
       <row ro="kru" hi="ける" ka="ケル" an="ｹﾙ" so="0" />
       <row ro="kta" hi="方" ka="カタ" an="ｶﾀ" so="0" />
       <row ro="kto" hi="こと" ka="コト" an="ｺﾄ" so="0" />
+      <row ro="ktt" hi="かたち" ka="カタチ" an="ｶﾀﾁ" so="0" />
       <row ro="lre" hi="られ" ka="ラレ" an="ﾗﾚ" so="0" />
       <row ro="lru" hi="れる" ka="レル" an="ﾚﾙ" so="0" />
       <row ro="lta" hi="れた" ka="レタ" an="ﾚﾀ" so="0" />
@@ -840,11 +841,15 @@
       <row ro="sma" hi="しま" ka="シマ" an="ｼﾏ" so="0" />
       <row ro="smi" hi="しまい" ka="シマイ" an="ｼﾏｲ" so="0" />
       <row ro="sml" hi="しまい" ka="シマイ" an="ｼﾏｲ" so="0" />
+      <row ro="smm" hi="様" ka="サマ" an="ｻﾏ" so="0" />
+      <row ro="smM" hi="様方" ka="サマガタ" an="ｻﾏｶﾞﾀ" so="0" />
       <row ro="smx" hi="様" ka="サマ" an="ｻﾏ" so="0" />
       <row ro="smX" hi="様方" ka="サマガタ" an="ｻﾏｶﾞﾀ" so="0" />
       <row ro="sN" hi="す？" ka="ス？" an="ｽ?" so="0" />
       <row ro="sne" hi="すね" ka="スネ" an="ｽﾈ" so="0" />
       <row ro="snn" hi="せん" ka="セン" an="ｾﾝ" so="0" />
+      <row ro="sns" hi="先生" ka="センセイ" an="ｾﾝｾｲ" so="0" />
+      <row ro="snS" hi="先生方" ka="センセイガタ" an="ｾﾝｾｲｶﾞﾀ" so="0" />
       <row ro="snx" hi="先生" ka="センセイ" an="ｾﾝｾｲ" so="0" />
       <row ro="snX" hi="先生方" ka="センセイガタ" an="ｾﾝｾｲｶﾞﾀ" so="0" />
       <row ro="sre" hi="され" ka="サレ" an="ｻﾚ" so="0" />
@@ -863,6 +868,7 @@
       <row ro="tdai" hi="いただい" ka="イタダイ" an="ｲﾀﾀﾞｲ" so="0" />
       <row ro="tga" hi="たが" ka="タガ" an="ﾀｶﾞ" so="0" />
       <row ro="tj" hi="という" ka="トイウ" an="ﾄｲｳ" so="0" />
+      <row ro="tkr" hi="ところ" ka="トコロ" an="ﾄｺﾛ" so="0" />
       <row ro="tkt" hi="つきまして" ka="ツキマシテ" an="ﾂｷﾏｼﾃ" so="0" />
       <row ro="tla" hi="たら" ka="タラ" an="ﾀﾗ" so="0" />
       <row ro="tlt" hi="ついて" ka="ツイテ" an="ﾂｲﾃ" so="0" />
@@ -882,6 +888,7 @@
       <row ro="yka" hi="ようか" ka="ヨウカ" an="ﾖｳｶ" so="0" />
       <row ro="yn" hi="よう" ka="ヨウ" an="ﾖｳ" so="1" />
       <row ro="yr" hi="よ" ka="ヨ" an="ﾖ" so="1" />
+      <row ro="yrk" hi="よろしく" ka="ヨロシク" an="ﾖﾛｼｸ" so="0" />
       <row ro="yto" hi="ようと" ka="ヨウト" an="ﾖｳﾄ" so="0" />
       <row ro="z," hi="ず、" ka="ズ、" an="ｽﾞ､" so="0" />
       <row ro="zma" hi="存じま" ka="ゾンジマ" an="ｿﾞﾝｼﾞﾏ" so="0" />
