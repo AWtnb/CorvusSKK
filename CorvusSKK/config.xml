@@ -776,8 +776,8 @@
       <row ro="h," hi="は、" ka="ハ、" an="ﾊ､" so="0" />
       <row ro="hlu" hi="ほう" ka="ホウ" an="ﾎｳ" so="0" />
       <row ro="jn" hi="じゅん" ka="ジュン" an="ｼﾞｭﾝ" so="0" />
-      <row ro="k." hi="か。" ka="カ。" an="ｶ｡" so="0" />
       <row ro="k," hi="く、" ka="ク、" an="ｸ､" so="0" />
+      <row ro="k." hi="か。" ka="カ。" an="ｶ｡" so="0" />
       <row ro="kba" hi="けば" ka="ケバ" an="ｹﾊﾞ" so="0" />
       <row ro="kda" hi="くだ" ka="クダ" an="ｸﾀﾞ" so="0" />
       <row ro="kds" hi="ください" ka="クダサイ" an="ｸﾀﾞｻｲ" so="0" />
@@ -786,7 +786,7 @@
       <row ro="kra" hi="から" ka="カラ" an="ｶﾗ" so="0" />
       <row ro="kre" hi="くれ" ka="クレ" an="ｸﾚ" so="0" />
       <row ro="kru" hi="ける" ka="ケル" an="ｹﾙ" so="0" />
-      <row ro="kta" hi="方" ka="カタ" an="ｶﾀ" so="0" />
+      <row ro="kta" hi="方" ka="方" an="ｶﾀ" so="0" />
       <row ro="kto" hi="こと" ka="コト" an="ｺﾄ" so="0" />
       <row ro="ktt" hi="かたち" ka="カタチ" an="ｶﾀﾁ" so="0" />
       <row ro="lre" hi="られ" ka="ラレ" an="ﾗﾚ" so="0" />
@@ -795,7 +795,7 @@
       <row ro="lte" hi="れて" ka="レテ" an="ﾚﾃ" so="0" />
       <row ro="mba" hi="めば" ka="メバ" an="ﾒﾊﾞ" so="0" />
       <row ro="mde" hi="まで" ka="マデ" an="ﾏﾃﾞ" so="0" />
-      <row ro="mge" hi="申し上げ" ka="モウシアゲ" an="ﾓｳｼｱｹﾞ" so="0" />
+      <row ro="mge" hi="申し上げ" ka="申シ上ゲ" an="ﾓｳｼｱｹﾞ" so="0" />
       <row ro="mli" hi="まいり" ka="マイリ" an="ﾏｲﾘ" so="0" />
       <row ro="mno" hi="もの" ka="モノ" an="ﾓﾉ" so="0" />
       <row ro="mri" hi="まいり" ka="マイリ" an="ﾏｲﾘ" so="0" />
@@ -836,25 +836,19 @@
       <row ro="sda" hi="させていただ" ka="サセテイタダ" an="ｻｾﾃｲﾀﾀﾞ" so="0" />
       <row ro="sde" hi="すで" ka="スデ" an="ｽﾃﾞ" so="0" />
       <row ro="sga" hi="すが" ka="スガ" an="ｽｶﾞ" so="0" />
-      <row ro="sge" hi="差し上げ" ka="サシアゲ" an="ｻｼｱｹﾞ" so="0" />
+      <row ro="sge" hi="差し上げ" ka="差シ上ゲ" an="ｻｼｱｹﾞ" so="0" />
       <row ro="shh" hi="しょう" ka="ショウ" an="ｼｮｳ" so="0" />
       <row ro="shk" hi="しょうか" ka="ショウカ" an="ｼｮｳｶ" so="0" />
       <row ro="ska" hi="すか" ka="スカ" an="ｽｶ" so="0" />
       <row ro="sli" hi="さい。" ka="サイ。" an="ｻｲ｡" so="0" />
+      <row ro="sm&lt;" hi="様" ka="様" an="ｻﾏ" so="0" />
       <row ro="sma" hi="しま" ka="シマ" an="ｼﾏ" so="0" />
       <row ro="smi" hi="しまい" ka="シマイ" an="ｼﾏｲ" so="0" />
       <row ro="sml" hi="しまい" ka="シマイ" an="ｼﾏｲ" so="0" />
-      <row ro="smg" hi="様方" ka="サマガタ" an="ｻﾏｶﾞﾀ" so="0" />
-      <row ro="smm" hi="様" ka="サマ" an="ｻﾏ" so="0" />
-      <row ro="smx" hi="様" ka="サマ" an="ｻﾏ" so="0" />
-      <row ro="smX" hi="様方" ka="サマガタ" an="ｻﾏｶﾞﾀ" so="0" />
       <row ro="sN" hi="す？" ka="ス？" an="ｽ?" so="0" />
+      <row ro="sn&lt;" hi="先生" ka="先生" an="ｾﾝｾｲ" so="0" />
       <row ro="sne" hi="すね" ka="スネ" an="ｽﾈ" so="0" />
       <row ro="snn" hi="せん" ka="セン" an="ｾﾝ" so="0" />
-      <row ro="sng" hi="先生方" ka="センセイガタ" an="ｾﾝｾｲｶﾞﾀ" so="0" />
-      <row ro="sns" hi="先生" ka="センセイ" an="ｾﾝｾｲ" so="0" />
-      <row ro="snx" hi="先生" ka="センセイ" an="ｾﾝｾｲ" so="0" />
-      <row ro="snX" hi="先生方" ka="センセイガタ" an="ｾﾝｾｲｶﾞﾀ" so="0" />
       <row ro="sre" hi="され" ka="サレ" an="ｻﾚ" so="0" />
       <row ro="sru" hi="する" ka="スル" an="ｽﾙ" so="0" />
       <row ro="st," hi="して、" ka="シテ、" an="ｼﾃ､" so="0" />
@@ -867,13 +861,13 @@
       <row ro="t," hi="て、" ka="テ、" an="ﾃ､" so="0" />
       <row ro="t." hi="た。" ka="タ。" an="ﾀ｡" so="0" />
       <row ro="tba" hi="てば" ka="テバ" an="ﾃﾊﾞ" so="0" />
+      <row ro="tdai" hi="いただい" ka="イタダイ" an="ｲﾀﾀﾞｲ" so="0" />
       <row ro="tdak" hi="いただ" ka="イタダ" an="ｲﾀﾀﾞ" so="1" />
       <row ro="tdam" hi="いただき" ka="イタダキ" an="ｲﾀﾀﾞｷ" so="1" />
-      <row ro="tdai" hi="いただい" ka="イタダイ" an="ｲﾀﾀﾞｲ" so="0" />
       <row ro="tga" hi="たが" ka="タガ" an="ﾀｶﾞ" so="0" />
       <row ro="tj" hi="という" ka="トイウ" an="ﾄｲｳ" so="0" />
-      <row ro="tkr" hi="ところ" ka="トコロ" an="ﾄｺﾛ" so="0" />
       <row ro="tkm" hi="つきまして" ka="ツキマシテ" an="ﾂｷﾏｼﾃ" so="0" />
+      <row ro="tkr" hi="ところ" ka="トコロ" an="ﾄｺﾛ" so="0" />
       <row ro="tla" hi="たら" ka="タラ" an="ﾀﾗ" so="0" />
       <row ro="tlt" hi="ついて" ka="ツイテ" an="ﾂｲﾃ" so="0" />
       <row ro="tma" hi="いたしま" ka="イタシマ" an="ｲﾀｼﾏ" so="0" />
@@ -895,7 +889,7 @@
       <row ro="yrk" hi="よろしく" ka="ヨロシク" an="ﾖﾛｼｸ" so="0" />
       <row ro="yto" hi="ようと" ka="ヨウト" an="ﾖｳﾄ" so="0" />
       <row ro="z," hi="ず、" ka="ズ、" an="ｽﾞ､" so="0" />
-      <row ro="zma" hi="存じま" ka="ゾンジマ" an="ｿﾞﾝｼﾞﾏ" so="0" />
+      <row ro="zma" hi="存じま" ka="存ジマ" an="ｿﾞﾝｼﾞﾏ" so="0" />
     </list>
   </section>
   <section name="jlatin">
