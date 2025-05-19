@@ -847,12 +847,15 @@
       <row ro="smi" hi="しまい" ka="シマイ" an="ｼﾏｲ" so="0" />
       <row ro="sml" hi="しまい" ka="シマイ" an="ｼﾏｲ" so="0" />
       <row ro="smx" hi="様" ka="様" an="ｻﾏ" so="0" />
+      <row ro="smX" hi="様方" ka="様方" an="ｻﾏｶﾞﾀ" so="0" />
       <row ro="sN" hi="す？" ka="ス？" an="ｽ?" so="0" />
-      <row ro="sn&lt;" hi="先生" ka="先生" an="ｾﾝｾｲ" so="0" />
       <row ro="sne" hi="すね" ka="スネ" an="ｽﾈ" so="0" />
-      <row ro="sns" hi="先生" ka="先生" an="ｾﾝｾｲ" so="0" />
-      <row ro="snx" hi="先生" ka="先生" an="ｾﾝｾｲ" so="0" />
       <row ro="snn" hi="せん" ka="セン" an="ｾﾝ" so="0" />
+      <row ro="sns" hi="先生" ka="先生" an="ｾﾝｾｲ" so="0" />
+      <row ro="snS" hi="先生方" ka="先生方" an="ｾﾝｾｲｶﾞﾀ" so="0" />
+      <row ro="snt" hi="先生方" ka="先生方" an="ｾﾝｾｲｶﾞﾀ" so="0" />
+      <row ro="snx" hi="先生" ka="先生" an="ｾﾝｾｲ" so="0" />
+      <row ro="snX" hi="先生方" ka="先生方" an="ｾﾝｾｲｶﾞﾀ" so="0" />
       <row ro="sre" hi="され" ka="サレ" an="ｻﾚ" so="0" />
       <row ro="sru" hi="する" ka="スル" an="ｽﾙ" so="0" />
       <row ro="st," hi="して、" ka="シテ、" an="ｼﾃ､" so="0" />
