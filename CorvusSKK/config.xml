@@ -789,6 +789,7 @@
       <row ro="kre" hi="くれ" ka="クレ" an="ｸﾚ" so="0" />
       <row ro="kru" hi="ける" ka="ケル" an="ｹﾙ" so="0" />
       <row ro="kta" hi="方" ka="方" an="ｶﾀ" so="0" />
+      <row ro="kte" hi="けて" ka="ケテ" an="ｹﾃ" so="0" />
       <row ro="kto" hi="こと" ka="コト" an="ｺﾄ" so="0" />
       <row ro="ktt" hi="かたち" ka="カタチ" an="ｶﾀﾁ" so="0" />
       <row ro="lre" hi="られ" ka="ラレ" an="ﾗﾚ" so="0" />
@@ -869,7 +870,6 @@
       <row ro="t," hi="て、" ka="テ、" an="ﾃ､" so="0" />
       <row ro="t." hi="た。" ka="タ。" an="ﾀ｡" so="0" />
       <row ro="tba" hi="てば" ka="テバ" an="ﾃﾊﾞ" so="0" />
-      <row ro="tda" hi="ただ" ka="タダ" an="ﾀﾀﾞ" so="0" />
       <row ro="tdai" hi="いただい" ka="イタダイ" an="ｲﾀﾀﾞｲ" so="0" />
       <row ro="tdak" hi="いただ" ka="イタダ" an="ｲﾀﾀﾞ" so="1" />
       <row ro="tga" hi="たが" ka="タガ" an="ﾀｶﾞ" so="0" />
