@@ -868,11 +868,12 @@
       <row ro="t," hi="て、" ka="テ、" an="ﾃ､" so="0" />
       <row ro="t." hi="た。" ka="タ。" an="ﾀ｡" so="0" />
       <row ro="tba" hi="てば" ka="テバ" an="ﾃﾊﾞ" so="0" />
+      <row ro="tda" hi="ただ" ka="タダ" an="ﾀﾀﾞ" so="0" />
       <row ro="tdai" hi="いただい" ka="イタダイ" an="ｲﾀﾀﾞｲ" so="0" />
       <row ro="tdak" hi="いただ" ka="イタダ" an="ｲﾀﾀﾞ" so="1" />
-      <row ro="tdam" hi="いただき" ka="イタダキ" an="ｲﾀﾀﾞｷ" so="1" />
       <row ro="tga" hi="たが" ka="タガ" an="ﾀｶﾞ" so="0" />
       <row ro="tj" hi="という" ka="トイウ" an="ﾄｲｳ" so="0" />
+      <row ro="tk" hi="いただ" ka="イタダ" an="ｲﾀﾀﾞ" so="1" />
       <row ro="tkm" hi="つきまして" ka="ツキマシテ" an="ﾂｷﾏｼﾃ" so="0" />
       <row ro="tkr" hi="ところ" ka="トコロ" an="ﾄｺﾛ" so="0" />
       <row ro="tla" hi="たら" ka="タラ" an="ﾀﾗ" so="0" />
