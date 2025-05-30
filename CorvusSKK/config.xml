@@ -843,7 +843,9 @@
       <row ro="sce" hi="させ" ka="サセ" an="ｻｾ" so="0" />
       <row ro="sda" hi="させていただ" ka="サセテイタダ" an="ｻｾﾃｲﾀﾀﾞ" so="0" />
       <row ro="sde" hi="すで" ka="スデ" an="ｽﾃﾞ" so="0" />
+      <row ro="sf," hi="すが、" ka="スガ、" an="ｽｶﾞ､" so="0" />
       <row ro="sfa" hi="すが、" ka="スガ、" an="ｽｶﾞ､" so="0" />
+      <row ro="sg," hi="すが、" ka="スガ、" an="ｽｶﾞ､" so="0" />
       <row ro="sga" hi="すが、" ka="スガ、" an="ｽｶﾞ､" so="0" />
       <row ro="sge" hi="差し上げ" ka="差シ上ゲ" an="ｻｼｱｹﾞ" so="0" />
       <row ro="shh" hi="しょう" ka="ショウ" an="ｼｮｳ" so="0" />
@@ -878,7 +880,9 @@
       <row ro="tdai" hi="いただい" ka="イタダイ" an="ｲﾀﾀﾞｲ" so="0" />
       <row ro="tdak" hi="いただ" ka="イタダ" an="ｲﾀﾀﾞ" so="1" />
       <row ro="tdam" hi="いただき" ka="イタダキ" an="ｲﾀﾀﾞｷ" so="1" />
+      <row ro="tf," hi="たが、" ka="タガ、" an="ﾀｶﾞ､" so="0" />
       <row ro="tfa" hi="たが、" ka="タガ、" an="ﾀｶﾞ､" so="0" />
+      <row ro="tg," hi="たが、" ka="タガ、" an="ﾀｶﾞ､" so="0" />
       <row ro="tga" hi="たが、" ka="タガ、" an="ﾀｶﾞ､" so="0" />
       <row ro="tj" hi="という" ka="トイウ" an="ﾄｲｳ" so="0" />
       <row ro="tki" hi="たい" ka="タイ" an="ﾀｲ" so="0" />
