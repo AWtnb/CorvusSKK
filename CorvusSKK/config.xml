@@ -752,6 +752,7 @@
       <row ro="bk" hi="べ" ka="ベ" an="ﾍﾞ" so="1" />
       <row ro="bru" hi="べる" ka="ベル" an="ﾍﾞﾙ" so="0" />
       <row ro="bte" hi="べて" ka="ベテ" an="ﾍﾞﾃ" so="0" />
+      <row ro="clu" hi="せる" ka="セル" an="ｾﾙ" so="0" />
       <row ro="cru" hi="せる" ka="セル" an="ｾﾙ" so="0" />
       <row ro="cte" hi="せて" ka="セテ" an="ｾﾃ" so="0" />
       <row ro="d," hi="で、" ka="デ、" an="ﾃﾞ､" so="0" />
