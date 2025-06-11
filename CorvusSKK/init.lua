@@ -936,7 +936,7 @@ usage:
 
 ]]--
 local function format_this_year(t)
-	return smart_format_day({t[3], t[1], t[2]})
+	return smart_format_day(t)
 end
 
 --[[
@@ -950,35 +950,34 @@ usage:
 
 ]]--
 local function format_this_month(t)
-	return smart_format_day({t[2], t[1]})
+	return smart_format_day(t)
 end
 
 --[[
 
-一番近い未来の日付を、最後の引数で指定したフォーマットに変換する
+一番近い未来の日付を、第1引数で指定したフォーマットに変換する
 
-- 引数が3つの場合は最初の2つからM月D日を計算する。M月D日が実行時点から見て過去であれば翌年のM月D日を返す。
-- 引数が2つの場合は第1引数からD日を取得する。D日が実行時点から見て過去であれば翌月のD日を返す。
+- 引数が3つの場合は残りの2つからM月D日を計算する。M月D日が実行時点から見て過去であれば翌年のM月D日を返す。
+- 引数が2つの場合は第2引数からD日を取得する。D日が実行時点から見て過去であれば翌月のD日を返す。
 
 usage:
 
-- `(replace-removable-zero (format-upcoming-day #0 #0 "%Y年%m月%d日（%a）") "")`
-- `(replace-removable-zero (format-upcoming-day #0 #0 "%m月%d日（%a）") "")`
-- `(replace-removable-zero (format-upcoming-day #0 "%d日（%a）") "")`
+- `(replace-removable-zero (format-upcoming-day "%Y年%m月%d日（%a）" #0 #0) "")`
+- `(replace-removable-zero (format-upcoming-day "%m月%d日（%a）" #0 #0) "")`
+- `(replace-removable-zero (format-upcoming-day "%d日（%a）" #0) "")`
 
 ]]--
 local function format_upcoming_day(t)
 	local today = os.time({year=tostring(os.date("%Y")), month=tostring(os.date("%m")), day=tostring(os.date("%d"))})
 
+	local fmt = t[1]
 	local yy = tostring(os.date("%Y"))
 	local mm = tostring(os.date("%m"))
-	local dd = t[1]
-	local fmt = t[2]
+	local dd = t[2]
 
 	if 2 < #t then
-		mm = t[1]
-		dd = t[2]
-		fmt = t[3]
+		mm = t[2]
+		dd = t[3]
 	end
 
 	local ts = os.time({year=yy,month=mm,day=dd})
@@ -994,30 +993,29 @@ end
 
 --[[
 
-一番近い過去の日付を、最後の引数で指定したフォーマットに変換する
+一番近い過去の日付を、第1引数で指定したフォーマットに変換する
 
-- 引数が3つの場合は最初の2つからM月D日を計算する。M月D日が実行時点から見て未来であれば前年のM月D日を返す。
-- 引数が2つの場合は第1引数からD日を取得する。D日が実行時点から見て未来であれば前月のD日を返す。
+- 引数が3つの場合は残りの2つからM月D日を計算する。M月D日が実行時点から見て未来であれば前年のM月D日を返す。
+- 引数が2つの場合は第2引数からD日を取得する。D日が実行時点から見て未来であれば前月のD日を返す。
 
 usage:
 
-- `(replace-removable-zero (format-last-day #0 #0 "%Y年%m月%d日（%a）") "")`
-- `(replace-removable-zero (format-last-day #0 #0 "%m月%d日（%a）") "")`
-- `(replace-removable-zero (format-last-day #0 "%d日（%a）") "")`
+- `(replace-removable-zero (format-last-day "%Y年%m月%d日（%a）" #0 #0) "")`
+- `(replace-removable-zero (format-last-day "%m月%d日（%a）" #0 #0) "")`
+- `(replace-removable-zero (format-last-day "%d日（%a）" #0) "")`
 
 --]]
 local function format_last_day(t)
 	local today = os.time({year=tostring(os.date("%Y")), month=tostring(os.date("%m")), day=tostring(os.date("%d"))})
 
+	local fmt = t[1]
 	local yy = tostring(os.date("%Y"))
 	local mm = tostring(os.date("%m"))
-	local dd = t[1]
-	local fmt = t[2]
+	local dd = t[2]
 
 	if 2 < #t then
-		mm = t[1]
-		dd = t[2]
-		fmt = t[3]
+		mm = t[2]
+		dd = t[3]
 	end
 
 	local ts = os.time({year=yy,month=mm,day=dd})
@@ -1033,17 +1031,33 @@ end
 
 --[[
 
-日を指定して一番近い未来の日付を任意のフォーマットに変換する
+任意のフォーマットで曜日に変換する
+（月曜日＝1）
+
+usage:
+
+- `(format-day-of-week "（%s）" #0)`
+
+]]--
+local function format_day_of_week(t)
+	local ds = {"月", "火", "水", "木", "金", "土", "日"}
+	local n = (tonumber(t[2]) - 1) % 7 + 1
+	return string.format(t[1], ds[n])
+end
+
+--[[
+
+日を指定して一番近い未来の曜日を任意のフォーマットに変換する
 （翌週の日付に言及するケースなど）
 
 usage:
 
-- `(replace-removable-zero (format-upcoming-day-of-week #0 "%d日（%a）") "")`
+- `(replace-removable-zero (format-upcoming-day-of-week "%d日（%a）" #0) "")`
 
 ]]--
 local function format_upcoming_day_of_week(t)
-	local idx = tonumber(t[1]) % 7
-	local fmt = t[2]
+	local fmt = t[1]
+	local idx = tonumber(t[2]) % 7
 
 	local yy = tostring(os.date("%Y"))
 	local mm = tostring(os.date("%m"))
@@ -1061,17 +1075,17 @@ end
 
 --[[
 
-日を指定して一番近い過去の日付を任意のフォーマットに変換する
+日を指定して一番近い過去の曜日を任意のフォーマットに変換する
 （前週の日付に言及するケースなど）
 
 usage:
 
-- `(replace-removable-zero (format-last-day-of-week #0 "%d日（%a）") "")`
+- `(replace-removable-zero (format-last-day-of-week "%d日（%a）" #0) "")`
 
 ]]--
 local function format_last_day_of_week(t)
-	local idx = tonumber(t[1]) % 7
-	local fmt = t[2]
+	local fmt = t[1]
+	local idx = tonumber(t[2]) % 7
 
 	local yy = tostring(os.date("%Y"))
 	local mm = tostring(os.date("%m"))
@@ -1189,13 +1203,14 @@ hhmmを任意のフォーマットに変換する
 
 usage:
 
-- `(format-hhmm #0 "%d時%d分")`
-- `(format-hhmm #0 "%02d時%02d分")`
-- `(format-hhmm #0 "%02d:%02d")`
+- `(format-hhmm "%d時%d分" #0)`
+- `(format-hhmm "%02d時%02d分" #0)`
+- `(format-hhmm "%02d:%02d" #0)`
 
 ]]--
 local function format_hhmm(t)
-	local hhmm = t[1]
+	local fmt = t[1]
+	local hhmm = t[2]
 	if 4 < string.len(hhmm) then
 		hhmm = string.sub(hhmm, 1, 4)
 	else
@@ -1206,7 +1221,6 @@ local function format_hhmm(t)
 			hhmm = hhmm .. "00"
 		end
 	end
-	local fmt = t[2]
 	local hh = tonumber(string.sub(hhmm, 1, 2))
 	local mm = tonumber(string.sub(hhmm, 3, 4))
 	return string.gsub(string.format(fmt, hh, mm), "時0+分", "時")
@@ -1329,22 +1343,6 @@ usage:
 ]]--
 local function format_fraction(t)
 	return string.format("%d分の%d", t[2], t[1])
-end
-
---[[
-
-任意のフォーマットで曜日に変換する
-（月曜日＝1）
-
-usage:
-
-- `(format-day-of-week #0 "（%s）")`
-
-]]--
-local function format_day_of_week(t)
-	local ds = {"月", "火", "水", "木", "金", "土", "日"}
-	local n = (tonumber(t[1]) - 1) % 7 + 1
-	return string.format(t[2], ds[n])
 end
 
 --[[
