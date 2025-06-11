@@ -886,36 +886,39 @@ end
 
 --[[
 
-最後の引数で指定したフォーマットで日付変換する
+第1引数で指定したフォーマットで日付変換する
 
-- 引数が4つの場合は最初の3つからY年M月D日を計算する。
-- 引数が3つの場合は最初の2つから実行時点の年のM月D日を計算する。
-- 引数が2つの場合は実行時点の月のD日を取得する。
+- 引数が4つの場合は残りの3つからY年M月D日を計算する。
+- 引数が3つの場合は残りの2つから実行時点の年のM月D日を計算する。
+- 引数が2つの場合は残りの1つから実行時点の月のD日を計算する。
+- 引数が1つだけの場合は実行時点の日時を計算する。
 
 usage:
 
-- `(replace-removable-zero (smart-format-day #0 #0 #0 "%Y年%m月%d日（%a）") "")`
-- `(replace-removable-zero (smart-format-day #0 #0 "%Y年%m月%d日（%a）") "")`
-- `(replace-removable-zero (smart-format-day #0 "%Y年%m月%d日（%a）") "")`
+- `(replace-removable-zero (smart-format-day "%Y年%m月%d日（%a）" #0 #0 #0) "")`
+- `(replace-removable-zero (smart-format-day "%Y年%m月%d日（%a）" #0 #0) "")`
+- `(replace-removable-zero (smart-format-day "%Y年%m月%d日（%a）" #0) "")`
+- `(replace-removable-zero (smart-format-day "%Y年%m月%d日（%a）") "")`
 
 ]]--
 local function smart_format_day(t)
 	local yy = tostring(os.date("%Y"))
 	local mm = tostring(os.date("%m"))
-	local dd = t[1]
-	local fmt = t[2]
-	if 2 < #t then
-		mm = t[1]
+	local dd = tostring(os.date("%d"))
+	local fmt = t[1]
+	if 1 < #t then
 		dd = t[2]
-		fmt = t[3]
-		if 3 < #t then
-			yy = t[1]
-			if string.len(yy) == 2 then
-				yy = "20" .. yy
-			end
+		if 2 < #t then
 			mm = t[2]
 			dd = t[3]
-			fmt = t[4]
+			if 3 < #t then
+				yy = t[2]
+				if string.len(yy) == 2 then
+					yy = "20" .. yy
+				end
+				mm = t[3]
+				dd = t[4]
+			end
 		end
 	end
 	local ts = os.time({year=yy,month=mm,day=dd})
@@ -933,7 +936,7 @@ usage:
 
 ]]--
 local function format_this_year(t)
-	return smart_format_day(t)
+	return smart_format_day({t[3], t[1], t[2]})
 end
 
 --[[
@@ -947,7 +950,7 @@ usage:
 
 ]]--
 local function format_this_month(t)
-	return smart_format_day(t)
+	return smart_format_day({t[2], t[1]})
 end
 
 --[[
