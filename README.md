@@ -4,7 +4,8 @@
 
 ## Install
 
-Run [`install.ps1`](./install.ps1) to create junction of `CorvusSKK` to AppData.
+- [`install.ps1`](./install.ps1) を実行して `CorvusSKK` のジャンクションをAppDataに作成する。
+- [`set-startmenu.ps1`](./set-startmenu.ps1) を実行してこのリポジトリをVSCodeで開くショートカットをスタートメニューに登録する。
 
 ### SKKサーバ
 
