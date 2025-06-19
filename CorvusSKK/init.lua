@@ -1497,6 +1497,58 @@ local function format_roman_upper(t)
 	return to_roman(i, false)
 end
 
+
+--[[
+
+丸数字に変換（黒対応）
+
+]]--
+local function to_circled_num(n, black)
+	local letters = {
+		"\u{24EA}", "\u{2460}", "\u{2461}", "\u{2462}", "\u{2463}", "\u{2464}", "\u{2465}", "\u{2466}", "\u{2467}", "\u{2468}", "\u{2469}", "\u{246A}", "\u{246B}", "\u{246C}", "\u{246D}", "\u{246E}", "\u{246F}", "\u{2470}", "\u{2471}", "\u{2472}", "\u{2473}", "\u{3251}", "\u{3252}", "\u{3253}", "\u{3254}", "\u{3255}", "\u{3256}", "\u{3257}", "\u{3258}", "\u{3259}", "\u{325A}", "\u{325B}", "\u{325C}", "\u{325D}", "\u{325E}", "\u{325F}", "\u{32B1}", "\u{32B2}", "\u{32B3}", "\u{32B4}", "\u{32B5}", "\u{32B6}", "\u{32B7}", "\u{32B8}", "\u{32B9}", "\u{32BA}", "\u{32BB}", "\u{32BC}", "\u{32BD}", "\u{32BE}", "\u{32BF}"
+	}
+	if black then
+		letters = {
+			"\u{24FF}", "\u{2776}", "\u{2777}", "\u{2778}", "\u{2779}", "\u{277A}", "\u{277B}", "\u{277C}", "\u{277D}", "\u{277E}", "\u{277F}", "\u{24EB}", "\u{24EC}", "\u{24ED}", "\u{24EE}", "\u{24EF}", "\u{24F0}", "\u{24F1}", "\u{24F2}", "\u{24F3}", "\u{24F4}"
+		}
+	end
+	local i = n + 1
+	if i <= #letters then
+		return letters[i]
+	end
+	return string.format("(%s)", n)
+end
+
+--[[
+
+丸数字変換
+
+usage:
+
+
+- `(format-circled-num #0)`
+
+]]--
+local function format_circled_num(t)
+	return to_circled_num(t[1], false)
+end
+
+--[[
+
+黒丸数字変換
+
+usage:
+
+
+- `(format-black-circled-num #0)`
+
+]]--
+local function format_black_circled_num(t)
+	return to_circled_num(t[1], true)
+end
+
+
+
 -- 関数テーブル
 local skk_gadget_func_table_org = {
 	{"concat", concat},
@@ -1550,6 +1602,8 @@ local skk_gadget_func_table_org = {
 	{"format-japanese-isbn", format_japanese_isbn},
 	{"format-roman-lower", format_roman_lower},
 	{"format-roman-upper", format_roman_upper},
+	{"format-circled-num", format_circled_num},
+	{"format-black-circled-num", format_black_circled_num},
 	{"replace-removable-zero", replace_removable_zero},
 }
 local skk_gadget_func_table = {
