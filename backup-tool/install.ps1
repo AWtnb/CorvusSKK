@@ -1,6 +1,14 @@
-$taskPath = "\corvusskk-backup"
+$config = Get-Content -Path $($PSScriptRoot | Join-Path -ChildPath "config.json") | ConvertFrom-Json
 
-$appDir = $env:APPDATA | Join-Path -ChildPath "CorvusSKK-backup"
+$taskPath = $config.taskPath
+if (-not $taskPath.StartsWith("\")) {
+    $taskPath = "\" + $taskPath
+}
+if (-not $taskPath.EndsWith("\")) {
+    $taskPath = $taskPath + "\"
+}
+
+$appDir = $env:APPDATA | Join-Path -ChildPath $config.appDirName
 if (-not (Test-Path $appDir -PathType Container)) {
     New-Item -Path $appDir -ItemType Directory > $null
 }
@@ -8,9 +16,9 @@ if (-not (Test-Path $appDir -PathType Container)) {
 $src = $PSScriptRoot | Join-Path -ChildPath "backup.ps1" | Copy-Item -Destination $appDir -PassThru
 
 $action = New-ScheduledTaskAction -Execute conhost.exe -Argument "--headless powershell.exe -NoProfile -ExecutionPolicy Bypass -File `"$src`""
-$settings = New-ScheduledTaskSettingsSet -Hidden -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -RestartCount 3 -RestartInterval (New-TimeSpan -Minutes 30)
+$settings = New-ScheduledTaskSettingsSet -Hidden -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries
 
-$startupTaskName = "startup"
+$startupTaskName = $config.taskName.startup
 $startupTrigger = New-ScheduledTaskTrigger -AtLogOn -User $env:USERNAME
 
 if ($null -ne (Get-ScheduledTask -TaskName $startupTaskName -ErrorAction SilentlyContinue)) {
