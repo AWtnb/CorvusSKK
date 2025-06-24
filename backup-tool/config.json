@@ -1,7 +1,4 @@
 {
     "taskPath": "\\CorvusSKK-backup\\",
-    "taskName": {
-        "startup": "startup"
-    },
     "appDirName": "CorvusSKK-backup-tool"
 }

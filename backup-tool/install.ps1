@@ -18,16 +18,13 @@ $src = $PSScriptRoot | Join-Path -ChildPath "backup.ps1" | Copy-Item -Destinatio
 $action = New-ScheduledTaskAction -Execute conhost.exe -Argument "--headless powershell.exe -NoProfile -ExecutionPolicy Bypass -File `"$src`""
 $settings = New-ScheduledTaskSettingsSet -Hidden -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries
 
-$startupTaskName = $config.taskName.startup
+$startupTaskName = "startup"
 $startupTrigger = New-ScheduledTaskTrigger -AtLogOn -User $env:USERNAME
-
-if ($null -ne (Get-ScheduledTask -TaskName $startupTaskName -ErrorAction SilentlyContinue)) {
-    Unregister-ScheduledTask -TaskName $startupTaskName -Confirm:$false
-}
 
 Register-ScheduledTask -TaskName $startupTaskName `
     -TaskPath $taskPath `
     -Action $action `
     -Trigger $startupTrigger `
     -Description "Copy CorvusSKK userdict.txt to backup directory on startup." `
-    -Settings $settings
+    -Settings $settings `
+    -Force
