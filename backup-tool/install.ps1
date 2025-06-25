@@ -13,9 +13,14 @@ if (-not (Test-Path $appDir -PathType Container)) {
     New-Item -Path $appDir -ItemType Directory > $null
 }
 
+$backupDir = $env:USERPROFILE | Join-Path -ChildPath "Dropbox" | Join-Path -ChildPath "CorvusSKK-backup"
+if (($args.Length -gt 0) -and ($args[0].Trim().Length -gt 0)) {
+    $backupDir = $args[0].Trim()
+}
+
 $src = $PSScriptRoot | Join-Path -ChildPath "backup.ps1" | Copy-Item -Destination $appDir -PassThru
 
-$action = New-ScheduledTaskAction -Execute conhost.exe -Argument "--headless powershell.exe -NoProfile -ExecutionPolicy Bypass -File `"$src`""
+$action = New-ScheduledTaskAction -Execute conhost.exe -Argument "--headless powershell.exe -NoProfile -ExecutionPolicy Bypass -File `"$src`" `"$backupDir`""
 $settings = New-ScheduledTaskSettingsSet -Hidden -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries
 
 $startupTaskName = "startup"

@@ -1,6 +1,11 @@
 $maxGen = 5
 
-$backupDir = $env:USERPROFILE | Join-Path -ChildPath "Dropbox" | Join-Path -ChildPath "CorvusSKK-backup"
+if (($args.Length -lt 1) -or ($args[0].Trim().Length -lt 1)) {
+    Write-Host "[ERROR] Specify backup dest path."
+    [System.Environment]::exit(1)
+}
+
+$backupDir = $args[0].Trim()
 if (-not (Test-Path $backupDir -PathType Container)) {
     New-Item -Path $backupDir -ItemType Directory > $null
 }
