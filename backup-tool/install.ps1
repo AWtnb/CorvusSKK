@@ -20,7 +20,7 @@ if (($args.Length -gt 0) -and ($args[0].Trim().Length -gt 0)) {
 
 $src = $PSScriptRoot | Join-Path -ChildPath "backup.ps1" | Copy-Item -Destination $appDir -PassThru
 
-$action = New-ScheduledTaskAction -Execute conhost.exe -Argument "--headless powershell.exe -NoProfile -ExecutionPolicy Bypass -File `"$src`" `"$backupDir`""
+$action = New-ScheduledTaskAction -Execute powershell.exe -Argument "-NoProfile -ExecutionPolicy Bypass -File `"$src`" `"$backupDir`""
 $settings = New-ScheduledTaskSettingsSet -Hidden -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries
 
 $startupTaskName = "startup"

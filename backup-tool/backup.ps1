@@ -1,7 +1,8 @@
-$maxGen = 5
+$maxGen = 15
 
 if (($args.Length -lt 1) -or ($args[0].Trim().Length -lt 1)) {
-    Write-Host "[ERROR] Specify backup dest path."
+    $log = "{0} Backup dest path is not specified." -f (Get-Date -Format "yyyyMMdd-HH:mm:ss")
+    $log | Out-File -FilePath ($env:USERPROFILE | Join-Path -ChildPath "Desktop\CorvusSKK-backup-error.log") -Append
     [System.Environment]::exit(1)
 }
 
@@ -18,8 +19,8 @@ function logWrite {
     if ($asError) {
         $log = "[ERROR] " + $log
     }
-    $log = $(Get-Date -Format "yyyyMMdd-HH:mm:ss ") + $log
-    $log | Out-File -FilePath $($backupDir | Join-Path -ChildPath "backup.log") -Append
+    $log = (Get-Date -Format "yyyyMMdd-HH:mm:ss ") + $log
+    $log | Out-File -FilePath ($backupDir | Join-Path -ChildPath "backup.log") -Append
 }
 
 $src = $env:APPDATA | Join-Path -ChildPath "CorvusSKK\userdict.txt"
@@ -31,24 +32,25 @@ if (-not (Test-Path $src)) {
 try {
     $backups = @(Get-ChildItem $backupDir -Filter "*.txt")
     if ($backups.Count -gt 0) {
-        $srcHash = $(Get-Item $src | Get-FileHash).Hash
-        $lastHash = $($backups | Sort-Object -Property LastWriteTime | Select-Object -Last 1 | Get-FileHash).Hash
-        if ($srcHash -eq $lastHash) {
+        $lastHash = ($backups | Sort-Object -Property LastWriteTime | Select-Object -Last 1 | Get-FileHash).Hash
+        if ((Get-FileHash -Path $src).Hash -eq $lastHash) {
             "skipped (userdict not updated since last backup)" -f $src | logWrite
             [System.Environment]::exit(0)
         }
     }
 
-    if ($backups.Count -ge $maxGen) {
-        $oldest = $backups | Sort-Object -Property LastWriteTime | Select-Object -First 1
-        $oldest | Remove-Item -ErrorAction stop
-        "removed oldest backup '{0}'." -f $oldest.Name | logWrite
-    }
+    $backupCountBeforeRun = $backups.Count
 
     $backupName = "{0}{1}.txt" -f (Get-Item $src).BaseName, (Get-Date -Format "yyyyMMddHHmmss")
     $copyAs = $backupDir | Join-Path -ChildPath $backupName
     Get-Item -Path $src | Copy-Item -Destination $copyAs -ErrorAction Stop
     "backup finished." | logWrite
+
+    if ($backupCountBeforeRun -eq $maxGen) {
+        $oldest = $backups | Sort-Object -Property LastWriteTime | Select-Object -First 1
+        $oldest | Remove-Item -ErrorAction stop
+        "removed oldest backup '{0}'." -f $oldest.Name | logWrite
+    }
 }
 catch {
     $_ | logWrite -asError
