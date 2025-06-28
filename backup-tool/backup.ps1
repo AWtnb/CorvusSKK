@@ -44,7 +44,7 @@ try {
     $backupName = "{0}{1}.txt" -f (Get-Item $src).BaseName, (Get-Date -Format "yyyyMMddHHmmss")
     $copyAs = $backupDir | Join-Path -ChildPath $backupName
     Get-Item -Path $src | Copy-Item -Destination $copyAs -ErrorAction Stop
-    "backup finished." | logWrite
+    "backup finished (copied '{0}')." -f $backupName | logWrite
 
     if ($backupCountBeforeRun -eq $maxGen) {
         $oldest = $backups | Sort-Object -Property LastWriteTime | Select-Object -First 1
