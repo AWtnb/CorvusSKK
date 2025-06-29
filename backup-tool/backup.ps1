@@ -42,8 +42,8 @@ try {
     $backupCountBeforeRun = $backups.Count
 
     $backupName = "{0}{1}.txt" -f (Get-Item $src).BaseName, (Get-Date -Format "yyyyMMddHHmmss")
-    $copyAs = $backupDir | Join-Path -ChildPath $backupName
-    Get-Item -Path $src | Copy-Item -Destination $copyAs -ErrorAction Stop
+    $backupPath = $backupDir | Join-Path -ChildPath $backupName
+    Get-Content -Path $src | Out-File -FilePath $backupPath -ErrorAction Stop
     "backup finished (copied '{0}')." -f $backupName | logWrite
 
     if ($backupCountBeforeRun -eq $maxGen) {
