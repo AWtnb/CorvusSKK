@@ -1900,6 +1900,9 @@ local function skk_search(key, okuri)
 	local from_skk_dict = crvmgr.search_skk_dictionary(key, okuri)
 	ret = ret .. from_skk_dict
 
+	-- TODO: 数字3桁か4桁の場合は時間としても解釈する
+
+
 	-- 郵便番号変換（郵便番号SKK辞書は数字7桁）
 	if 0 < string.len(from_skk_dict) and string.match(key, "^%d%d%d%d%d%d%d$") then
 		local pref = string.sub(key, 1, 3) .. "-" .. string.sub(key, 4) .. " "
@@ -2166,6 +2169,17 @@ function lua_skk_add(okuriari, key, candidate, annotation, okuri)
 	end
 	--]]
 
+	-- 数字だけなら登録しない
+	if (string.match(key, "^%d+$")) then
+		return
+	end
+
+	-- 郵便番号は登録しない
+	if (string.match(key, "^%d%d%d%-%d%d%d%d$")) then
+		return
+	end
+
+	-- 辞書登録
 	crvmgr.add(okuriari, key, candidate, annotation, okuri)
 
 	if string.match(key, "^[A-Za-z]+$") then
