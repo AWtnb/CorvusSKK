@@ -1894,18 +1894,16 @@ local function from_3digits(s)
 	local h = tonumber(string.sub(s, 1, 1))
 	local mm = tonumber(string.sub(s, 2))
 	if mm < 60 then
-		table.insert(t, string.format("%02d:%02d", h, mm))
-		table.insert(t, string.format("%d時%d分", h, mm))
 		table.insert(t, string.format("午前%d時%d分", h, mm))
 		table.insert(t, string.format("午後%d時%d分", h, mm))
+		table.insert(t, string.format("%02d:%02d", h, mm))
+		table.insert(t, string.format("%d時%d分", h, mm))
 	end
 
 	-- hhm
 	local hh = tonumber(string.sub(s, 1, 2))
 	local m = tonumber(string.sub(s, 3))
 	if hh <= 24 then
-		table.insert(t, string.format("%02d:%02d", hh, m))
-		table.insert(t, string.format("%d時%d分", hh, m))
 		if hh <= 12 then
 			if hh == 12 then
 				table.insert(t, string.format("午後0時%d分", m))
@@ -1920,6 +1918,8 @@ local function from_3digits(s)
 				table.insert(t, string.format("午後%d時%d分", (hh % 12), m))
 			end
 		end
+		table.insert(t, string.format("%02d:%02d", hh, m))
+		table.insert(t, string.format("%d時%d分", hh, m))
 	end
 
 	-- Mdd
@@ -1946,8 +1946,6 @@ local function from_4digits(s)
 	local hh = tonumber(string.sub(s, 1, 2))
 	local mm = tonumber(string.sub(s, 3))
 	if hh <= 24 and mm < 60 then
-		table.insert(t, string.format("%02d:%02d", hh, mm))
-		table.insert(t, string.format("%d時%d分", hh, mm))
 		if hh <= 12 then
 			if hh == 12 then
 				table.insert(t, string.format("午後0時%d分", mm))
@@ -1962,6 +1960,8 @@ local function from_4digits(s)
 				table.insert(t, string.format("午後%d時%d分", (hh % 12), mm))
 			end
 		end
+		table.insert(t, string.format("%02d:%02d", hh, mm))
+		table.insert(t, string.format("%d時%d分", hh, mm))
 	end
 
 	-- MMdd
