@@ -1887,6 +1887,91 @@ local function add_prefix_to_skkdict_entry(pref, ent)
 	end)
 end
 
+local function from_3digits(s)
+	local t = {}
+
+	-- hmm
+	local h = tonumber(string.sub(s, 1, 1))
+	local mm = tonumber(string.sub(s, 2))
+	if mm < 60 then
+		table.insert(t, string.format("%02d:%02d", h, mm))
+		table.insert(t, string.format("%d時%d分", h, mm))
+		table.insert(t, string.format("午前%d時%d分", h, mm))
+		table.insert(t, string.format("午後%d時%d分", h, mm))
+	end
+
+	-- hhm
+	local hh = tonumber(string.sub(s, 1, 2))
+	local m = tonumber(string.sub(s, 3))
+	if hh <= 24 then
+		table.insert(t, string.format("%02d:%02d", hh, m))
+		table.insert(t, string.format("%d時%d分", hh, m))
+		if hh <= 12 then
+			if hh == 12 then
+				table.insert(t, string.format("午後0時%d分", m))
+			else
+				table.insert(t, string.format("午前%d時%d分", hh, m))
+			end
+		else
+			if hh == 24 then
+				table.insert(t, string.format("午前0時%d分", m))
+			else
+				table.insert(t, string.format("午後%d時%d分", (hh % 12), m))
+			end
+		end
+	end
+
+	-- Mdd
+	local M = tonumber(string.sub(s, 1, 1))
+	local dd = tonumber(string.sub(s, 2))
+	if 0 < M and 0 < dd and dd <= 31 then
+	table.insert(t, string.format("%d月%d日", M, dd))
+	end
+
+	-- MMd
+	local MM = tonumber(string.sub(s, 1, 2))
+	local d = tonumber(string.sub(s, 3))
+	if 0 < MM and MM <= 12 and 0 < d then
+			table.insert(t, string.format("%d月%d日", MM, d))
+	end
+
+	return t
+end
+
+local function from_4digits(s)
+	local t = {}
+
+	-- hhmm
+	local hh = tonumber(string.sub(s, 1, 2))
+	local mm = tonumber(string.sub(s, 3))
+	if hh <= 24 and mm < 60 then
+		table.insert(t, string.format("%02d:%02d", hh, mm))
+		table.insert(t, string.format("%d時%d分", hh, mm))
+		if hh <= 12 then
+			if hh == 12 then
+				table.insert(t, string.format("午後0時%d分", mm))
+			else
+				table.insert(t, string.format("午前%d時%d分", hh, mm))
+			end
+		else
+			if hh == 24 then
+				table.insert(t, string.format("午前0時%d分", mm))
+			else
+				table.insert(t, string.format("午後%d時%d分", (hh % 12), mm))
+			end
+		end
+	end
+
+	-- MMdd
+	local MM = tonumber(string.sub(s, 1, 2))
+	local dd = tonumber(string.sub(s, 3))
+	if 0 < MM and MM <= 12 and 0 < dd and dd <= 31 then
+		table.insert(t, string.format("%d月%d日", MM, dd))
+	end
+
+	return t
+end
+
 -- 辞書検索処理
 --   検索結果のフォーマットはSKK辞書の候補部分と同じ
 --   "/<C1><;A1>/<C2><;A2>/.../<Cn><;An>/\n"
@@ -1900,8 +1985,21 @@ local function skk_search(key, okuri)
 	local from_skk_dict = crvmgr.search_skk_dictionary(key, okuri)
 	ret = ret .. from_skk_dict
 
-	-- TODO: 数字3桁か4桁の場合は時間としても解釈する
-
+	-- 数字3桁か4桁の場合は日時・時間としても解釈する
+	if string.match(key, "^%d+$") then
+		if string.len(key) == 3 then
+			local t3 = from_3digits(key)
+			if 0 < #t3 then
+				ret = ret .. to_skkdict_entry(t3)
+			end
+		end
+		if string.len(key) == 4 then
+			local t4 = from_4digits(key)
+			if 0 < #t4 then
+				ret = ret .. to_skkdict_entry(t4)
+			end
+		end
+	end
 
 	-- 郵便番号変換（郵便番号SKK辞書は数字7桁）
 	if 0 < string.len(from_skk_dict) and string.match(key, "^%d%d%d%d%d%d%d$") then
