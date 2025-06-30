@@ -1911,6 +1911,7 @@ local function from_3digits(s)
 				table.insert(t, string.format("午後0時%d分", m))
 			else
 				table.insert(t, string.format("午前%d時%d分", hh, m))
+				table.insert(t, string.format("午後%d時%d分", hh, m))
 			end
 		else
 			if hh == 24 then
@@ -1925,7 +1926,7 @@ local function from_3digits(s)
 	local M = tonumber(string.sub(s, 1, 1))
 	local dd = tonumber(string.sub(s, 2))
 	if 0 < M and 0 < dd and dd <= 31 then
-	table.insert(t, string.format("%d月%d日", M, dd))
+		table.insert(t, string.format("%d月%d日", M, dd))
 	end
 
 	-- MMd
@@ -1952,6 +1953,7 @@ local function from_4digits(s)
 				table.insert(t, string.format("午後0時%d分", mm))
 			else
 				table.insert(t, string.format("午前%d時%d分", hh, mm))
+				table.insert(t, string.format("午後%d時%d分", hh, mm))
 			end
 		else
 			if hh == 24 then
