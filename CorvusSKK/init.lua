@@ -2355,12 +2355,14 @@ function lua_skk_add(okuriari, key, candidate, annotation, okuri)
 		return
 	end
 
-	-- 送りあり変換で、候補が2文字以上の場合は送りなしとしても登録する
-	if (okuriari and 1 < string.len(candidate)) then
-		-- 送りなしの見出し語はkeyから最後のアルファベット1文字を除いたもの
-		local non_okuri = string.sub(key, 1, string.len(key) - 1)
-		if non_okuri ~= "" then
-			crvmgr.add(false, non_okuri, candidate, annotation, "")
+	-- skk-search-sagyo-henkaku を応用して、送りあり変換で送り仮名なしとしても登録する
+	if (okuri ~= "" and 1 < string.len(candidate) and string.match(string.sub(key, -1), "[a-z]")) then
+		if (string.find("がさしすせだでなにのはもやを", okuri) ~= nil) then
+			-- 送り仮名なしの見出し語はkeyから最後のアルファベット1文字を除いたもの
+			local non_okuri = string.sub(key, 1, string.len(key) - 1)
+			if non_okuri ~= "" then
+				crvmgr.add(false, non_okuri, candidate, annotation, "")
+			end
 		end
 	end
 
