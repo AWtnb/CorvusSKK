@@ -30,6 +30,9 @@ if (-not (Test-Path $src)) {
 }
 
 try {
+
+    "Starting backup for '{0}'..." -f $src | Write-Host
+
     $backups = @(Get-ChildItem $backupDir -Filter "*.txt")
     if ($backups.Count -gt 0) {
         $lastHash = ($backups | Sort-Object -Property LastWriteTime | Select-Object -Last 1 | Get-FileHash).Hash
@@ -43,8 +46,8 @@ try {
 
     $backupName = "{0}{1}.txt" -f (Get-Item $src).BaseName, (Get-Date -Format "yyyyMMddHHmmss")
     $backupPath = $backupDir | Join-Path -ChildPath $backupName
-    Get-Content -Path $src | Out-File -FilePath $backupPath -ErrorAction Stop
-    "backup finished (copied '{0}')." -f $backupName | logWrite
+    Get-Content -Path $src -Encoding unicode | Out-File -FilePath $backupPath -ErrorAction Stop -Encoding unicode
+    "created backup '{0}'." -f $backupName | logWrite
 
     if ($backupCountBeforeRun -eq $maxGen) {
         $oldest = $backups | Sort-Object -Property LastWriteTime | Select-Object -First 1
