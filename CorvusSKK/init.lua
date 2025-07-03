@@ -1894,10 +1894,23 @@ local function from_3digits(s)
 	local h = tonumber(string.sub(s, 1, 1))
 	local mm = tonumber(string.sub(s, 2))
 	if mm < 60 then
-		table.insert(t, string.format("午前%d時%d分", h, mm))
-		table.insert(t, string.format("午後%d時%d分", h, mm))
+		if mm == 0 then
+			table.insert(t, string.format("午前%d時", h))
+			table.insert(t, string.format("午後%d時", h))
+			table.insert(t, string.format("%d時", h))
+		else
+			table.insert(t, string.format("午前%d時%d分", h, mm))
+			table.insert(t, string.format("午後%d時%d分", h, mm))
+			table.insert(t, string.format("%d時%d分", h, mm))
+			if mm == 30 then
+				table.insert(t, string.format("午前%d時半", h))
+				table.insert(t, string.format("午後%d時半", h))
+				table.insert(t, string.format("%d時半", h))
+			end
+		end
 		table.insert(t, string.format("%02d:%02d", h, mm))
-		table.insert(t, string.format("%d時%d分", h, mm))
+		table.insert(t, string.format("AM %02d:%02d", h, mm))
+		table.insert(t, string.format("PM %02d:%02d", h, mm))
 	end
 
 	-- hhm
@@ -1906,20 +1919,43 @@ local function from_3digits(s)
 	if hh <= 24 then
 		if hh <= 12 then
 			if hh == 12 then
-				table.insert(t, string.format("午後0時%d分", m))
+				if m == 0 then
+					table.insert(t, "午後0時")
+				else
+					table.insert(t, string.format("午後0時%d分", m))
+				end
 			else
-				table.insert(t, string.format("午前%d時%d分", hh, m))
-				table.insert(t, string.format("午後%d時%d分", hh, m))
+				if m == 0 then
+					table.insert(t, string.format("午前%d時", hh))
+					table.insert(t, string.format("午後%d時", hh))
+				else
+					table.insert(t, string.format("午前%d時%d分", hh, m))
+					table.insert(t, string.format("午後%d時%d分", hh, m))
+				end
+				table.insert(t, string.format("AM %02d:%02d", hh, m))
 			end
 		else
 			if hh == 24 then
-				table.insert(t, string.format("午前0時%d分", m))
+				if m == 0 then
+					table.insert(t, "午前0時")
+				else
+					table.insert(t, string.format("午前0時%d分", m))
+				end
 			else
-				table.insert(t, string.format("午後%d時%d分", (hh % 12), m))
+				if m == 0 then
+					table.insert(t, string.format("午後%d時", (hh % 12)))
+				else
+					table.insert(t, string.format("午後%d時%d分", (hh % 12), m))
+				end
+				table.insert(t, string.format("PM %02d:%02d", (hh % 12), m))
 			end
 		end
 		table.insert(t, string.format("%02d:%02d", hh, m))
-		table.insert(t, string.format("%d時%d分", hh, m))
+		if m == 0 then
+			table.insert(t, string.format("%d時", hh))
+		else
+			table.insert(t, string.format("%d時%d分", hh, m))
+		end
 	end
 
 	-- Mdd
@@ -1948,20 +1984,56 @@ local function from_4digits(s)
 	if hh <= 24 and mm < 60 then
 		if hh <= 12 then
 			if hh == 12 then
-				table.insert(t, string.format("午後0時%d分", mm))
+				if mm == 0 then
+					table.insert(t, "午後0時")
+				else
+					table.insert(t, string.format("午後0時%d分", mm))
+					if mm == 30 then
+						table.insert(t, string.format("午後0時半"))
+					end
+				end
 			else
-				table.insert(t, string.format("午前%d時%d分", hh, mm))
-				table.insert(t, string.format("午後%d時%d分", hh, mm))
+				if mm == 0 then
+					table.insert(t, string.format("午前%d時", hh))
+					table.insert(t, string.format("午後%d時", hh))
+				else
+					table.insert(t, string.format("午前%d時%d分", hh, mm))
+					table.insert(t, string.format("午後%d時%d分", hh, mm))
+					if mm == 30 then
+						table.insert(t, string.format("午前%d時半", hh))
+						table.insert(t, string.format("午後%d時半", hh))
+					end
+				end
+				table.insert(t, string.format("AM %02d:%02d", hh, mm))
 			end
 		else
 			if hh == 24 then
-				table.insert(t, string.format("午前0時%d分", mm))
+				if mm == 0 then
+					table.insert(t, "午前0時")
+				else
+					table.insert(t, string.format("午前0時%d分", mm))
+					if mm == 30 then
+						table.insert(t, string.format("午前0時半"))
+					end
+				end
 			else
-				table.insert(t, string.format("午後%d時%d分", (hh % 12), mm))
+				if mm == 0 then
+					table.insert(t, string.format("午後%d時", (hh % 12)))
+				else
+					table.insert(t, string.format("午後%d時%d分", (hh % 12), mm))
+					if mm == 30 then
+						table.insert(t, string.format("午後%d時半", (hh % 12)))
+					end
+				end
 			end
+			table.insert(t, string.format("PM %02d:%02d", (hh % 12), mm))
 		end
 		table.insert(t, string.format("%02d:%02d", hh, mm))
-		table.insert(t, string.format("%d時%d分", hh, mm))
+		if mm == 0 then
+			table.insert(t, string.format("%d時", hh))
+		else
+			table.insert(t, string.format("%d時%d分", hh, mm))
+		end
 	end
 
 	-- MMdd
@@ -2277,6 +2349,15 @@ function lua_skk_add(okuriari, key, candidate, annotation, okuri)
 	-- 郵便番号は登録しない
 	if (string.match(key, "^%d%d%d%-%d%d%d%d$")) then
 		return
+	end
+
+	-- 送りあり変換で、候補が2文字以上の場合は送りなしとしても登録する
+	if (okuriari and 1 < string.len(candidate)) then
+		-- 送りなしの見出し語はkeyから最後のアルファベット1文字を除いたもの
+		local non_okuri = string.sub(key, 1, string.len(key) - 1)
+		if non_okuri ~= "" then
+			crvmgr.add(false, non_okuri, candidate, annotation, "")
+		end
 	end
 
 	-- 辞書登録
