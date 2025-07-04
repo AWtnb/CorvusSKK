@@ -896,8 +896,7 @@
       <row ro="tki" hi="たい" ka="タイ" an="ﾀｲ" so="0" />
       <row ro="tkm" hi="つきまして" ka="ツキマシテ" an="ﾂｷﾏｼﾃ" so="0" />
       <row ro="tkr" hi="ところ" ka="トコロ" an="ﾄｺﾛ" so="0" />
-      <row ro="tkte" hi="ついて" ka="ツイテ" an="ﾂｲﾃ" so="0" />
-      <row ro="tkto" hi="ということ" ka="トイウコト" an="ﾄｲｳｺﾄ" so="0" />
+      <row ro="tkt" hi="ついて" ka="ツイテ" an="ﾂｲﾃ" so="0" />
       <row ro="tku" hi="たく" ka="タク" an="ﾀｸ" so="0" />
       <row ro="tla" hi="たら" ka="タラ" an="ﾀﾗ" so="0" />
       <row ro="tli" hi="てい" ka="テイ" an="ﾃｲ" so="0" />
