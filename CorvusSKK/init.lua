@@ -1890,6 +1890,20 @@ end
 local function from_3digits(s)
 	local t = {}
 
+	-- Mdd
+	local M = tonumber(string.sub(s, 1, 1))
+	local dd = tonumber(string.sub(s, 2))
+	if 0 < M and 0 < dd and dd <= 31 then
+		table.insert(t, string.format("%d月%d日", M, dd))
+	end
+
+	-- MMd
+	local MM = tonumber(string.sub(s, 1, 2))
+	local d = tonumber(string.sub(s, 3))
+	if 0 < MM and MM <= 12 and 0 < d then
+			table.insert(t, string.format("%d月%d日", MM, d))
+	end
+
 	-- hmm
 	local h = tonumber(string.sub(s, 1, 1))
 	local mm = tonumber(string.sub(s, 2))
@@ -1926,8 +1940,11 @@ local function from_3digits(s)
 			if hh == 12 then
 				if m == 0 then
 					table.insert(t, "午後0時")
+					table.insert(t, "正午")
+					table.insert(t, "昼の12時")
 				else
 					table.insert(t, string.format("午後0時%d分", m))
+					table.insert(t, string.format("昼の12時%d分", m))
 				end
 			else
 				if m == 0 then
@@ -1943,8 +1960,10 @@ local function from_3digits(s)
 			if hh == 24 then
 				if m == 0 then
 					table.insert(t, "午前0時")
+					table.insert(t, "夜の12時")
 				else
 					table.insert(t, string.format("午前0時%d分", m))
+					table.insert(t, string.format("夜の12時%d分", m))
 				end
 			else
 				if m == 0 then
@@ -1956,20 +1975,6 @@ local function from_3digits(s)
 			end
 		end
 		table.insert(t, string.format("%02d:%02d", hh, m))
-	end
-
-	-- Mdd
-	local M = tonumber(string.sub(s, 1, 1))
-	local dd = tonumber(string.sub(s, 2))
-	if 0 < M and 0 < dd and dd <= 31 then
-		table.insert(t, string.format("%d月%d日", M, dd))
-	end
-
-	-- MMd
-	local MM = tonumber(string.sub(s, 1, 2))
-	local d = tonumber(string.sub(s, 3))
-	if 0 < MM and MM <= 12 and 0 < d then
-			table.insert(t, string.format("%d月%d日", MM, d))
 	end
 
 	return t
@@ -1995,10 +2000,14 @@ local function from_4digits(s)
 			if hh == 12 then
 				if mm == 0 then
 					table.insert(t, "午後0時")
+					table.insert(t, "正午")
+					table.insert(t, "昼の12時")
 				else
 					table.insert(t, string.format("午後0時%d分", mm))
+					table.insert(t, string.format("昼の12時%d分", mm))
 					if mm == 30 then
 						table.insert(t, string.format("午後0時半"))
+						table.insert(t, string.format("昼の12時半"))
 					end
 				end
 			else
@@ -2019,10 +2028,13 @@ local function from_4digits(s)
 			if hh == 24 then
 				if mm == 0 then
 					table.insert(t, "午前0時")
+					table.insert(t, "夜の12時")
 				else
 					table.insert(t, string.format("午前0時%d分", mm))
+					table.insert(t, string.format("夜の12時%d分", mm))
 					if mm == 30 then
 						table.insert(t, string.format("午前0時半"))
+						table.insert(t, string.format("夜の12時半"))
 					end
 				end
 			else
