@@ -1174,27 +1174,23 @@ end
 ]]--
 local function to_japanese_unit(t)
 	local num = t[1]
-	local units = {"万", "億", "兆", "京", "垓", "𥝱", "穣"}
 	local str1 = tostring(num)
 	local str2 = ""
 	local i = 1
 	local j = 1
-	local u = ""
 	str1 = string.reverse(str1)
 	while (i <= string.len(str1)) do
-		if j <= #units then
-			u = units[j]
-		else
-			u = "〓"
+		if j <= #skk_num_type3_10k_table then
+			local quadruple = string.reverse(string.sub(str1, i, i + 3))
+			if quadruple ~= "0000" then
+				local u = skk_num_type3_10k_table[j]
+				str2 = tonumber(quadruple) .. u .. str2
+			end
 		end
-		str2 = u .. string.reverse(string.sub(str1, i, i + 3)) .. str2
 		i = i + 4
 		j = j + 1
 	end
-	local offset = string.len(u)
-	local f = string.sub(str2, offset + 1)
-	f = replace_removable_zero({string.gsub(f, "0000%D*", ""), ""})
- 	return f
+	return str2
 end
 
 --[[
