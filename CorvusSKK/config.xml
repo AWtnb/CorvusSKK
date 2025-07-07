@@ -511,16 +511,16 @@
       <row ro="lwa" hi="ゎ" ka="ヮ" an="ﾜ" so="0" />
       <row ro="lka" hi="ゕ" ka="ヵ" an="ｶ" so="0" />
       <row ro="lke" hi="ゖ" ka="ヶ" an="ｹ" so="0" />
-      <row ro="va" hi="う゛ぁ" ka="ヴァ" an="ｳﾞｧ" so="0" />
-      <row ro="vi" hi="う゛ぃ" ka="ヴィ" an="ｳﾞｨ" so="0" />
-      <row ro="vu" hi="う゛" ka="ヴ" an="ｳﾞ" so="0" />
-      <row ro="ve" hi="う゛ぇ" ka="ヴェ" an="ｳﾞｪ" so="0" />
-      <row ro="vo" hi="う゛ぉ" ka="ヴォ" an="ｳﾞｫ" so="0" />
-      <row ro="xva" hi="ゔぁ" ka="ヷ" an="ﾜﾞ" so="0" />
-      <row ro="xvi" hi="ゔぃ" ka="ヸ" an="ｲﾞ" so="0" />
-      <row ro="xvu" hi="ゔ" ka="ヴ" an="ｳﾞ" so="0" />
-      <row ro="xve" hi="ゔぇ" ka="ヹ" an="ｴﾞ" so="0" />
-      <row ro="xvo" hi="ゔぉ" ka="ヺ" an="ｦﾞ" so="0" />
+      <row ro="va" hi="ゔぁ" ka="ヴァ" an="ｳﾞｧ" so="0" />
+      <row ro="vi" hi="ゔぃ" ka="ヴィ" an="ｳﾞｨ" so="0" />
+      <row ro="vu" hi="ゔ" ka="ヴ" an="ｳﾞ" so="0" />
+      <row ro="ve" hi="ゔぇ" ka="ヴェ" an="ｳﾞｪ" so="0" />
+      <row ro="vo" hi="ゔぉ" ka="ヴォ" an="ｳﾞｫ" so="0" />
+      <row ro="xva" hi="う゛ぁ" ka="ヷ" an="ﾜﾞ" so="0" />
+      <row ro="xvi" hi="う゛ぃ" ka="ヸ" an="ｲﾞ" so="0" />
+      <row ro="xvu" hi="う゛" ka="ヴ" an="ｳﾞ" so="0" />
+      <row ro="xve" hi="う゛ぇ" ka="ヹ" an="ｴﾞ" so="0" />
+      <row ro="xvo" hi="う゛ぉ" ka="ヺ" an="ｦﾞ" so="0" />
       <row ro="xnga" hi="か゚" ka="カ゚" an="ｶﾟ" so="0" />
       <row ro="xngi" hi="き゚" ka="キ゚" an="ｷﾟ" so="0" />
       <row ro="xngu" hi="く゚" ka="ク゚" an="ｸﾟ" so="0" />
