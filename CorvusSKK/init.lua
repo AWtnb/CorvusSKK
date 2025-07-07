@@ -2363,10 +2363,10 @@ function lua_skk_add(okuriari, key, candidate, annotation, okuri)
 		return
 	end
 
-	-- skk-search-sagyo-henkaku を応用して、2文字以上の送りあり変換で送り仮名なしとしても登録する
+	-- skk-search-sagyo-henkaku を応用して、2文字以上（バイト数で言えば6以上）の送りあり変換で送り仮名なしとしても登録する
 	if (
 		okuri ~= "" and
-		1 < string.len(candidate) and
+		3*2 <= string.len(candidate) and
 		string.match(string.sub(key, -1), "[a-z]")
 	) then
 		if (string.find("がさしすせとだでなにのはもやを", okuri) ~= nil) then
