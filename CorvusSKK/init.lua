@@ -1388,56 +1388,6 @@ end
 
 --[[
 
-チェックデジット計算
-
-]]--
-local function getCheckDigit(isbn12)
-	local total = 0
-	for i = 1, #isbn12 do
-		local n = tonumber(isbn12:sub(i, i))
-		if i % 2 == 0 then
-			total = total + n * 3
-		else
-			total = total + n
-		end
-	end
-	return (10 - (total % 10)) % 10
-end
-
---[[
-
-日本のISBNに変換
-
-- 5桁なら `9784641` 始まりとする
-- 第2引数があればそれを区切り文字とする。 `-` の場合は `nnn-n-nnn-nnnnn-n`
-
-
-usage:
-
-- `(format-japanese-isbn #0)`
-- `(format-japanese-isbn #0 "-")`
-
-]]--
-local function format_japanese_isbn(t)
-	local code = tostring(t[1])
-	local sep = ""
-	if 1 < #t then
-		sep = tostring(t[2])
-	end
-	if string.len(t[1]) == 5 then
-		code = "641" .. code
-	end
-	local code12 = "9784" .. code
-	local code13 = code12 .. getCheckDigit(code12)
-	return string.sub(code13, 1, 3)
-		.. sep .. string.sub(code13, 4, 4)
-		.. sep .. string.sub(code13, 5, 7)
-		.. sep .. string.sub(code13, 8, 12)
-		.. sep .. string.sub(code13, 13, 13)
-end
-
---[[
-
 ローマ数字に変換
 
 https://getwebtips.net/blog/2022/7/20/python-coding-challenge-convert-integer-into-roman-numeral/
@@ -2070,6 +2020,53 @@ local function from_4digits(s)
 	return t
 end
 
+--[[
+
+チェックデジット計算
+
+]]--
+local function getCheckDigit(isbn12)
+	local total = 0
+	for i = 1, #isbn12 do
+		local n = tonumber(isbn12:sub(i, i))
+		if i % 2 == 0 then
+			total = total + n * 3
+		else
+			total = total + n
+		end
+	end
+	return (10 - (total % 10)) % 10
+end
+
+--[[
+
+12桁をISBNと見なしてチェックデジットを追加する
+
+]]--
+local function from_12digits(s)
+	local t = {}
+	local isbn = s .. getCheckDigit(s)
+	local sep = "-"
+	local fmt = string.sub(isbn, 1, 3)
+		.. sep .. string.sub(isbn, 4, 4)
+		.. sep .. string.sub(isbn, 5, 7)
+		.. sep .. string.sub(isbn, 8, 12)
+		.. sep .. string.sub(isbn, 13, 13)
+	table.insert(t, fmt)
+	table.insert(t, isbn)
+	return t
+end
+
+--[[
+
+5桁を `9784641` 始まりのISBNに変換する
+
+]]--
+local function from_5digits(s)
+	local isbn = "9784641" .. s
+	return from_12digits(isbn)
+end
+
 -- 辞書検索処理
 --   検索結果のフォーマットはSKK辞書の候補部分と同じ
 --   "/<C1><;A1>/<C2><;A2>/.../<Cn><;An>/\n"
@@ -2095,6 +2092,18 @@ local function skk_search(key, okuri)
 			local t4 = from_4digits(key)
 			if 0 < #t4 then
 				ret = ret .. to_skkdict_entry(t4)
+			end
+		end
+		if string.len(key) == 5 then
+			local t5 = from_5digits(key)
+			if 0 < #t5 then
+				ret = ret .. to_skkdict_entry(t5)
+			end
+		end
+		if string.len(key) == 12 then
+			local t12 = from_12digits(key)
+			if 0 < #t12 then
+				ret = ret .. to_skkdict_entry(t12)
 			end
 		end
 	end
