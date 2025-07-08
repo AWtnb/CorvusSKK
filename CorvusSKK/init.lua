@@ -1296,12 +1296,15 @@ usage:
 
 ]]--
 local function format_credit_card_1(t)
-	local yyyymm = t[1]
-	local yyyy = string.sub(yyyymm, 1, 4)
-	local mm = string.sub(yyyymm, 5, 6)
-	local mmMinus1 = tostring(tonumber(mm) - 1)
-	local mmMinus2 = tostring(tonumber(mm) - 2)
-	local f1 = os.date("%Y_%m月請求分_", os.time({year=yyyy,month=mm,day=1}))
+	local yyyyMM = t[1]
+	if string.len(yyyyMM) == 2 then
+		yyyyMM = tostring(os.date("%Y")) .. yyyyMM
+	end
+	local yyyy = string.sub(yyyyMM, 1, 4)
+	local MM = string.sub(yyyyMM, 5, 6)
+	local mmMinus1 = tostring(tonumber(MM) - 1)
+	local mmMinus2 = tostring(tonumber(MM) - 2)
+	local f1 = os.date("%Y_%m月請求分_", os.time({year=yyyy,month=MM,day=1}))
 	local f2 = os.date("%m16-", os.time({year=yyyy,month=mmMinus2,day=1}))
 	local f3 = os.date("%m15", os.time({year=yyyy,month=mmMinus1,day=1}))
 	return f1 .. f2 .. f3
@@ -1318,9 +1321,12 @@ usage:
 
 ]]--
 local function format_credit_card_2(t)
-	local yyyymm = t[1]
-	local yyyy = string.sub(yyyymm, 1, 4)
-	local mm = string.sub(yyyymm, 5, 6)
+	local yyyyMM = t[1]
+	if string.len(yyyyMM) == 2 then
+		yyyyMM = tostring(os.date("%Y")) .. yyyyMM
+	end
+	local yyyy = string.sub(yyyyMM, 1, 4)
+	local mm = string.sub(yyyyMM, 5, 6)
 	local mmMinus1 = tostring(tonumber(mm) - 1)
 	local f1 = os.date("%Y_%m月請求分_", os.time({year=yyyy,month=mm,day=1}))
 	local f2 = os.date("%m01-", os.time({year=yyyy,month=mmMinus1,day=1}))
