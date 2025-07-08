@@ -2076,10 +2076,6 @@ local function skk_search(key, okuri)
 	-- ユーザー辞書検索
 	ret = ret .. crvmgr.search_user_dictionary(key, okuri)
 
-	-- SKK辞書検索
-	local from_skk_dict = crvmgr.search_skk_dictionary(key, okuri)
-	ret = ret .. from_skk_dict
-
 	-- 数字3桁か4桁の場合は日時・時間としても解釈する
 	if string.match(key, "^%d+$") then
 		if string.len(key) == 3 then
@@ -2107,6 +2103,10 @@ local function skk_search(key, okuri)
 			end
 		end
 	end
+
+	-- SKK辞書検索
+	local from_skk_dict = crvmgr.search_skk_dictionary(key, okuri)
+	ret = ret .. from_skk_dict
 
 	-- 郵便番号変換（郵便番号SKK辞書は数字7桁）
 	if 0 < string.len(from_skk_dict) and string.match(key, "^%d%d%d%d%d%d%d$") then
