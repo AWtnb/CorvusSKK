@@ -2237,6 +2237,40 @@ end
 
 --[[
 
+文字列がすべてひらがなか判定する
+
+]]--
+local function is_all_hiragana_bytes(s)
+	local i = 1
+	local len = #s
+	while i <= len do
+		if len < i + 2 then
+			return false
+		end -- 3バイト未満で終わる場合は false
+
+		-- UTF-8 の3バイトを取得
+		local b1 = string.byte(s, i)
+		local b2 = string.byte(s, i + 1)
+		local b3 = string.byte(s, i + 2)
+
+		-- ひらがなの範囲チェック
+		-- https://orange-factory.com/sample/utf8/code3/e3.html#Hiragana
+		local is_hiragana = (
+			(b1 == 0xE3 and b2 == 0x81 and (0x81 <= b3 and b3 <= 0xBF)) or -- U+3041 〜 U+307F (ぁ〜み)
+			(b1 == 0xE3 and b2 == 0x82 and (0x80 <= b3 and b3 <= 0x96)) or -- U+3080 〜 U+3096 (む〜ゖ)
+			(b1 == 0xE3 and b2 == 0x83 and (b3 == 0xBC)) -- U+30FC (ー)
+		)
+		if not is_hiragana then
+			return false
+		end
+
+		i = i + 3 -- 3バイト進める
+	end
+	return true
+end
+
+--[[
+
 文字列がすべてカタカナか判定する
 
 ]]--
@@ -2254,10 +2288,12 @@ local function is_all_katakana_bytes(s)
 		local b3 = string.byte(s, i + 2)
 
 		-- カタカナの範囲チェック
-		local is_katakana =
+		-- https://orange-factory.com/sample/utf8/code3/e3.html#Katakana
+		local is_katakana = (
 			(b1 == 0xE3 and b2 == 0x82 and (0xA1 <= b3 and b3 <= 0xBF)) or -- U+30A1 〜 U+30BF (ァ〜タ)
 			(b1 == 0xE3 and b2 == 0x83 and (0x80 <= b3 and b3 <= 0xB6)) or -- U+30C0 〜 U+30F6 (ダ〜ヶ)
 			(b1 == 0xE3 and b2 == 0x83 and b3 == 0xBC) -- U+30FC (ー)
+		)
 
 		if not is_katakana then
 			return false
@@ -2372,7 +2408,7 @@ function lua_skk_add(okuriari, key, candidate, annotation, okuri)
 		if (string.find("がさしすせとだでなにのはもやを", okuri) ~= nil) then
 			-- 送り仮名なしの見出し語はkeyから最後のアルファベット1文字を除いたもの
 			local non_okuri = string.sub(key, 1, string.len(key) - 1)
-			if non_okuri ~= "" then
+			if non_okuri ~= "" and not is_all_hiragana_bytes(non_okuri) then
 				crvmgr.add(false, non_okuri, candidate, annotation, "")
 			end
 		end
