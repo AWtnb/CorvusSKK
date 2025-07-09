@@ -1459,6 +1459,57 @@ end
 
 
 
+--[[
+
+チェックディジット計算
+
+]]--
+local function getCheckDigit(isbn12)
+	local total = 0
+	for i = 1, #isbn12 do
+		local n = tonumber(isbn12:sub(i, i))
+		if i % 2 == 0 then
+			total = total + n * 3
+		else
+			total = total + n
+		end
+	end
+	return (10 - (total % 10)) % 10
+end
+
+
+--[[
+
+日本のISBN（9784から開始）に変換
+
+- 5桁なら `9784641` 始まりとする
+- 第2引数があればそれを区切り文字とする。 `-` の場合は `nnn-n-nnn-nnnnn-n`
+
+
+usage:
+
+- `(format-japanese-isbn #0)`
+- `(format-japanese-isbn #0 "-")`
+
+]]--
+local function format_japanese_isbn(t)
+	local code = tostring(t[1])
+	local sep = ""
+	if 1 < #t then
+		sep = tostring(t[2])
+	end
+	if string.len(code) == 5 then
+		code = "641" .. code
+	end
+	local code12 = "9784" .. code
+	local code13 = code12 .. getCheckDigit(code12)
+	return string.sub(code13, 1, 3)
+		.. sep .. string.sub(code13, 4, 4)
+		.. sep .. string.sub(code13, 5, 7)
+		.. sep .. string.sub(code13, 8, 12)
+		.. sep .. string.sub(code13, 13, 13)
+end
+
 -- 関数テーブル
 local skk_gadget_func_table_org = {
 	{"concat", concat},
@@ -1489,7 +1540,6 @@ local skk_gadget_func_table_org = {
 	{"skk-omikuji", skk_omikuji},
 	{"skk-strftime", skk_strftime},
 	{"smart-format-day", smart_format_day},
-	{"format-yymmdd", format_yymmdd},
 	{"format-this-year", format_this_year},
 	{"format-upcoming-day", format_upcoming_day},
 	{"format-last-day", format_last_day},
@@ -1500,10 +1550,8 @@ local skk_gadget_func_table_org = {
 	{"to-japanese-unit", to_japanese_unit},
 	{"skk-day-plus", skk_day_plus},
 	{"skk-day-minus", skk_day_minus},
-	{"format-hhmm", format_hhmm},
 	{"format-proof", format_proof},
 	{"format-book-heading", format_book_heading},
-	{"format-fraction", format_fraction},
 	{"format-credit-card-1", format_credit_card_1},
 	{"format-credit-card-2", format_credit_card_2},
 	{"format-day-of-week", format_day_of_week},
@@ -1799,25 +1847,23 @@ end
 
 local function from_digits(s)
 	local t = {}
-	local keta = ketakugiri(s)
-	if s ~= keta then
-		table.insert(t, keta)
-	end
-	local kurai = kuraidori(s)
-	if s ~= kurai then
-		table.insert(t, kurai)
-	end
-	if string.len(s) < 3 then
-		local circle = to_circled_num(tonumber(s), false)
-		if circle ~= s then
-			table.insert(t, circle)
+	if 3 < string.len(s) then
+		table.insert(t, ketakugiri(s))
+		if 4 < string.len(s) then
+			table.insert(t, kuraidori(s))
 		end
-		local circle_black = to_circled_num(tonumber(s), true)
-		if circle_black ~= s then
-			table.insert(t, circle_black)
+	else
+		local n = tonumber(s)
+		if n < 100 then
+			if n <= 50 then
+				table.insert(t, to_circled_num(n, false))
+				if n <= 20 then
+					table.insert(t, to_circled_num(n, true))
+				end
+			end
+			table.insert(t, to_roman(n, true))
+			table.insert(t, to_roman(n, false))
 		end
-		table.insert(t, to_roman(tonumber(s), true))
-		table.insert(t, to_roman(tonumber(s), false))
 	end
 	return t
 end
@@ -1997,53 +2043,6 @@ local function from_4digits(s)
 	return t
 end
 
---[[
-
-チェックデジット計算
-
-]]--
-local function getCheckDigit(isbn12)
-	local total = 0
-	for i = 1, #isbn12 do
-		local n = tonumber(isbn12:sub(i, i))
-		if i % 2 == 0 then
-			total = total + n * 3
-		else
-			total = total + n
-		end
-	end
-	return (10 - (total % 10)) % 10
-end
-
---[[
-
-12桁をISBNと見なしてチェックデジットを追加する
-
-]]--
-local function from_12digits(s)
-	local t = {}
-	local isbn = s .. getCheckDigit(s)
-	local sep = "-"
-	local fmt = string.sub(isbn, 1, 3)
-		.. sep .. string.sub(isbn, 4, 4)
-		.. sep .. string.sub(isbn, 5, 7)
-		.. sep .. string.sub(isbn, 8, 12)
-		.. sep .. string.sub(isbn, 13, 13)
-	table.insert(t, fmt)
-	table.insert(t, isbn)
-	return t
-end
-
---[[
-
-5桁を `9784641` 始まりのISBNに変換する
-
-]]--
-local function from_5digits(s)
-	local isbn = "9784641" .. s
-	return from_12digits(isbn)
-end
-
 -- 辞書検索処理
 --   検索結果のフォーマットはSKK辞書の候補部分と同じ
 --   "/<C1><;A1>/<C2><;A2>/.../<Cn><;An>/\n"
@@ -2055,6 +2054,7 @@ local function skk_search(key, okuri)
 
 	-- SKK辞書検索
 	local from_skk_dict = crvmgr.search_skk_dictionary(key, okuri)
+	ret = ret .. from_skk_dict
 
 	if string.match(key, "^%d+$") then
 
@@ -2068,12 +2068,6 @@ local function skk_search(key, okuri)
 			local t4 = from_4digits(key)
 			if 0 < #t4 then
 				ret = ret .. to_skkdict_entry(t4)
-			end
-		end
-		if string.len(key) == 5 then
-			local t5 = from_5digits(key)
-			if 0 < #t5 then
-				ret = ret .. to_skkdict_entry(t5)
 			end
 		end
 		if string.len(key) == 7 then
@@ -2096,9 +2090,6 @@ local function skk_search(key, okuri)
 		end
 
 	end
-
-	-- SKK辞書検索の結果を追加
-	ret = ret .. from_skk_dict
 
 	-- 分数
 	if string.match(key, "^%d+/%d+$") then
