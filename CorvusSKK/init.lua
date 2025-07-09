@@ -1426,7 +1426,7 @@ local function to_circled_num(n, black)
 	if i <= #letters then
 		return letters[i]
 	end
-	return string.format("(%s)", n)
+	return n
 end
 
 --[[
@@ -1799,13 +1799,25 @@ end
 
 local function from_digits(s)
 	local t = {}
+	local keta = ketakugiri(s)
+	if s ~= keta then
+		table.insert(t, keta)
+	end
 	local kurai = kuraidori(s)
 	if s ~= kurai then
 		table.insert(t, kurai)
 	end
-	local keta = ketakugiri(s)
-	if s ~= keta then
-		table.insert(t, keta)
+	if string.len(s) < 3 then
+		local circle = to_circled_num(tonumber(s), false)
+		if circle ~= s then
+			table.insert(t, circle)
+		end
+		local circle_black = to_circled_num(tonumber(s), true)
+		if circle_black ~= s then
+			table.insert(t, circle_black)
+		end
+		table.insert(t, to_roman(tonumber(s), true))
+		table.insert(t, to_roman(tonumber(s), false))
 	end
 	return t
 end
@@ -2041,12 +2053,10 @@ local function skk_search(key, okuri)
 	-- ユーザー辞書検索
 	ret = ret .. crvmgr.search_user_dictionary(key, okuri)
 
-	if string.match(key, "^%d+$") then
+	-- SKK辞書検索
+	local from_skk_dict = crvmgr.search_skk_dictionary(key, okuri)
 
-		local td = from_digits(key)
-		if 0 < #td then
-			ret = ret .. to_skkdict_entry(td)
-		end
+	if string.match(key, "^%d+$") then
 
 		if string.len(key) == 3 then
 			local t3 = from_3digits(key)
@@ -2066,6 +2076,13 @@ local function skk_search(key, okuri)
 				ret = ret .. to_skkdict_entry(t5)
 			end
 		end
+		if string.len(key) == 7 then
+			-- 郵便番号SKK辞書にエントリがあれば候補の先頭に追加
+			if 0 < string.len(from_skk_dict) then
+				local pref = string.sub(key, 1, 3) .. "-" .. string.sub(key, 4) .. " "
+				ret = ret .. add_prefix_to_skkdict_entry(pref, from_skk_dict)
+			end
+		end
 		if string.len(key) == 12 then
 			local t12 = from_12digits(key)
 			if 0 < #t12 then
@@ -2073,15 +2090,17 @@ local function skk_search(key, okuri)
 			end
 		end
 
-		ret = ret .. to_skkdict_entry({
-			to_circled_num(tonumber(key), false),
-			to_circled_num(tonumber(key), true),
-			to_roman(tonumber(key), true),
-			to_roman(tonumber(key), false),
-		})
-	
+		local td = from_digits(key)
+		if 0 < #td then
+			ret = ret .. to_skkdict_entry(td)
+		end
+
 	end
 
+	-- SKK辞書検索の結果を追加
+	ret = ret .. from_skk_dict
+
+	-- 分数
 	if string.match(key, "^%d+/%d+$") then
 		local i = string.find(key, "/")
 		local n = string.sub(key, 1, i - 1)
@@ -2089,15 +2108,7 @@ local function skk_search(key, okuri)
 		ret = ret .. to_skkdict_entry({string.format("%d分の%d", n, m)})
 	end
 
-	-- SKK辞書検索
-	local from_skk_dict = crvmgr.search_skk_dictionary(key, okuri)
-	ret = ret .. from_skk_dict
-
 	-- 郵便番号変換（郵便番号SKK辞書は数字7桁）
-	if 0 < string.len(from_skk_dict) and string.match(key, "^%d%d%d%d%d%d%d$") then
-		local pref = string.sub(key, 1, 3) .. "-" .. string.sub(key, 4) .. " "
-		ret = ret .. add_prefix_to_skkdict_entry(pref, from_skk_dict)
-	end
 	if string.match(key, "^%d%d%d%-%d%d%d%d$") then
 		local k = string.gsub(key, "-", "")
 		local s = crvmgr.search_skk_dictionary(k, okuri)
