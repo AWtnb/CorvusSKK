@@ -867,30 +867,11 @@ end
 
 --[[
 
-yymmddを任意のフォーマットに変換する
-
-usage:
-
-- `(replace-removable-zero (format-yymmdd #0 "%Y年%m月%d日（%a）"), "")`
-
-]]--
-local function format_yymmdd(t)
-	local ymd = t[1]
-	local fmt = t[2]
-	local yy = "20" .. string.sub(ymd, 1, 2)
-	local mm = string.sub(ymd, 3, 4)
-	local dd = string.sub(ymd, 5, 6)
-	local ff = os.date(fmt, os.time({year=yy,month=mm,day=dd}))
-	return ff
-end
-
---[[
-
 第1引数で指定したフォーマットで日付変換する
 
 - 引数が4つの場合は残りの3つからY年M月D日を計算する。
-- 引数が3つの場合は残りの2つから実行時点の年のM月D日を計算する。
-- 引数が2つの場合は残りの1つから実行時点の月のD日を計算する。
+- 引数が3つの場合は残りの2つから「今年のM月D日」を計算する。
+- 引数が2つの場合は残りの1つから「今月のD日」を計算する。
 - 引数が1つだけの場合は実行時点の日時を計算する。
 
 usage:
@@ -931,8 +912,8 @@ end
 
 usage:
 
-- `(replace-removable-zero (format-this-year #0 #0 "%Y年%m月%d日（%a）") "0")`
-- `(replace-removable-zero (format-this-year #0 #0 "%m月%d日（%a）") "")`
+- `(replace-removable-zero (format-this-year "%Y年%m月%d日（%a）" #0 #0) "0")`
+- `(replace-removable-zero (format-this-year "%m月%d日（%a）" #0 #0) "")`
 
 ]]--
 local function format_this_year(t)
@@ -945,8 +926,8 @@ end
 
 usage:
 
-- `(replace-removable-zero (format-this-month #0 "%Y年%m月%d日（%a）") " ")`
-- `(replace-removable-zero (format-this-month #0 "%d日（%a）") "")`
+- `(replace-removable-zero (format-this-month "%Y年%m月%d日（%a）" #0) " ")`
+- `(replace-removable-zero (format-this-month "%d日（%a）" #0) "")`
 
 ]]--
 local function format_this_month(t)
@@ -957,8 +938,8 @@ end
 
 一番近い未来の日付を、第1引数で指定したフォーマットに変換する
 
-- 引数が3つの場合は残りの2つからM月D日を計算する。M月D日が実行時点から見て過去であれば翌年のM月D日を返す。
-- 引数が2つの場合は第2引数からD日を取得する。D日が実行時点から見て過去であれば翌月のD日を返す。
+- 引数が3つの場合は残りの2つから「今年のM月D日」を計算する。M月D日が実行時点から見て過去であれば翌年のM月D日を返す。
+- 引数が2つの場合は第2引数から「今月のD日」を取得する。D日が実行時点から見て過去であれば翌月のD日を返す。
 
 usage:
 
@@ -995,8 +976,8 @@ end
 
 一番近い過去の日付を、第1引数で指定したフォーマットに変換する
 
-- 引数が3つの場合は残りの2つからM月D日を計算する。M月D日が実行時点から見て未来であれば前年のM月D日を返す。
-- 引数が2つの場合は第2引数からD日を取得する。D日が実行時点から見て未来であれば前月のD日を返す。
+- 引数が3つの場合は残りの2つから「今年のM月D日」を計算する。M月D日が実行時点から見て未来であれば前年のM月D日を返す。
+- 引数が2つの場合は第2引数から「今月のD日」を取得する。D日が実行時点から見て未来であれば前月のD日を返す。
 
 usage:
 
@@ -1031,7 +1012,7 @@ end
 
 --[[
 
-任意のフォーマットで曜日に変換する
+第1引数で指定したフォーマットで、第2引数の数字に対応した曜日に変換する
 （月曜日＝1）
 
 usage:
@@ -1047,8 +1028,7 @@ end
 
 --[[
 
-日を指定して一番近い未来の曜日を任意のフォーマットに変換する
-（翌週の日付に言及するケースなど）
+第1引数で指定したフォーマットで、第2引数の数字に対応した「一番近い未来の曜日」に変換する
 
 usage:
 
@@ -1065,8 +1045,7 @@ local function format_upcoming_day_of_week(t)
 
 	for i = 1, 7, 1 do
 		local ts = os.time({year=yy, month=mm, day=tostring(tonumber(dd)+i)})
-		local di = tonumber(os.date("%w", ts))
-		if di == idx then
+		if tonumber(os.date("%w", ts)) == idx then
 			return os.date(fmt, ts)
 		end
 	end
@@ -1075,8 +1054,7 @@ end
 
 --[[
 
-日を指定して一番近い過去の曜日を任意のフォーマットに変換する
-（前週の日付に言及するケースなど）
+第1引数で指定したフォーマットで、第2引数の数字に対応した「一番近い過去の曜日」に変換する
 
 usage:
 
@@ -1093,8 +1071,7 @@ local function format_last_day_of_week(t)
 
 	for i = 1, 7, 1 do
 		local ts = os.time({year=yy, month=mm, day=tostring(tonumber(dd)-i)})
-		local di = tonumber(os.date("%w", ts))
-		if di == idx then
+		if tonumber(os.date("%w", ts)) == idx then
 			return os.date(fmt, ts)
 		end
 	end
@@ -1104,7 +1081,7 @@ end
 
 --[[
 
-日数を指定してN日後の日付を任意のフォーマットに変換する
+第1引数で指定したフォーマットで、第2引数の数字で指定した「N日後の日付」に変換する
 
 usage:
 
@@ -1123,7 +1100,7 @@ end
 
 --[[
 
-日数を指定してN日前の日付を任意のフォーマットに変換する
+第1引数で指定したフォーマットで、第2引数の数字で指定した「N日前の日付」に変換する
 
 usage:
 
@@ -1140,6 +1117,26 @@ local function skk_day_minus(t)
 	return  tostring(os.date(fmt, os.time({year=yy,month=mm,day=dd})))
 end
 
+
+
+--[[
+
+桁区切りのコンマを挿入する
+
+]]--
+local function ketakugiri(s)
+	-- https://www.mathkuro.com/game-dev/lua-convert-number-to-currency-style-string/
+	local ret = ""
+	local i = 1
+	s = string.reverse(s)
+	while (i <= string.len(s)) do
+	  ret = "," .. string.reverse(string.sub(s, i, i + 2)) .. ret
+	  i = i + 3
+	end
+
+	return string.sub(ret, 2)
+end
+
 --[[
 
 桁区切りのコンマを挿入する
@@ -1150,76 +1147,44 @@ usage:
 
 ]]--
 local function to_comma_separated(t)
-	-- https://www.mathkuro.com/game-dev/lua-convert-number-to-currency-style-string/
-	local num = t[1]
-	local str1 = tostring(num)
-	local str2 = ""
-
-	local i = 1
-	str1 = string.reverse(str1)
-	while (i <= string.len(str1)) do
-	  str2 = "," .. string.reverse(string.sub(str1, i, i + 2)) .. str2
-	  i = i + 3
-	end
-
-	return string.sub(str2, 2)
+	return ketakugiri(t[1])
 end
 
 --[[
 
 日本語の位取りを入れる
 
-- `(concat (to-japanese-unit #0) "円")`
-
 ]]--
-local function to_japanese_unit(t)
-	local num = t[1]
-	local str1 = tostring(num)
-	local str2 = ""
+local function kuraidori(s)
+	local ret = ""
 	local i = 1
 	local j = 1
-	str1 = string.reverse(str1)
-	while (i <= string.len(str1)) do
+	s = string.reverse(s)
+	while (i <= string.len(s)) do
 		if j <= #skk_num_type3_10k_table then
-			local quadruple = string.reverse(string.sub(str1, i, i + 3))
+			local quadruple = string.reverse(string.sub(s, i, i + 3))
 			if quadruple ~= "0000" then
 				local u = skk_num_type3_10k_table[j]
-				str2 = tonumber(quadruple) .. u .. str2
+				ret = tonumber(quadruple) .. u .. ret
 			end
 		end
 		i = i + 4
 		j = j + 1
 	end
-	return str2
+	return ret
 end
 
 --[[
 
-hhmmを任意のフォーマットに変換する
+日本語の位取りを入れる
 
 usage:
 
-- `(format-hhmm "%d時%d分" #0)`
-- `(format-hhmm "%02d時%02d分" #0)`
-- `(format-hhmm "%02d:%02d" #0)`
+- `(concat (to-japanese-unit #0) "円")`
 
 ]]--
-local function format_hhmm(t)
-	local fmt = t[1]
-	local hhmm = t[2]
-	if 4 < string.len(hhmm) then
-		hhmm = string.sub(hhmm, 1, 4)
-	else
-		if string.len(hhmm) % 2 == 1 then
-			hhmm = "0" .. hhmm
-		end
-		if string.len(hhmm) == 2 then
-			hhmm = hhmm .. "00"
-		end
-	end
-	local hh = tonumber(string.sub(hhmm, 1, 2))
-	local mm = tonumber(string.sub(hhmm, 3, 4))
-	return string.gsub(string.format(fmt, hh, mm), "時0+分", "時")
+local function to_japanese_unit(t)
+	return kuraidori(t[1])
 end
 
 --[[
@@ -1338,19 +1303,6 @@ local function format_credit_card_2(t)
 		return string.format("%s_%02d月請求分_%02d01-%02d%02d", yyyy, MM, mmMinus1, mmMinus1, os.date("%d", os.time({year=yyyy, month=MM, day=0})))
 	end
 	return yyyyMM .. "_請求分_前月1日-前月末日"
-end
-
---[[
-
-分数変換
-
-usage:
-
-- `(format-fraction #0 #0)`
-
-]]--
-local function format_fraction(t)
-	return string.format("%d分の%d", t[2], t[1])
 end
 
 --[[
@@ -1845,6 +1797,19 @@ local function add_prefix_to_skkdict_entry(pref, ent)
 	end)
 end
 
+local function from_digits(s)
+	local t = {}
+	local kurai = kuraidori(s)
+	if s ~= kurai then
+		table.insert(t, kurai)
+	end
+	local keta = ketakugiri(s)
+	if s ~= keta then
+		table.insert(t, keta)
+	end
+	return t
+end
+
 local function from_3digits(s)
 	local t = {}
 
@@ -2076,8 +2041,13 @@ local function skk_search(key, okuri)
 	-- ユーザー辞書検索
 	ret = ret .. crvmgr.search_user_dictionary(key, okuri)
 
-	-- 数字3桁か4桁の場合は日時・時間としても解釈する
 	if string.match(key, "^%d+$") then
+
+		local td = from_digits(key)
+		if 0 < #td then
+			ret = ret .. to_skkdict_entry(td)
+		end
+
 		if string.len(key) == 3 then
 			local t3 = from_3digits(key)
 			if 0 < #t3 then
@@ -2102,6 +2072,21 @@ local function skk_search(key, okuri)
 				ret = ret .. to_skkdict_entry(t12)
 			end
 		end
+
+		ret = ret .. to_skkdict_entry({
+			to_circled_num(tonumber(key), false),
+			to_circled_num(tonumber(key), true),
+			to_roman(tonumber(key), true),
+			to_roman(tonumber(key), false),
+		})
+	
+	end
+
+	if string.match(key, "^%d+/%d+$") then
+		local i = string.find(key, "/")
+		local n = string.sub(key, 1, i - 1)
+		local m = string.sub(key, i + 1)
+		ret = ret .. to_skkdict_entry({string.format("%d分の%d", n, m)})
 	end
 
 	-- SKK辞書検索
