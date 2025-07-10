@@ -2046,16 +2046,18 @@ end
 local function from_8digits(s)
 	local t = {}
 	local yyyy = string.sub(s, 1, 4)
-	local MM = string.sub(s, 5, 6)
-	local nMM = tonumber(MM)
-	if 0 < nMM and nMM <= 12 then
-		local dd = string.sub(s, 7, 8)
-		local ndd = tonumber(dd)
-		if 0 < ndd and ndd <= 31 then
-			table.insert(t, string.format("%d年%d月%d日", yyyy, MM, dd))
-			table.insert(t, string.format("%d-%02d-%02d", yyyy, MM, dd))
-			table.insert(t, string.format('(concat "%02d\\057%02d\\057%02d")', yyyy, MM, dd))
-			table.insert(t, string.format("%d.%02d.%02d", yyyy, MM, dd))
+	local nY = tonumber(yyyy)
+	if 1000 <= nY and nY < 3000 then
+		local MM = string.sub(s, 5, 6)
+		local nM = tonumber(MM)
+		if 0 < nM and nM <= 12 then
+			local dd = string.sub(s, 7, 8)
+			local nD = tonumber(dd)
+			if 0 < nD and nD <= 31 then
+				table.insert(t, string.format("%d年%d月%d日", yyyy, MM, dd))
+				table.insert(t, string.format("%d-%02d-%02d", yyyy, MM, dd))
+				table.insert(t, string.format('(concat "%02d\\057%02d\\057%02d")', yyyy, MM, dd))
+			end
 		end
 	end
 	return t
@@ -2068,13 +2070,13 @@ local function from_6digits(s)
 		table.insert(t, t8[i])
 	end
 	local yyyy = string.sub(s, 1, 4)
-	local MM = string.sub(s, 5, 6)
-	local nMM = tonumber(MM)
-	if 0 < nMM and nMM <= 12 then
-		table.insert(t, string.format("%d年%d月", yyyy, MM))
-		table.insert(t, string.format("%d-%02d", yyyy, MM))
-		table.insert(t, string.format('(concat "%02d\\057%02d")', yyyy, MM))
-		table.insert(t, string.format("%d.%02d", yyyy, MM))
+	local nY = tonumber(yyyy)
+	if 1000 <= nY and nY < 3000 then
+		local MM = string.sub(s, 5, 6)
+		local nM = tonumber(MM)
+		if 0 < nM and nM <= 12 then
+			table.insert(t, string.format("%d年%d月", yyyy, MM))
+		end
 	end
 	return t
 end
