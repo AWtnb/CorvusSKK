@@ -1426,7 +1426,7 @@ local function to_circled_num(n, black)
 	if i <= #letters then
 		return letters[i]
 	end
-	return n
+	return string.format("(%d)", n)
 end
 
 --[[
@@ -2043,6 +2043,42 @@ local function from_4digits(s)
 	return t
 end
 
+local function from_8digits(s)
+	local t = {}
+	local yyyy = string.sub(s, 1, 4)
+	local MM = string.sub(s, 5, 6)
+	local nMM = tonumber(MM)
+	if 0 < nMM and nMM <= 12 then
+		local dd = string.sub(s, 7, 8)
+		local ndd = tonumber(dd)
+		if 0 < ndd and ndd <= 31 then
+			table.insert(t, string.format("%d年%d月%d日", yyyy, MM, dd))
+			table.insert(t, string.format("%d-%02d-%02d", yyyy, MM, dd))
+			table.insert(t, string.format('(concat "%02d\\057%02d\\057%02d")', yyyy, MM, dd))
+			table.insert(t, string.format("%d.%02d.%02d", yyyy, MM, dd))
+		end
+	end
+	return t
+end
+
+local function from_6digits(s)
+	local t = {}
+	local t8 = from_8digits("20" .. s)
+	for i = 1, #t8 do
+		table.insert(t, t8[i])
+	end
+	local yyyy = string.sub(s, 1, 4)
+	local MM = string.sub(s, 5, 6)
+	local nMM = tonumber(MM)
+	if 0 < nMM and nMM <= 12 then
+		table.insert(t, string.format("%d年%d月", yyyy, MM))
+		table.insert(t, string.format("%d-%02d", yyyy, MM))
+		table.insert(t, string.format('(concat "%02d\\057%02d")', yyyy, MM))
+		table.insert(t, string.format("%d.%02d", yyyy, MM))
+	end
+	return t
+end
+
 -- 辞書検索処理
 --   検索結果のフォーマットはSKK辞書の候補部分と同じ
 --   "/<C1><;A1>/<C2><;A2>/.../<Cn><;An>/\n"
@@ -2070,6 +2106,12 @@ local function skk_search(key, okuri)
 				ret = ret .. to_skkdict_entry(t4)
 			end
 		end
+		if string.len(key) == 6 then
+			local t6 = from_6digits(key)
+			if 0 < #t6 then
+				ret = ret .. to_skkdict_entry(t6)
+			end
+		end
 		if string.len(key) == 7 then
 			-- 郵便番号SKK辞書にエントリがあれば候補の先頭に追加
 			if 0 < string.len(from_skk_dict) then
@@ -2077,10 +2119,10 @@ local function skk_search(key, okuri)
 				ret = ret .. add_prefix_to_skkdict_entry(pref, from_skk_dict)
 			end
 		end
-		if string.len(key) == 12 then
-			local t12 = from_12digits(key)
-			if 0 < #t12 then
-				ret = ret .. to_skkdict_entry(t12)
+		if string.len(key) == 8 then
+			local t8 = from_8digits(key)
+			if 0 < #t8 then
+				ret = ret .. to_skkdict_entry(t8)
 			end
 		end
 
