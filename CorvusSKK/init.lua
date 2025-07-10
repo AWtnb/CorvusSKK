@@ -2413,11 +2413,13 @@ function lua_skk_add(okuriari, key, candidate, annotation, okuri)
 		3*2 <= string.len(candidate) and
 		string.match(string.sub(key, -1), "[a-z]")
 	) then
-		if (string.find("がさしすせとだでなにのはもやを", okuri) ~= nil) then
-			-- 送り仮名なしの見出し語はkeyから最後のアルファベット1文字を除いたもの
-			local non_okuri = string.sub(key, 1, string.len(key) - 1)
-			if non_okuri ~= "" and not is_all_hiragana_bytes(non_okuri) then
-				crvmgr.add(false, non_okuri, candidate, annotation, "")
+		if not is_all_hiragana_bytes(candidate) then
+			if (string.find("がさしすせとだでなにのはもやを", okuri) ~= nil) then
+				-- 送り仮名なしの見出し語はkeyから最後のアルファベット1文字を除いたもの
+				local non_okuri = string.sub(key, 1, string.len(key) - 1)
+				if non_okuri ~= "" then
+					crvmgr.add(false, non_okuri, candidate, annotation, "")
+				end
 			end
 		end
 	end
