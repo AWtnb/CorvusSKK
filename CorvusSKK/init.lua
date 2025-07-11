@@ -1888,30 +1888,28 @@ local function from_3digits(s)
 	-- hmm
 	local h = tonumber(string.sub(s, 1, 1))
 	local mm = tonumber(string.sub(s, 2))
-	if mm < 60 then
-		if mm == 0 then
-			table.insert(t, string.format("午前%d時", h))
-			table.insert(t, string.format("午後%d時", h))
-			table.insert(t, string.format("%d時", h))
-		else
-			table.insert(t, string.format("午前%d時%d分", h, mm))
-			table.insert(t, string.format("午後%d時%d分", h, mm))
-			table.insert(t, string.format("%d時%d分", h, mm))
-			if mm == 30 then
-				table.insert(t, string.format("午前%d時半", h))
-				table.insert(t, string.format("午後%d時半", h))
-				table.insert(t, string.format("%d時半", h))
+	if 0 < h then
+		if 0 <= mm and mm < 60 then
+			if mm == 0 then
+				table.insert(t, string.format("午前%d時", h))
+				table.insert(t, string.format("%d時", h))
+			else
+				table.insert(t, string.format("午前%d時%d分", h, mm))
+				table.insert(t, string.format("%d時%d分", h, mm))
+				if mm == 30 then
+					table.insert(t, string.format("午前%d時半", h))
+					table.insert(t, string.format("%d時半", h))
+				end
 			end
+			table.insert(t, string.format("%02d:%02d", h, mm))
+			table.insert(t, string.format("AM %02d:%02d", h, mm))
 		end
-		table.insert(t, string.format("%02d:%02d", h, mm))
-		table.insert(t, string.format("AM %02d:%02d", h, mm))
-		table.insert(t, string.format("PM %02d:%02d", h, mm))
 	end
 
 	-- hhm
 	local hh = tonumber(string.sub(s, 1, 2))
 	local m = tonumber(string.sub(s, 3))
-	if hh <= 24 then
+	if 0 <= hh and hh <= 24 then
 		if m == 0 then
 			table.insert(t, string.format("%d時", hh))
 		else
@@ -1930,10 +1928,8 @@ local function from_3digits(s)
 			else
 				if m == 0 then
 					table.insert(t, string.format("午前%d時", hh))
-					table.insert(t, string.format("午後%d時", hh))
 				else
 					table.insert(t, string.format("午前%d時%d分", hh, m))
-					table.insert(t, string.format("午後%d時%d分", hh, m))
 				end
 				table.insert(t, string.format("AM %02d:%02d", hh, m))
 			end
@@ -1967,7 +1963,7 @@ local function from_4digits(s)
 	-- hhmm
 	local hh = tonumber(string.sub(s, 1, 2))
 	local mm = tonumber(string.sub(s, 3))
-	if hh <= 24 and mm < 60 then
+	if 0 <= hh and hh <= 24 and 0 <= mm and mm < 60 then
 		if mm == 0 then
 			table.insert(t, string.format("%d時", hh))
 		else
@@ -1994,13 +1990,10 @@ local function from_4digits(s)
 			else
 				if mm == 0 then
 					table.insert(t, string.format("午前%d時", hh))
-					table.insert(t, string.format("午後%d時", hh))
 				else
 					table.insert(t, string.format("午前%d時%d分", hh, mm))
-					table.insert(t, string.format("午後%d時%d分", hh, mm))
 					if mm == 30 then
 						table.insert(t, string.format("午前%d時半", hh))
-						table.insert(t, string.format("午後%d時半", hh))
 					end
 				end
 				table.insert(t, string.format("AM %02d:%02d", hh, mm))
