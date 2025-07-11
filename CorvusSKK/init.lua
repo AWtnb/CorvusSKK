@@ -1921,10 +1921,8 @@ local function from_3digits(s)
 				if m == 0 then
 					table.insert(t, "午後0時")
 					table.insert(t, "正午")
-					table.insert(t, "昼の12時")
 				else
 					table.insert(t, string.format("午後0時%d分", m))
-					table.insert(t, string.format("昼の12時%d分", m))
 				end
 			else
 				if m == 0 then
@@ -1938,10 +1936,8 @@ local function from_3digits(s)
 			if hh == 24 then
 				if m == 0 then
 					table.insert(t, "午前0時")
-					table.insert(t, "夜の12時")
 				else
 					table.insert(t, string.format("午前0時%d分", m))
-					table.insert(t, string.format("夜の12時%d分", m))
 				end
 			else
 				if m == 0 then
@@ -1979,13 +1975,10 @@ local function from_4digits(s)
 				if mm == 0 then
 					table.insert(t, "午後0時")
 					table.insert(t, "正午")
-					table.insert(t, "昼の12時")
 				else
 					table.insert(t, string.format("午後0時%d分", mm))
-					table.insert(t, string.format("昼の12時%d分", mm))
 					if mm == 30 then
 						table.insert(t, string.format("午後0時半"))
-						table.insert(t, string.format("昼の12時半"))
 					end
 				end
 			else
@@ -2003,13 +1996,10 @@ local function from_4digits(s)
 			if hh == 24 then
 				if mm == 0 then
 					table.insert(t, "午前0時")
-					table.insert(t, "夜の12時")
 				else
 					table.insert(t, string.format("午前0時%d分", mm))
-					table.insert(t, string.format("夜の12時%d分", mm))
 					if mm == 30 then
 						table.insert(t, string.format("午前0時半"))
-						table.insert(t, string.format("夜の12時半"))
 					end
 				end
 			else
@@ -2086,8 +2076,8 @@ local function skk_search(key, okuri)
 
 	-- SKK辞書検索
 	local from_skk_dict = crvmgr.search_skk_dictionary(key, okuri)
-	ret = ret .. from_skk_dict
 
+	-- SKK辞書の結果より先に数値を変換する
 	if string.match(key, "^%d+$") then
 
 		if string.len(key) == 3 then
@@ -2128,6 +2118,9 @@ local function skk_search(key, okuri)
 		end
 
 	end
+
+	-- SKK辞書の検索結果を反映
+	ret = ret .. from_skk_dict
 
 	-- 分数
 	if string.match(key, "^%d+/%d+$") then
