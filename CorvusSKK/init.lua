@@ -1270,9 +1270,10 @@ local function format_credit_card_1(t)
 	end
 	local yyyy = string.sub(yyyyMM, 1, 4)
 	local MM = string.sub(yyyyMM, 5, 6)
-	if string.len(MM) == 2 and 0 < tonumber(MM) and tonumber(MM) <= 12 then
-		local mmMinus1 = (tonumber(MM) - 1 + 11) % 12 + 1
-		local mmMinus2 = (tonumber(MM) - 2 + 11) % 12 + 1
+	local nm = tonumber(MM)
+	if string.len(MM) == 2 and 0 < nm and nm <= 12 then
+		local mmMinus1 = (nm - 1 + 11) % 12 + 1
+		local mmMinus2 = (nm - 2 + 11) % 12 + 1
 		return string.format("%s_%02d月請求分_%02d16-%02d15", yyyy, MM, mmMinus2, mmMinus1)
 	end
 	return yyyyMM .. "_請求分_前々月16日-前月15日"
