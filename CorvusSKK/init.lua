@@ -2127,7 +2127,7 @@ local function skk_search(key, okuri)
 		local i = string.find(key, "/")
 		local n = string.sub(key, 1, i - 1)
 		local m = string.sub(key, i + 1)
-		ret = ret .. to_skkdict_entry({string.format("%d分の%d", n, m)})
+		ret = ret .. to_skkdict_entry({string.format("%d分の%d", m, n)})
 	end
 
 	-- 郵便番号変換（郵便番号SKK辞書は数字7桁）
@@ -2429,12 +2429,17 @@ function lua_skk_add(okuriari, key, candidate, annotation, okuri)
 	--]]
 
 	-- 数字だけなら登録しない
-	if (string.match(key, "^%d+$")) then
+	if string.match(key, "^%d+$") then
+		return
+	end
+
+	-- 分数形式なら登録しない
+	if string.match(key, "^%d+/%d+$") then
 		return
 	end
 
 	-- 郵便番号は登録しない
-	if (string.match(key, "^%d%d%d%-%d%d%d%d$")) then
+	if string.match(key, "^%d%d%d%-%d%d%d%d$") then
 		return
 	end
 
@@ -2455,9 +2460,13 @@ function lua_skk_add(okuriari, key, candidate, annotation, okuri)
 		end
 	end
 
-	-- 辞書登録
-	crvmgr.add(okuriari, key, candidate, annotation, okuri)
+	-- 丸括弧つきの候補は亀甲パーレンにした候補も登録する
+	if string.find(candidate, "（") and  string.find(candidate, "）") then
+		local kikko = string.gsub(string.gsub(candidate, "（", "〔"), "）", "〕")
+		crvmgr.add(okuriari, key, kikko, annotation, okuri)
+	end
 
+	-- アルファベットのみの単語登録
 	if string.match(key, "^[A-Za-z]+$") then
 		-- 例： `WHO` で `世界保健機関` と変換できるよう辞書登録したとき（大文字から始まるのが条件）、 `who` で `WHO` にも `世界保健機関` にも変換できるようにする
 		if string.match(key, "^[A-Z]") then
@@ -2479,6 +2488,9 @@ function lua_skk_add(okuriari, key, candidate, annotation, okuri)
 			crvmgr.add(okuriari, hira_key, key, annotation, okuri)
 		end
 	end
+
+	-- 辞書登録
+	crvmgr.add(okuriari, key, candidate, annotation, okuri)
 
 end
 
