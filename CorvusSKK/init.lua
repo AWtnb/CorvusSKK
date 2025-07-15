@@ -2130,6 +2130,14 @@ local function skk_search(key, okuri)
 		ret = ret .. to_skkdict_entry({string.format("%d分の%d", m, n)})
 	end
 
+	-- アルファベットが連続してピリオドで終わる場合は各文字を大文字にしてピリオドと半角スペースを入れる
+	if string.match(key, "^[a-z]+%.") then
+		local f = string.gsub(string.sub(key, 0, -2), "[a-z]", function(m)
+			return string.upper(m) .. ". "
+		end)
+		ret = ret .. to_skkdict_entry({f})
+	end
+
 	-- 郵便番号変換（郵便番号SKK辞書は数字7桁）
 	if string.match(key, "^%d%d%d%-%d%d%d%d$") then
 		local k = string.gsub(key, "-", "")
@@ -2346,10 +2354,6 @@ end
 
 -- 辞書追加
 function lua_skk_add(okuriari, key, candidate, annotation, okuri)
-
-	-- エントリ先頭にスペースが含まれないようにする
-	candidate = string.gsub(candidate, "^ +", "")
-
 	--[[
 	-- 例) 送りありのときユーザー辞書に登録しない
 	if (okuriari) then
@@ -2442,6 +2446,14 @@ function lua_skk_add(okuriari, key, candidate, annotation, okuri)
 	if string.match(key, "^%d%d%d%-%d%d%d%d$") then
 		return
 	end
+
+	-- アルファベット小文字が連続してピリオドで終わる場合は登録しない
+	if string.match(key, "^[a-z]+%.") then
+		return
+	end
+
+	-- エントリ先頭にスペースが含まれないようにする
+	candidate = string.gsub(candidate, "^ +", "")
 
 	-- skk-search-sagyo-henkaku を応用して、2文字以上（バイト数で言えば6以上）の送りあり変換で送り仮名なしとしても登録する
 	if (
