@@ -934,6 +934,62 @@ local function format_this_month(t)
 	return smart_format_day(t)
 end
 
+
+--[[
+
+元号への変換。引数が4桁の場合はyyyy0101として、6桁ぼ場合はyyyyMM01として解釈する。
+
+usage:
+
+- `(replace-removable-zero (to-gengo #0) "")`
+
+]]--
+local function to_gengo(t)
+	local s = t[1]
+	local yyyy = string.sub(s, 1, 4)
+
+	local mm = "01"
+	local dd = "01"
+	if 5 < string.len(s) then
+		mm = string.sub(s, 5, 6)
+		if 7 < string.len(s) then
+			dd = string.sub(s, 7, 8)
+		end
+	end
+
+	local gengo = nil
+	local y = nil
+	local suffix = ""
+	local ts = os.time({year=yyyy, month=mm, day=dd})
+	local ny = tonumber(yyyy)
+	for i, v in ipairs(skk_gadget_gengo_table) do
+		local period = os.time({year=v[1][1], month=v[1][2], day=v[1][3]})
+		if 0 <= os.difftime(ts, period) then
+			gengo = v[3][1]
+			y = ny - v[1][1] + v[1][4]
+			if y == v[1][4] then
+				y = "元"
+			end
+			break
+		else
+			local last = skk_gadget_gengo_table[i + 1]
+			if last and 0 <= os.difftime(ts, os.time({year=v[1][1], month=1, day=1})) then
+				gengo = last[3][1]
+				y = ny - last[1][1] + last[1][4]
+				suffix = string.format("(〜%d/%d)", v[1][2], v[1][3])
+				break
+			end
+		end
+	end
+
+	if not gengo or not y then
+		return s
+	end
+
+	local ret = gengo .. tostring(y) .. "年" .. suffix
+	return ret
+end
+
 --[[
 
 一番近い未来の日付を、第1引数で指定したフォーマットに変換する
@@ -1547,6 +1603,7 @@ local skk_gadget_func_table_org = {
 	{"format-upcoming-day-of-week", format_upcoming_day_of_week},
 	{"format-last-day-of-week", format_last_day_of_week},
 	{"format-this-month", format_this_month},
+	{"to-gengo", to_gengo},
 	{"to-comma-separated", to_comma_separated},
 	{"to-japanese-unit", to_japanese_unit},
 	{"skk-day-plus", skk_day_plus},
