@@ -950,13 +950,23 @@ local function to_gengo(t)
 
 	local mm = 1
 	local dd = 1
-	if 5 < string.len(s) then
-		local m = tonumber(string.sub(s, 5, 6))
+	if 4 < string.len(s) then
+		local m = nil
+		if string.len(s) == 5 then
+			m = tonumber(string.sub(s, 5, 5))
+		else
+			m = tonumber(string.sub(s, 5, 6))
+		end
 		if m then
 			mm = m
 		end
-		if 7 < string.len(s) then
-			local d = tonumber(string.sub(s, 7, 8))
+		if 6 < string.len(s) then
+			local d = nil
+			if string.len(s) == 7 then
+				d = tonumber(string.sub(s, 7, 7))
+			else
+				d = tonumber(string.sub(s, 7, 8))
+			end
 			if d then
 				dd = d
 			end
