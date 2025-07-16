@@ -941,10 +941,10 @@ end
 
 usage:
 
-- `(to-gengo #0)`
+- `(gengofy #0)`
 
 ]]--
-local function to_gengo(t)
+local function gengofy(t)
 	local s = t[1]
 	local yyyy = tonumber(string.sub(s, 1, 4))
 
@@ -1626,7 +1626,7 @@ local skk_gadget_func_table_org = {
 	{"format-upcoming-day-of-week", format_upcoming_day_of_week},
 	{"format-last-day-of-week", format_last_day_of_week},
 	{"format-this-month", format_this_month},
-	{"to-gengo", to_gengo},
+	{"gengofy", gengofy},
 	{"to-comma-separated", to_comma_separated},
 	{"to-japanese-unit", to_japanese_unit},
 	{"skk-day-plus", skk_day_plus},
@@ -2102,6 +2102,27 @@ local function from_4digits(s)
 	local dd = tonumber(string.sub(s, 3))
 	if 0 < MM and MM <= 12 and 0 < dd and dd <= 31 then
 		table.insert(t, string.format("%d月%d日", MM, dd))
+	end
+
+	-- yyyy
+	local yyyy = tonumber(s)
+	if skk_gadget_gengo_table[#skk_gadget_gengo_table][1][1] <= yyyy and yyyy < 2500 then
+		for i, v in ipairs(skk_gadget_gengo_table) do
+			if (v[1][1] <= yyyy) then
+				if (v[1][1] < yyyy) then
+					local y = tostring(yyyy - v[1][1] + v[1][4])
+					table.insert(t, v[3][1] .. y)
+				else
+					local last = skk_gadget_gengo_table[i + 1]
+					if last then
+						local y1 = tostring(yyyy - last[1][1] + last[1][4])
+						table.insert(t, last[3][1] .. y1)
+					end
+					table.insert(t, v[3][1] .. "元" .. string.format(";%d月%d日以降", v[1][2], v[1][3]))
+				end
+				break
+			end
+		end
 	end
 
 	return t
