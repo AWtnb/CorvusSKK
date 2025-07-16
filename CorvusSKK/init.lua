@@ -946,6 +946,12 @@ usage:
 ]]--
 local function to_gengo(t)
 	local s = t[1]
+	if string.len(s) < 1 then
+		return nil
+	end
+	if string.len(s) < 4 then
+		s = tostring(2000 + tonumber(s))
+	end
 	local yyyy = string.sub(s, 1, 4)
 
 	local mm = "01"
