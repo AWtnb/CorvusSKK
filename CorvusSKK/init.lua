@@ -946,44 +946,51 @@ usage:
 ]]--
 local function to_gengo(t)
 	local s = t[1]
-	if string.len(s) < 1 then
-		return nil
-	end
-	if string.len(s) < 4 then
-		s = tostring(2000 + tonumber(s))
-	end
-	local yyyy = string.sub(s, 1, 4)
+	local yyyy = tonumber(string.sub(s, 1, 4))
 
-	local mm = "01"
-	local dd = "01"
+	local mm = 1
+	local dd = 1
 	if 5 < string.len(s) then
-		mm = string.sub(s, 5, 6)
+		local m = tonumber(string.sub(s, 5, 6))
+		if m then
+			mm = m
+		end
 		if 7 < string.len(s) then
-			dd = string.sub(s, 7, 8)
+			local d = tonumber(string.sub(s, 7, 8))
+			if d then
+				dd = d
+			end
 		end
 	end
 
 	local gengo = nil
 	local y = nil
 	local suffix = ""
-	local ts = os.time({year=yyyy, month=mm, day=dd})
-	local ny = tonumber(yyyy)
+
 	for i, v in ipairs(skk_gadget_gengo_table) do
-		local period = os.time({year=v[1][1], month=v[1][2], day=v[1][3]})
-		if 0 <= os.difftime(ts, period) then
+		if (
+			(v[1][1] < yyyy) or
+			(v[1][1] == yyyy and v[1][2] < mm) or
+			(v[1][1] == yyyy and v[1][2] == mm and v[1][3] <= dd)
+		) then
 			gengo = v[3][1]
-			y = ny - v[1][1] + v[1][4]
+			y = yyyy - v[1][1] + v[1][4]
 			if y == v[1][4] then
 				y = "元"
 			end
 			break
 		else
-			local last = skk_gadget_gengo_table[i + 1]
-			if last and 0 <= os.difftime(ts, os.time({year=v[1][1], month=1, day=1})) then
-				gengo = last[3][1]
-				y = ny - last[1][1] + last[1][4]
-				suffix = string.format("(〜%d/%d)", v[1][2], v[1][3])
-				break
+			if (
+				(v[1][1] == yyyy and mm < v[1][2]) or
+				(v[1][1] == yyyy and mm == v[1][2] and dd < v[1][3])
+			) then
+				local last = skk_gadget_gengo_table[i + 1]
+				if last then
+					gengo = last[3][1]
+					y = yyyy - last[1][1] + last[1][4]
+					suffix = string.format("(%d/%d〜 %s)", v[1][2], v[1][3], v[3][1])
+					break
+				end
 			end
 		end
 	end
