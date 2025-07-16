@@ -941,7 +941,7 @@ end
 
 usage:
 
-- `(replace-removable-zero (to-gengo #0) "")`
+- `(to-gengo #0)`
 
 ]]--
 local function to_gengo(t)
