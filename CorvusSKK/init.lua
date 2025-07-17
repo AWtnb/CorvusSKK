@@ -874,6 +874,8 @@ end
 - 引数が2つの場合は残りの1つから「今月のD日」を計算する。
 - 引数が1つだけの場合は実行時点の日時を計算する。
 
+Yに1989年以前を指定するとWindows環境ではエラーになるようなので注意。
+
 usage:
 
 - `(replace-removable-zero (smart-format-day "%Y年%m月%d日（%a）" #0 #0 #0) "")`
@@ -1031,21 +1033,21 @@ local function format_upcoming_day(t)
 	local today = os.time({year=tostring(os.date("%Y")), month=tostring(os.date("%m")), day=tostring(os.date("%d"))})
 
 	local fmt = t[1]
-	local yy = tostring(os.date("%Y"))
-	local mm = tostring(os.date("%m"))
+	local yyyy = tostring(os.date("%Y"))
+	local MM = tostring(os.date("%m"))
 	local dd = t[2]
 
 	if 2 < #t then
-		mm = t[2]
+		MM = t[2]
 		dd = t[3]
 	end
 
-	local ts = os.time({year=yy,month=mm,day=dd})
+	local ts = os.time({year=yyyy,month=MM,day=dd})
 	if os.difftime(ts, today) <= 0 then
 		if 2 < #t then
-			ts = os.time({year=tostring(tonumber(yy)+1),month=mm,day=dd})
+			ts = os.time({year=tostring(tonumber(yyyy)+1),month=MM,day=dd})
 		else
-			ts = os.time({year=yy,month=tostring(tonumber(mm)+1),day=dd})
+			ts = os.time({year=yyyy,month=tostring(tonumber(MM)+1),day=dd})
 		end
 	end
 	return os.date(fmt, ts)
@@ -1069,21 +1071,21 @@ local function format_last_day(t)
 	local today = os.time({year=tostring(os.date("%Y")), month=tostring(os.date("%m")), day=tostring(os.date("%d"))})
 
 	local fmt = t[1]
-	local yy = tostring(os.date("%Y"))
-	local mm = tostring(os.date("%m"))
+	local yyyy = tostring(os.date("%Y"))
+	local MM = tostring(os.date("%m"))
 	local dd = t[2]
 
 	if 2 < #t then
-		mm = t[2]
+		MM = t[2]
 		dd = t[3]
 	end
 
-	local ts = os.time({year=yy,month=mm,day=dd})
+	local ts = os.time({year=yyyy,month=MM,day=dd})
 	if os.difftime(today, ts) <= 0 then
 		if 2 < #t then
-			ts = os.time({year=tostring(tonumber(yy)-1),month=mm,day=dd})
+			ts = os.time({year=tostring(tonumber(yyyy)-1),month=MM,day=dd})
 		else
-			ts = os.time({year=yy,month=tostring(tonumber(mm)-1),day=dd})
+			ts = os.time({year=yyyy,month=tostring(tonumber(MM)-1),day=dd})
 		end
 	end
 	return os.date(fmt, ts)
