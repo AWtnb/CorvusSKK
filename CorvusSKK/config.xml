@@ -659,7 +659,10 @@
       <row ro="n=" hi="≠" ka="≠" an="≠" so="0" />
       <row ro="z=" hi="≒" ka="≒" an="≒" so="0" />
       <row ro="x=" hi="≠" ka="≠" an="≠" so="0" />
-      <row ro="z@" hi="〃" ka="〃" an="〃" so="0" />
+      <row ro="z@" hi="々" ka="々" an="z`" so="0" />
+      <row ro="zw" hi="々" ka="々" an="z`" so="0" />
+      <row ro="z`" hi="〃" ka="〃" an="〃" so="0" />
+      <row ro="zW" hi="〃" ka="〃" an="〃" so="0" />
       <row ro="lg" hi="〓" ka="〓" an="〓" so="0" />
       <row ro="k1" hi="一" ka="一" an="一" so="0" />
       <row ro="k2" hi="二" ka="二" an="二" so="0" />
@@ -728,7 +731,6 @@
       <row ro="zN" hi="？" ka="？" an="?" so="0" />
       <row ro="zb" hi="•" ka="•" an="•" so="0" />
       <row ro="zB" hi="◦" ka="◦" an="◦" so="0" />
-      <row ro="z`" hi="々" ka="々" an="z`" so="0" />
       <row ro="zx" hi="！" ka="！" an="!" so="0" />
       <row ro="zX" hi="!?" ka="!?" an="!?" so="0" />
       <row ro="z&lt;" hi="〈" ka="〈" an="&lt;" so="0" />
