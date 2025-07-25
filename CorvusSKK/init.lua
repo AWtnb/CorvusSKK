@@ -2152,10 +2152,6 @@ end
 
 local function from_6digits(s)
 	local t = {}
-	local t8 = from_8digits("20" .. s)
-	for i = 1, #t8 do
-		table.insert(t, t8[i])
-	end
 	local yyyy = string.sub(s, 1, 4)
 	local nY = tonumber(yyyy)
 	if 1000 <= nY and nY < 3000 then
@@ -2163,7 +2159,13 @@ local function from_6digits(s)
 		local nM = tonumber(MM)
 		if 0 < nM and nM <= 12 then
 			table.insert(t, string.format("%d年%d月", yyyy, MM))
+			table.insert(t, string.format("%d-%02d", yyyy, MM))
+			table.insert(t, string.format('(concat "%02d\\057%02d")', yyyy, MM))
 		end
+	end
+	local t8 = from_8digits("20" .. s)
+	for i = 1, #t8 do
+		table.insert(t, t8[i])
 	end
 	return t
 end
