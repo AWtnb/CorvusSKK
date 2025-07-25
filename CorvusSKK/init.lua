@@ -2215,6 +2215,19 @@ local function skk_search(key, okuri)
 				ret = ret .. to_skkdict_entry(t8)
 			end
 		end
+		if 10 <= string.len(key) then
+			local tTel = {}
+			if string.len(key) == 10 then
+				table.insert(tTel, string.format("%02d-%04d-%04d", string.sub(key, 1, 2), string.sub(key, 3, 6), string.sub(key, 7, 10)))
+				table.insert(tTel, string.format("%03d-%03d-%04d", string.sub(key, 1, 3), string.sub(key, 4, 6), string.sub(key, 7, 10)))
+			end
+			if string.len(key) == 11 then
+				table.insert(tTel, string.format("%03d-%04d-%04d", string.sub(key, 1, 3), string.sub(key, 4, 7), string.sub(key, 8, 11)))
+			end
+			if 0 < #tTel then
+				ret = ret .. to_skkdict_entry(tTel)
+			end
+		end
 
 		local td = from_digits(key)
 		if 0 < #td then
