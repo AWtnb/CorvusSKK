@@ -2590,7 +2590,7 @@ function lua_skk_add(okuriari, key, candidate, annotation, okuri)
 	end
 
 	-- 丸括弧つきの候補は亀甲パーレンにした候補も登録する
-	if string.find(candidate, "（") and  string.find(candidate, "）") then
+	if string.find(candidate, "（") and string.find(candidate, "）") then
 		local kikko = string.gsub(string.gsub(candidate, "（", "〔"), "）", "〕")
 		crvmgr.add(okuriari, key, kikko, annotation, okuri)
 	end
