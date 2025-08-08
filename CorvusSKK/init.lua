@@ -2296,6 +2296,23 @@ local function skk_search(key, okuri)
 		end
 	end
 
+	-- 丸括弧を亀甲パーレンにした候補も追加
+	local entries = {}
+	for candidate in string.gmatch(ret, "/([^/\n]+)") do
+		table.insert(entries, candidate)
+		if string.find(candidate, "（") and string.find(candidate, "）") then
+			local kikko = string.gsub(string.gsub(candidate, "（", "〔"), "）", "〕")
+			table.insert(entries, kikko)
+		end
+	end
+	if #entries > 0 then
+		ret = ""
+		for _, v in ipairs(entries) do
+			ret = ret .. "/" .. v
+		end
+		ret = ret .. "/\n"
+	end
+
 	-- 余計な"/\n"を削除
 	ret = string.gsub(ret, "/\n/", "/")
 
@@ -2587,12 +2604,6 @@ function lua_skk_add(okuriari, key, candidate, annotation, okuri)
 				end
 			end
 		end
-	end
-
-	-- 丸括弧つきの候補は亀甲パーレンにした候補も登録する
-	if string.find(candidate, "（") and string.find(candidate, "）") then
-		local kikko = string.gsub(string.gsub(candidate, "（", "〔"), "）", "〕")
-		crvmgr.add(okuriari, key, kikko, annotation, okuri)
 	end
 
 	-- アルファベットのみの単語登録
