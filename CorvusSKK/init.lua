@@ -1929,13 +1929,10 @@ end
 
 local function from_digits(s)
 	local t = {}
-	if 3 < string.len(s) then
-		table.insert(t, ketakugiri(s))
-		if 4 < string.len(s) then
-			table.insert(t, kuraidori(s))
-		end
+	local n = tonumber(s)
+	if 9999 < n then
+		table.insert(t, kuraidori(s))
 	else
-		local n = tonumber(s)
 		if n < 100 then
 			if n <= 50 then
 				table.insert(t, to_circled_num(n, false))
