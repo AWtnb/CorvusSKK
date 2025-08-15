@@ -18,14 +18,20 @@ function New-StartupShortcut {
     $shortcut.Save()
 }
 
-$vscode = (Get-Command "Code").Source | Split-Path -Parent | Split-Path -Parent | Join-Path -ChildPath "code.exe"
-if (Test-Path $vscode) {
-    $shortcutName = "{0}-on-vscode.lnk" -f ($PSScriptRoot | Split-Path -Leaf)
-    New-StartupShortcut -shortcutName $shortcutName -targetPath $vscode -argument ('"{0}"' -f $PSScriptRoot)
-    "Created shortcut on start menu: {0}" -f $shortcutName | Write-Host -ForegroundColor Blue
+try {
+    $cmd = Get-Command "Code" -ErrorAction Stop
+    $vscode = $cmd.Source | Split-Path -Parent | Split-Path -Parent | Join-Path -ChildPath "code.exe"
+    if (Test-Path $vscode) {
+        $shortcutName = "{0}-on-vscode.lnk" -f ($PSScriptRoot | Split-Path -Leaf)
+        New-StartupShortcut -shortcutName $shortcutName -targetPath $vscode -argument ('"{0}"' -f $PSScriptRoot)
+        "Created shortcut on start menu: {0}" -f $shortcutName | Write-Host -ForegroundColor Blue
+    }
+    else {
+        "Cannot find VSCode on '{0}'" -f $vscode | Write-Host -ForegroundColor Magenta
+    }
 }
-else {
-    "Cannot find VSCode on '{0}'" -f $vscode | Write-Host -ForegroundColor Magenta
+catch {
+    $_ | Write-Error
 }
 
 New-StartupShortcut -shortcutName "CorvusSKK-config.lnk" -targetPath "C:\Windows\System32\IME\IMCRVSKK\imcrvcnf.exe"
