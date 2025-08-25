@@ -762,6 +762,8 @@
       <row ro="cte" hi="せて" ka="セテ" an="ｾﾃ" so="0" />
       <row ro="d," hi="で、" ka="デ、" an="ﾃﾞ､" so="0" />
       <row ro="dki" hi="でき" ka="デキ" an="ﾃﾞｷ" so="0" />
+      <row ro="dmo" hi="でも" ka="デモ" an="ﾃﾞﾓ" so="0" />
+      <row ro="dno" hi="での" ka="デノ" an="ﾃﾞﾉ" so="0" />
       <row ro="dro" hi="だろ" ka="ダロ" an="ﾀﾞﾛ" so="0" />
       <row ro="ds." hi="です。" ka="デス。" an="ﾃﾞｽ｡" so="0" />
       <row ro="dsfa" hi="ですが、" ka="デスガ、" an="ﾃﾞｽｶﾞ､" so="0" />
