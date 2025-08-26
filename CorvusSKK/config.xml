@@ -40,7 +40,7 @@
     <key name="setbydirect" value="0" />
     <key name="compmultinum" value="4" />
     <key name="stacompmulti" value="0" />
-    <key name="dynamiccomp" value="1" />
+    <key name="dynamiccomp" value="0" />
     <key name="dyncompmulti" value="1" />
     <key name="compuserdic" value="1" />
     <key name="compincback" value="0" />
