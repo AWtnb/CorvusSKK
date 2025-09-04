@@ -470,7 +470,6 @@
       <row ro="hh" hi="っ" ka="ッ" an="ｯ" so="1" />
       <row ro="jj" hi="っ" ka="ッ" an="ｯ" so="1" />
       <row ro="kk" hi="っ" ka="ッ" an="ｯ" so="1" />
-      <row ro="ll" hi="っ" ka="ッ" an="ｯ" so="1" />
       <row ro="pp" hi="っ" ka="ッ" an="ｯ" so="1" />
       <row ro="rr" hi="っ" ka="ッ" an="ｯ" so="1" />
       <row ro="rre" hi="られ" ka="ラレ" an="ﾗﾚ" so="0" />
@@ -648,6 +647,7 @@
       <row ro="l8" hi="〔" ka="〔" an="〔" so="0" />
       <row ro="z9" hi="〕" ka="〕" an="〕" so="0" />
       <row ro="l9" hi="〕" ka="〕" an="〕" so="0" />
+      <row ro="lb" hi="-" ka="-" an="-" so="0" />
       <row ro="x3" hi="▼" ka="▼" an="▼" so="0" />
       <row ro="x#" hi="▽" ka="▽" an="▽" so="0" />
       <row ro="x4" hi="◆" ka="◆" an="◆" so="0" />
