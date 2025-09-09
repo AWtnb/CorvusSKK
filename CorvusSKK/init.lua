@@ -2608,8 +2608,8 @@ function lua_skk_add(okuriari, key, candidate, annotation, okuri)
 		-- 例： `WHO` で `世界保健機関` と変換できるよう辞書登録したとき（大文字から始まるのが条件）、 `who` で `WHO` にも `世界保健機関` にも変換できるようにする
 		if string.match(key, "^[A-Z]") then
 			local low = string.lower(key)
-			crvmgr.add(okuriari, low, candidate, annotation, okuri)
 			crvmgr.add(okuriari, low, key, annotation, okuri)
+			crvmgr.add(okuriari, low, candidate, annotation, okuri)
 		end
 
 		-- 例：`April` で `エイプリル` と変換できるよう辞書登録したとき（すべてカタカナなのが条件）、 `$えいぷりる` で `april` `April` `APRIL` と変換できるようにする
