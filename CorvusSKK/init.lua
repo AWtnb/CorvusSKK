@@ -2605,14 +2605,16 @@ function lua_skk_add(okuriari, key, candidate, annotation, okuri)
 
 	-- アルファベットのみの単語登録
 	if string.match(key, "^[A-Za-z]+$") then
-		-- 例： `WHO` で `世界保健機関` と変換できるよう辞書登録したとき（大文字から始まるのが条件）、 `who` で `WHO` にも `世界保健機関` にも変換できるようにする
+		-- 大文字から始まるアルファベットで辞書登録したとき、すべて小文字からの変換も辞書も登録する
+		-- 例： `WHO` → `世界保健機関` と辞書登録したとき、 `who` → `WHO` の変換、 `who` → `世界保健機関` の変換も登録する
 		if string.match(key, "^[A-Z]") then
 			local low = string.lower(key)
 			crvmgr.add(okuriari, low, key, annotation, okuri)
 			crvmgr.add(okuriari, low, candidate, annotation, okuri)
 		end
 
-		-- 例：`April` で `エイプリル` と変換できるよう辞書登録したとき（すべてカタカナなのが条件）、 `$えいぷりる` で `april` `April` `APRIL` と変換できるようにする
+		-- アルファベットでカタカナに辞書登録したとき、その逆も登録する
+		-- 例：`april` で `エイプリル` と変換できるよう辞書登録したとき、 `$えいぷりる` で `april` `April` `APRIL` と変換できるようにする
 		if is_all_katakana_bytes(candidate) then
 			local hira = katakana_to_hiragana(candidate)
 			local hira_key = "$" .. hira
