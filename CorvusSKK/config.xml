@@ -785,9 +785,7 @@
       <row ro="gru" hi="げる" ka="ゲル" an="ｹﾞﾙ" so="0" />
       <row ro="gte" hi="げて" ka="ゲテ" an="ｹﾞﾃ" so="0" />
       <row ro="h," hi="は、" ka="ハ、" an="ﾊ､" so="0" />
-      <row ro="hlu" hi="ほう" ka="ホウ" an="ﾎｳ" so="0" />
-      <row ro="hn" hi="ほう" ka="ホウ" an="ﾎｳ" so="1" />
-      <row ro="hns" hi="はなし" ka="ハナシ" an="ﾊﾅｼ" so="0" />
+      <row ro="hn" hi="分" ka="分" an="ﾌﾝ" so="0" />
       <row ro="jn" hi="じゅん" ka="ジュン" an="ｼﾞｭﾝ" so="0" />
       <row ro="jsn" hi="自身" ka="自身" an="ｼﾞｼﾝ" so="0" />
       <row ro="jti" hi="自体" ka="自体" an="ｼﾞﾀｲ" so="0" />
