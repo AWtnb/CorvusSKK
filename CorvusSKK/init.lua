@@ -1652,6 +1652,483 @@ for i, v in ipairs(skk_gadget_func_table_org) do
 	skk_gadget_func_table[v[1]] = v[2]
 end
 
+--[[
+
+数値変換（独自）
+
+]]--
+local function from_digits(s)
+	local t = {}
+	local n = tonumber(s)
+	if 9999 < n then
+		table.insert(t, kuraidori(s))
+	else
+		if n < 100 then
+			if n <= 50 then
+				table.insert(t, to_circled_num(n, false))
+				if n <= 20 then
+					table.insert(t, to_circled_num(n, true))
+				end
+			end
+			table.insert(t, to_roman(n, true))
+			table.insert(t, to_roman(n, false))
+		end
+	end
+	return t
+end
+
+--[[
+
+3桁変換
+
+]]--
+local function from_3digits(s)
+	local t = {}
+
+	-- Mdd
+	local M = tonumber(string.sub(s, 1, 1))
+	local dd = tonumber(string.sub(s, 2))
+	if 0 < M and 0 < dd and dd <= 31 then
+		table.insert(t, string.format("%d月%d日", M, dd))
+	end
+
+	-- MMd
+	local MM = tonumber(string.sub(s, 1, 2))
+	local d = tonumber(string.sub(s, 3))
+	if 0 < MM and MM <= 12 and 0 < d then
+			table.insert(t, string.format("%d月%d日", MM, d))
+	end
+
+	-- hmm
+	local h = tonumber(string.sub(s, 1, 1))
+	local mm = tonumber(string.sub(s, 2))
+	if 0 < h then
+		if 0 <= mm and mm < 60 then
+			if mm == 0 then
+				table.insert(t, string.format("午前%d時", h))
+				table.insert(t, string.format("%d時", h))
+			else
+				table.insert(t, string.format("午前%d時%d分", h, mm))
+				table.insert(t, string.format("%d時%d分", h, mm))
+				if mm == 30 then
+					table.insert(t, string.format("午前%d時半", h))
+					table.insert(t, string.format("%d時半", h))
+				end
+			end
+			table.insert(t, string.format("%02d:%02d", h, mm))
+			table.insert(t, string.format("AM %02d:%02d", h, mm))
+		end
+	end
+
+	-- hhm
+	local hh = tonumber(string.sub(s, 1, 2))
+	local m = tonumber(string.sub(s, 3))
+	if 0 <= hh and hh <= 24 then
+		if m == 0 then
+			table.insert(t, string.format("%d時", hh))
+		else
+			table.insert(t, string.format("%d時%d分", hh, m))
+		end
+		if hh <= 12 then
+			if hh == 12 then
+				if m == 0 then
+					table.insert(t, "午後0時")
+					table.insert(t, "正午")
+				else
+					table.insert(t, string.format("午後0時%d分", m))
+				end
+			else
+				if m == 0 then
+					table.insert(t, string.format("午前%d時", hh))
+				else
+					table.insert(t, string.format("午前%d時%d分", hh, m))
+				end
+				table.insert(t, string.format("AM %02d:%02d", hh, m))
+			end
+		else
+			if hh == 24 then
+				if m == 0 then
+					table.insert(t, "午前0時")
+				else
+					table.insert(t, string.format("午前0時%d分", m))
+				end
+			else
+				if m == 0 then
+					table.insert(t, string.format("午後%d時", (hh % 12)))
+				else
+					table.insert(t, string.format("午後%d時%d分", (hh % 12), m))
+				end
+				table.insert(t, string.format("PM %02d:%02d", (hh % 12), m))
+			end
+		end
+		table.insert(t, string.format("%02d:%02d", hh, m))
+	end
+
+	return t
+end
+
+--[[
+
+4桁変換
+
+]]--
+local function from_4digits(s)
+	local t = {}
+
+	-- hhmm
+	local hh = tonumber(string.sub(s, 1, 2))
+	local mm = tonumber(string.sub(s, 3))
+	if 0 <= hh and hh <= 24 and 0 <= mm and mm < 60 then
+		if mm == 0 then
+			table.insert(t, string.format("%d時", hh))
+		else
+			if mm == 30 then
+				table.insert(t, string.format("%d時半", hh))
+			end
+			table.insert(t, string.format("%d時%d分", hh, mm))
+		end
+
+		if hh <= 12 then
+			if hh == 12 then
+				if mm == 0 then
+					table.insert(t, "午後0時")
+					table.insert(t, "正午")
+				else
+					table.insert(t, string.format("午後0時%d分", mm))
+					if mm == 30 then
+						table.insert(t, string.format("午後0時半"))
+					end
+				end
+			else
+				if mm == 0 then
+					table.insert(t, string.format("午前%d時", hh))
+				else
+					table.insert(t, string.format("午前%d時%d分", hh, mm))
+					if mm == 30 then
+						table.insert(t, string.format("午前%d時半", hh))
+					end
+				end
+				table.insert(t, string.format("AM %02d:%02d", hh, mm))
+			end
+		else
+			if hh == 24 then
+				if mm == 0 then
+					table.insert(t, "午前0時")
+				else
+					table.insert(t, string.format("午前0時%d分", mm))
+					if mm == 30 then
+						table.insert(t, string.format("午前0時半"))
+					end
+				end
+			else
+				if mm == 0 then
+					table.insert(t, string.format("午後%d時", (hh % 12)))
+				else
+					table.insert(t, string.format("午後%d時%d分", (hh % 12), mm))
+					if mm == 30 then
+						table.insert(t, string.format("午後%d時半", (hh % 12)))
+					end
+				end
+			end
+			table.insert(t, string.format("PM %02d:%02d", (hh % 12), mm))
+		end
+		table.insert(t, string.format("%02d:%02d", hh, mm))
+	end
+
+	-- MMdd
+	local MM = tonumber(string.sub(s, 1, 2))
+	local dd = tonumber(string.sub(s, 3))
+	if 0 < MM and MM <= 12 and 0 < dd and dd <= 31 then
+		table.insert(t, string.format("%d月%d日", MM, dd))
+	end
+
+	-- yyyy
+	local yyyy = tonumber(s)
+	if skk_gadget_gengo_table[#skk_gadget_gengo_table][1][1] <= yyyy and yyyy < 2500 then
+		for i, v in ipairs(skk_gadget_gengo_table) do
+			if (v[1][1] <= yyyy) then
+				if (v[1][1] < yyyy) then
+					local y = tostring(yyyy - v[1][1] + v[1][4])
+					table.insert(t, v[3][1] .. y)
+				else
+					local last = skk_gadget_gengo_table[i + 1]
+					if last then
+						local y1 = tostring(yyyy - last[1][1] + last[1][4])
+						table.insert(t, last[3][1] .. y1)
+					end
+					table.insert(t, v[3][1] .. "元" .. string.format(";%d月%d日以降", v[1][2], v[1][3]))
+				end
+				break
+			end
+		end
+	end
+
+	return t
+end
+
+--[[
+
+8桁変換
+
+]]--
+local function from_8digits(s)
+	local t = {}
+	local yyyy = string.sub(s, 1, 4)
+	local nY = tonumber(yyyy)
+	if 1000 <= nY and nY < 3000 then
+		local MM = string.sub(s, 5, 6)
+		local nM = tonumber(MM)
+		if 0 < nM and nM <= 12 then
+			local dd = string.sub(s, 7, 8)
+			local nD = tonumber(dd)
+			if 0 < nD and nD <= 31 then
+				table.insert(t, string.format("%d年%d月%d日", yyyy, MM, dd))
+				table.insert(t, string.format("%d-%02d-%02d", yyyy, MM, dd))
+				table.insert(t, string.format('(concat "%02d\\057%02d\\057%02d")', yyyy, MM, dd))
+			end
+		end
+	end
+	return t
+end
+
+--[[
+
+6桁変換
+
+]]--
+local function from_6digits(s)
+	local t = {}
+	local yyyy = string.sub(s, 1, 4)
+	local nY = tonumber(yyyy)
+	if 1000 <= nY and nY < 3000 then
+		local MM = string.sub(s, 5, 6)
+		local nM = tonumber(MM)
+		if 0 < nM and nM <= 12 then
+			table.insert(t, string.format("%d年%d月", yyyy, MM))
+			table.insert(t, string.format("%d-%02d", yyyy, MM))
+			table.insert(t, string.format('(concat "%02d\\057%02d")', yyyy, MM))
+		end
+	end
+	local t8 = from_8digits("20" .. s)
+	for i = 1, #t8 do
+		table.insert(t, t8[i])
+	end
+	return t
+end
+
+--[[
+
+カタカナひらがなの変換テーブル
+
+]]--
+local KATAKANA_HIRAGANA_CONVERSION_TABLE = (function ()
+	local katakana = "ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモヤャユュヨョラリルレロワヲンヴヵヶ"
+	local hiragana = "ぁあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすずせぜそぞただちぢっつづてでとどなにぬねのはばぱひびぴふぶぷへべぺほぼぽまみむめもやゃゆゅよょらりるれろわをんゔゕゖ"
+
+	local table = {}
+	for i = 1, #katakana, 3 do  -- UTF-8 のカタカナ・ひらがなは3バイトずつ
+		local k = string.sub(katakana, i, i + 2)
+		local h = string.sub(hiragana, i, i + 2)
+		table[k] = h
+	end
+	return table
+end)()
+
+--[[
+
+カタカナをひらがなに変換する
+
+]]--
+local function katakana_to_hiragana(s)
+	local result = ""
+	local i = 1
+	while i <= #s do
+		local char = string.sub(s, i, i + 2)  -- UTF-8 の3バイト取得
+		local kata = KATAKANA_HIRAGANA_CONVERSION_TABLE[char]
+		if kata then
+			result = result .. kata
+		else
+			result = result .. char
+		end
+		i = i + 3
+	end
+	return result
+end
+
+--[[
+
+文字列がすべてひらがなか判定する
+
+]]--
+local function is_all_hiragana_bytes(s)
+	local i = 1
+	local len = #s
+	while i <= len do
+		if len < i + 2 then
+			return false
+		end -- 3バイト未満で終わる場合は false
+
+		-- UTF-8 の3バイトを取得
+		local b1 = string.byte(s, i)
+		local b2 = string.byte(s, i + 1)
+		local b3 = string.byte(s, i + 2)
+
+		-- ひらがなの範囲チェック
+		-- https://orange-factory.com/sample/utf8/code3/e3.html#Hiragana
+		local is_hiragana = (
+			(b1 == 0xE3 and b2 == 0x81 and (0x81 <= b3 and b3 <= 0xBF)) or -- U+3041 〜 U+307F (ぁ〜み)
+			(b1 == 0xE3 and b2 == 0x82 and (0x80 <= b3 and b3 <= 0x96)) or -- U+3080 〜 U+3096 (む〜ゖ)
+			(b1 == 0xE3 and b2 == 0x83 and (b3 == 0xBC)) -- U+30FC (ー)
+		)
+		if not is_hiragana then
+			return false
+		end
+
+		i = i + 3 -- 3バイト進める
+	end
+	return true
+end
+
+--[[
+
+文字列がすべてカタカナか判定する
+
+]]--
+local function is_all_katakana_bytes(s)
+	local i = 1
+	local len = #s
+	while i <= len do
+		if len < i + 2 then
+			return false
+		end -- 3バイト未満で終わる場合は false
+
+		-- UTF-8 の3バイトを取得
+		local b1 = string.byte(s, i)
+		local b2 = string.byte(s, i + 1)
+		local b3 = string.byte(s, i + 2)
+
+		-- カタカナの範囲チェック
+		-- https://orange-factory.com/sample/utf8/code3/e3.html#Katakana
+		local is_katakana = (
+			(b1 == 0xE3 and b2 == 0x82 and (0xA1 <= b3 and b3 <= 0xBF)) or -- U+30A1 〜 U+30BF (ァ〜タ)
+			(b1 == 0xE3 and b2 == 0x83 and (0x80 <= b3 and b3 <= 0xB6)) or -- U+30C0 〜 U+30F6 (ダ〜ヶ)
+			(b1 == 0xE3 and b2 == 0x83 and b3 == 0xBC) -- U+30FC (ー)
+		)
+
+		if not is_katakana then
+			return false
+		end
+
+		i = i + 3 -- 3バイト進める
+	end
+	return true
+end
+
+--[[
+
+文字列がすべて半角カタカナか判定する
+
+]]--
+local function is_all_half_katakana_bytes(s)
+	local i = 1
+	local len = #s
+	while i <= len do
+		if len < i + 2 then
+			return false
+		end -- 3バイト未満で終わる場合は false
+
+		-- UTF-8 の3バイトを取得
+		local b1 = string.byte(s, i)
+		local b2 = string.byte(s, i + 1)
+		local b3 = string.byte(s, i + 2)
+
+		-- 半角カタカナの範囲チェック
+		-- https://orange-factory.com/sample/utf8/code3/ef.html#HalfwidthandFullwidthForms
+		local is_half_katakana = (
+			(b1 == 0xEF and b2 == 0xBD and (0xA6 <= b3 and b3 <= 0xBF)) or -- U+FF66 〜 U+FF7F (ｦ〜ｿ)
+			(b1 == 0xEF and b2 == 0xBE and (0x80 <= b3 and b3 <= 0x9F)) -- U+FF80 〜 U+FF9F (ﾀ〜ﾟ)
+		)
+
+		if not is_half_katakana then
+			return false
+		end
+
+		i = i + 3 -- 3バイト進める
+	end
+	return true
+end
+
+--[[
+
+SKK辞書形式（/<C1><;A1>/<C2><;A2>/.../<Cn><;An>/\n）を分割する
+
+]]--
+local function split_skkdict_record(record)
+	local t = {};
+	for s in string.gmatch(record, "([^/]+)") do
+		if s ~= "\n" then
+			table.insert(t, s)
+		end
+	end
+	return t
+end
+
+--[[
+
+SKK辞書の行形式（/<C1><;A1>/<C2><;A2>/.../<Cn><;An>/\n）に変換する
+
+]]--
+local function to_skkdict_record(t)
+	local ret = ""
+	if #t < 1 then
+		return ret
+	end
+	for i = 1, #t do
+		ret = ret .. "/" .. t[i]
+	end
+	return ret .. "/\n"
+end
+
+
+--[[
+
+SKK辞書形式（/<C1><;A1>/<C2><;A2>/.../<Cn><;An>/\n）からアノテーション（半角セミコロン以降）を除外する
+
+]]--
+local function trim_annotation(s)
+	return string.gsub(s, ";.+", "")
+end
+
+--[[
+
+SKK辞書形式（/<C1><;A1>/<C2><;A2>/.../<Cn><;An>/\n）から「すべて半角カナのもの」を除外する
+
+]]--
+local function filter_skkdict_record(record)
+	local t = {}
+	local entries = split_skkdict_record(record)
+	for i = 1, #entries do
+		local ent = trim_annotation(entries[i])
+		if not is_all_half_katakana_bytes(ent) and not is_all_katakana_bytes(ent) then
+			table.insert(t, ent)
+		end
+	end
+	return to_skkdict_record(t)
+end
+
+
+--[[
+
+SKK辞書の行形式（/<C1><;A1>/<C2><;A2>/.../<Cn><;An>/\n）の各エントリにプレフィックスを追加する
+
+]]--
+local function add_prefix_to_skkdict_record(pref, record)
+	return string.gsub(record, "/%C", function(m)
+		return "/" .. pref .. string.sub(m, 2)
+	end)
+end
+
+
 -- 文字列パース
 local function parse_string(s)
 	local ret = ""
@@ -1910,455 +2387,6 @@ local function skk_convert_key(key, okuri)
 	return ret
 end
 
-local function from_digits(s)
-	local t = {}
-	local n = tonumber(s)
-	if 9999 < n then
-		table.insert(t, kuraidori(s))
-	else
-		if n < 100 then
-			if n <= 50 then
-				table.insert(t, to_circled_num(n, false))
-				if n <= 20 then
-					table.insert(t, to_circled_num(n, true))
-				end
-			end
-			table.insert(t, to_roman(n, true))
-			table.insert(t, to_roman(n, false))
-		end
-	end
-	return t
-end
-
-local function from_3digits(s)
-	local t = {}
-
-	-- Mdd
-	local M = tonumber(string.sub(s, 1, 1))
-	local dd = tonumber(string.sub(s, 2))
-	if 0 < M and 0 < dd and dd <= 31 then
-		table.insert(t, string.format("%d月%d日", M, dd))
-	end
-
-	-- MMd
-	local MM = tonumber(string.sub(s, 1, 2))
-	local d = tonumber(string.sub(s, 3))
-	if 0 < MM and MM <= 12 and 0 < d then
-			table.insert(t, string.format("%d月%d日", MM, d))
-	end
-
-	-- hmm
-	local h = tonumber(string.sub(s, 1, 1))
-	local mm = tonumber(string.sub(s, 2))
-	if 0 < h then
-		if 0 <= mm and mm < 60 then
-			if mm == 0 then
-				table.insert(t, string.format("午前%d時", h))
-				table.insert(t, string.format("%d時", h))
-			else
-				table.insert(t, string.format("午前%d時%d分", h, mm))
-				table.insert(t, string.format("%d時%d分", h, mm))
-				if mm == 30 then
-					table.insert(t, string.format("午前%d時半", h))
-					table.insert(t, string.format("%d時半", h))
-				end
-			end
-			table.insert(t, string.format("%02d:%02d", h, mm))
-			table.insert(t, string.format("AM %02d:%02d", h, mm))
-		end
-	end
-
-	-- hhm
-	local hh = tonumber(string.sub(s, 1, 2))
-	local m = tonumber(string.sub(s, 3))
-	if 0 <= hh and hh <= 24 then
-		if m == 0 then
-			table.insert(t, string.format("%d時", hh))
-		else
-			table.insert(t, string.format("%d時%d分", hh, m))
-		end
-		if hh <= 12 then
-			if hh == 12 then
-				if m == 0 then
-					table.insert(t, "午後0時")
-					table.insert(t, "正午")
-				else
-					table.insert(t, string.format("午後0時%d分", m))
-				end
-			else
-				if m == 0 then
-					table.insert(t, string.format("午前%d時", hh))
-				else
-					table.insert(t, string.format("午前%d時%d分", hh, m))
-				end
-				table.insert(t, string.format("AM %02d:%02d", hh, m))
-			end
-		else
-			if hh == 24 then
-				if m == 0 then
-					table.insert(t, "午前0時")
-				else
-					table.insert(t, string.format("午前0時%d分", m))
-				end
-			else
-				if m == 0 then
-					table.insert(t, string.format("午後%d時", (hh % 12)))
-				else
-					table.insert(t, string.format("午後%d時%d分", (hh % 12), m))
-				end
-				table.insert(t, string.format("PM %02d:%02d", (hh % 12), m))
-			end
-		end
-		table.insert(t, string.format("%02d:%02d", hh, m))
-	end
-
-	return t
-end
-
-local function from_4digits(s)
-	local t = {}
-
-	-- hhmm
-	local hh = tonumber(string.sub(s, 1, 2))
-	local mm = tonumber(string.sub(s, 3))
-	if 0 <= hh and hh <= 24 and 0 <= mm and mm < 60 then
-		if mm == 0 then
-			table.insert(t, string.format("%d時", hh))
-		else
-			if mm == 30 then
-				table.insert(t, string.format("%d時半", hh))
-			end
-			table.insert(t, string.format("%d時%d分", hh, mm))
-		end
-
-		if hh <= 12 then
-			if hh == 12 then
-				if mm == 0 then
-					table.insert(t, "午後0時")
-					table.insert(t, "正午")
-				else
-					table.insert(t, string.format("午後0時%d分", mm))
-					if mm == 30 then
-						table.insert(t, string.format("午後0時半"))
-					end
-				end
-			else
-				if mm == 0 then
-					table.insert(t, string.format("午前%d時", hh))
-				else
-					table.insert(t, string.format("午前%d時%d分", hh, mm))
-					if mm == 30 then
-						table.insert(t, string.format("午前%d時半", hh))
-					end
-				end
-				table.insert(t, string.format("AM %02d:%02d", hh, mm))
-			end
-		else
-			if hh == 24 then
-				if mm == 0 then
-					table.insert(t, "午前0時")
-				else
-					table.insert(t, string.format("午前0時%d分", mm))
-					if mm == 30 then
-						table.insert(t, string.format("午前0時半"))
-					end
-				end
-			else
-				if mm == 0 then
-					table.insert(t, string.format("午後%d時", (hh % 12)))
-				else
-					table.insert(t, string.format("午後%d時%d分", (hh % 12), mm))
-					if mm == 30 then
-						table.insert(t, string.format("午後%d時半", (hh % 12)))
-					end
-				end
-			end
-			table.insert(t, string.format("PM %02d:%02d", (hh % 12), mm))
-		end
-		table.insert(t, string.format("%02d:%02d", hh, mm))
-	end
-
-	-- MMdd
-	local MM = tonumber(string.sub(s, 1, 2))
-	local dd = tonumber(string.sub(s, 3))
-	if 0 < MM and MM <= 12 and 0 < dd and dd <= 31 then
-		table.insert(t, string.format("%d月%d日", MM, dd))
-	end
-
-	-- yyyy
-	local yyyy = tonumber(s)
-	if skk_gadget_gengo_table[#skk_gadget_gengo_table][1][1] <= yyyy and yyyy < 2500 then
-		for i, v in ipairs(skk_gadget_gengo_table) do
-			if (v[1][1] <= yyyy) then
-				if (v[1][1] < yyyy) then
-					local y = tostring(yyyy - v[1][1] + v[1][4])
-					table.insert(t, v[3][1] .. y)
-				else
-					local last = skk_gadget_gengo_table[i + 1]
-					if last then
-						local y1 = tostring(yyyy - last[1][1] + last[1][4])
-						table.insert(t, last[3][1] .. y1)
-					end
-					table.insert(t, v[3][1] .. "元" .. string.format(";%d月%d日以降", v[1][2], v[1][3]))
-				end
-				break
-			end
-		end
-	end
-
-	return t
-end
-
-local function from_8digits(s)
-	local t = {}
-	local yyyy = string.sub(s, 1, 4)
-	local nY = tonumber(yyyy)
-	if 1000 <= nY and nY < 3000 then
-		local MM = string.sub(s, 5, 6)
-		local nM = tonumber(MM)
-		if 0 < nM and nM <= 12 then
-			local dd = string.sub(s, 7, 8)
-			local nD = tonumber(dd)
-			if 0 < nD and nD <= 31 then
-				table.insert(t, string.format("%d年%d月%d日", yyyy, MM, dd))
-				table.insert(t, string.format("%d-%02d-%02d", yyyy, MM, dd))
-				table.insert(t, string.format('(concat "%02d\\057%02d\\057%02d")', yyyy, MM, dd))
-			end
-		end
-	end
-	return t
-end
-
-local function from_6digits(s)
-	local t = {}
-	local yyyy = string.sub(s, 1, 4)
-	local nY = tonumber(yyyy)
-	if 1000 <= nY and nY < 3000 then
-		local MM = string.sub(s, 5, 6)
-		local nM = tonumber(MM)
-		if 0 < nM and nM <= 12 then
-			table.insert(t, string.format("%d年%d月", yyyy, MM))
-			table.insert(t, string.format("%d-%02d", yyyy, MM))
-			table.insert(t, string.format('(concat "%02d\\057%02d")', yyyy, MM))
-		end
-	end
-	local t8 = from_8digits("20" .. s)
-	for i = 1, #t8 do
-		table.insert(t, t8[i])
-	end
-	return t
-end
-
---[[
-
-カタカナひらがなの変換テーブル
-
-]]--
-local katakana_hiragana_conversion_table = (function ()
-	local katakana = "ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモヤャユュヨョラリルレロワヲンヴヵヶ"
-	local hiragana = "ぁあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすずせぜそぞただちぢっつづてでとどなにぬねのはばぱひびぴふぶぷへべぺほぼぽまみむめもやゃゆゅよょらりるれろわをんゔゕゖ"
-
-	local table = {}
-	for i = 1, #katakana, 3 do  -- UTF-8 のカタカナ・ひらがなは3バイトずつ
-		local k = string.sub(katakana, i, i + 2)
-		local h = string.sub(hiragana, i, i + 2)
-		table[k] = h
-	end
-	return table
-end)()
-
---[[
-
-カタカナをひらがなに変換する
-
-]]--
-local function katakana_to_hiragana(s)
-	local result = ""
-	local i = 1
-	while i <= #s do
-		local char = string.sub(s, i, i + 2)  -- UTF-8 の3バイト取得
-		local kata = katakana_hiragana_conversion_table[char]
-		if kata then
-			result = result .. kata
-		else
-			result = result .. char
-		end
-		i = i + 3
-	end
-	return result
-end
-
---[[
-
-文字列がすべてひらがなか判定する
-
-]]--
-local function is_all_hiragana_bytes(s)
-	local i = 1
-	local len = #s
-	while i <= len do
-		if len < i + 2 then
-			return false
-		end -- 3バイト未満で終わる場合は false
-
-		-- UTF-8 の3バイトを取得
-		local b1 = string.byte(s, i)
-		local b2 = string.byte(s, i + 1)
-		local b3 = string.byte(s, i + 2)
-
-		-- ひらがなの範囲チェック
-		-- https://orange-factory.com/sample/utf8/code3/e3.html#Hiragana
-		local is_hiragana = (
-			(b1 == 0xE3 and b2 == 0x81 and (0x81 <= b3 and b3 <= 0xBF)) or -- U+3041 〜 U+307F (ぁ〜み)
-			(b1 == 0xE3 and b2 == 0x82 and (0x80 <= b3 and b3 <= 0x96)) or -- U+3080 〜 U+3096 (む〜ゖ)
-			(b1 == 0xE3 and b2 == 0x83 and (b3 == 0xBC)) -- U+30FC (ー)
-		)
-		if not is_hiragana then
-			return false
-		end
-
-		i = i + 3 -- 3バイト進める
-	end
-	return true
-end
-
---[[
-
-文字列がすべてカタカナか判定する
-
-]]--
-local function is_all_katakana_bytes(s)
-	local i = 1
-	local len = #s
-	while i <= len do
-		if len < i + 2 then
-			return false
-		end -- 3バイト未満で終わる場合は false
-
-		-- UTF-8 の3バイトを取得
-		local b1 = string.byte(s, i)
-		local b2 = string.byte(s, i + 1)
-		local b3 = string.byte(s, i + 2)
-
-		-- カタカナの範囲チェック
-		-- https://orange-factory.com/sample/utf8/code3/e3.html#Katakana
-		local is_katakana = (
-			(b1 == 0xE3 and b2 == 0x82 and (0xA1 <= b3 and b3 <= 0xBF)) or -- U+30A1 〜 U+30BF (ァ〜タ)
-			(b1 == 0xE3 and b2 == 0x83 and (0x80 <= b3 and b3 <= 0xB6)) or -- U+30C0 〜 U+30F6 (ダ〜ヶ)
-			(b1 == 0xE3 and b2 == 0x83 and b3 == 0xBC) -- U+30FC (ー)
-		)
-
-		if not is_katakana then
-			return false
-		end
-
-		i = i + 3 -- 3バイト進める
-	end
-	return true
-end
-
---[[
-
-文字列がすべて半角カタカナか判定する
-
-]]--
-local function is_all_half_katakana_bytes(s)
-	local i = 1
-	local len = #s
-	while i <= len do
-		if len < i + 2 then
-			return false
-		end -- 3バイト未満で終わる場合は false
-
-		-- UTF-8 の3バイトを取得
-		local b1 = string.byte(s, i)
-		local b2 = string.byte(s, i + 1)
-		local b3 = string.byte(s, i + 2)
-
-		-- 半角カタカナの範囲チェック
-		local is_half_katakana = (
-			(b1 == 0xEF and b2 == 0xBD and (0xA6 <= b3 and b3 <= 0xBF)) or -- U+FF66 〜 U+FF7F (ｦ〜ｿ)
-			(b1 == 0xEF and b2 == 0xBE and (0x80 <= b3 and b3 <= 0x9F)) -- U+FF80 〜 U+FF9F (ﾀ〜ﾟ)
-		)
-
-		if not is_half_katakana then
-			return false
-		end
-
-		i = i + 3 -- 3バイト進める
-	end
-	return true
-end
-
---[[
-
-SKK辞書形式（/<C1><;A1>/<C2><;A2>/.../<Cn><;An>/\n）を分割する
-
-]]--
-local function split_skkdictline(dictline)
-	local t = {};
-	for s in string.gmatch(dictline, "([^/]+)") do
-		if s ~= "\n" then
-			table.insert(t, s)
-		end
-	end
-	return t
-end
-
---[[
-
-SKK辞書の行形式（/<C1><;A1>/<C2><;A2>/.../<Cn><;An>/\n）に変換する
-
-]]--
-local function to_skkdictline(t)
-	local ret = ""
-	if #t < 1 then
-		return ret
-	end
-	for i = 1, #t do
-		ret = ret .. "/" .. t[i]
-	end
-	return ret .. "/\n"
-end
-
-
---[[
-
-SKK辞書形式（/<C1><;A1>/<C2><;A2>/.../<Cn><;An>/\n）からアノテーション（半角セミコロン以降）を除外する
-
-]]--
-local function trim_annotation(s)
-	return string.gsub(s, ";.+", "")
-end
-
---[[
-
-SKK辞書形式（/<C1><;A1>/<C2><;A2>/.../<Cn><;An>/\n）から「すべて半角カナのもの」を除外する
-
-]]--
-local function filter_skkdictline(dictline)
-	local t = {}
-	local entries = split_skkdictline(dictline)
-	for i = 1, #entries do
-		local ent = entries[i]
-		if not is_all_half_katakana_bytes(trim_annotation(ent)) then
-			table.insert(t, ent)
-		end
-	end
-	return to_skkdictline(t)
-end
-
-
---[[
-
-SKK辞書の行形式（/<C1><;A1>/<C2><;A2>/.../<Cn><;An>/\n）の各エントリにプレフィックスを追加する
-
-]]--
-local function add_prefix_to_skkdict_entry(pref, dictline)
-	return string.gsub(dictline, "/%C", function(m)
-		return "/" .. pref .. string.sub(m, 2)
-	end)
-end
 
 -- 辞書検索処理
 --   検索結果のフォーマットはSKK辞書の候補部分と同じ
@@ -2378,32 +2406,32 @@ local function skk_search(key, okuri)
 		if string.len(key) == 3 then
 			local t3 = from_3digits(key)
 			if 0 < #t3 then
-				ret = ret .. to_skkdictline(t3)
+				ret = ret .. to_skkdict_record(t3)
 			end
 		end
 		if string.len(key) == 4 then
 			local t4 = from_4digits(key)
 			if 0 < #t4 then
-				ret = ret .. to_skkdictline(t4)
+				ret = ret .. to_skkdict_record(t4)
 			end
 		end
 		if string.len(key) == 6 then
 			local t6 = from_6digits(key)
 			if 0 < #t6 then
-				ret = ret .. to_skkdictline(t6)
+				ret = ret .. to_skkdict_record(t6)
 			end
 		end
 		if string.len(key) == 7 then
 			-- 郵便番号SKK辞書にエントリがあれば候補の先頭に追加
 			if 0 < string.len(from_skk_dict) then
 				local pref = string.sub(key, 1, 3) .. "-" .. string.sub(key, 4) .. " "
-				ret = ret .. add_prefix_to_skkdict_entry(pref, from_skk_dict)
+				ret = ret .. add_prefix_to_skkdict_record(pref, from_skk_dict)
 			end
 		end
 		if string.len(key) == 8 then
 			local t8 = from_8digits(key)
 			if 0 < #t8 then
-				ret = ret .. to_skkdictline(t8)
+				ret = ret .. to_skkdict_record(t8)
 			end
 		end
 		if 10 <= string.len(key) then
@@ -2416,13 +2444,13 @@ local function skk_search(key, okuri)
 				table.insert(tTel, string.format("%03d-%04d-%04d", string.sub(key, 1, 3), string.sub(key, 4, 7), string.sub(key, 8, 11)))
 			end
 			if 0 < #tTel then
-				ret = ret .. to_skkdictline(tTel)
+				ret = ret .. to_skkdict_record(tTel)
 			end
 		end
 
 		local td = from_digits(key)
 		if 0 < #td then
-			ret = ret .. to_skkdictline(td)
+			ret = ret .. to_skkdict_record(td)
 		end
 
 	end
@@ -2435,7 +2463,7 @@ local function skk_search(key, okuri)
 		local i = string.find(key, "/")
 		local n = string.sub(key, 1, i - 1)
 		local m = string.sub(key, i + 1)
-		ret = ret .. to_skkdictline({string.format("%d分の%d", m, n)})
+		ret = ret .. to_skkdict_record({string.format("%d分の%d", m, n)})
 	end
 
 	-- アルファベットが連続してピリオドで終わる場合は各文字を大文字にしてピリオドと半角スペースを入れる
@@ -2443,7 +2471,7 @@ local function skk_search(key, okuri)
 		local f = string.gsub(string.sub(key, 0, -2), "[a-z]", function(m)
 			return string.upper(m) .. ". "
 		end)
-		ret = ret .. to_skkdictline({f})
+		ret = ret .. to_skkdict_record({f})
 	end
 
 	-- 郵便番号変換（郵便番号SKK辞書は数字7桁）
@@ -2452,7 +2480,7 @@ local function skk_search(key, okuri)
 		local s = crvmgr.search_skk_dictionary(k, okuri)
 		if 0 < string.len(s) then
 			local pref = key .. " "
-			ret = ret .. add_prefix_to_skkdict_entry(pref, s)
+			ret = ret .. add_prefix_to_skkdict_record(pref, s)
 		end
 	end
 
@@ -2464,7 +2492,7 @@ local function skk_search(key, okuri)
 	if not string.match(key, "^[a-zA-Z0-9%p].+") then
 		local tail = string.sub(key, string.len(key))
 		if tail ~= ">" then
-			ret = ret .. filter_skkdictline(crvmgr.search_skk_server(key))
+			ret = ret .. filter_skkdict_record(crvmgr.search_skk_server(key))
 		end
 	end
 
