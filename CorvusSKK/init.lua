@@ -1,4 +1,10 @@
 ﻿--[[
+
+Original: https://github.com/nathancorvussolis/corvusskk/blob/master/installer/config-lua/init.lua
+
+]]--
+
+--[[
 	 CorvusSKK Lua拡張スクリプト
 
 
