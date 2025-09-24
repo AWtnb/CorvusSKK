@@ -1910,23 +1910,6 @@ local function skk_convert_key(key, okuri)
 	return ret
 end
 
-local function to_skkdict_entry(t)
-	local ret = ""
-	if #t < 1 then
-		return ret
-	end
-	for i = 1, #t do
-		ret = ret .. "/" .. t[i]
-	end
-	return ret .. "/\n"
-end
-
-local function add_prefix_to_skkdict_entry(pref, ent)
-	return string.gsub(ent, "/%C", function(m)
-		return "/" .. pref .. string.sub(m, 2)
-	end)
-end
-
 local function from_digits(s)
 	local t = {}
 	local n = tonumber(s)
@@ -2166,213 +2149,6 @@ local function from_6digits(s)
 	return t
 end
 
--- 辞書検索処理
---   検索結果のフォーマットはSKK辞書の候補部分と同じ
---   "/<C1><;A1>/<C2><;A2>/.../<Cn><;An>/\n"
-local function skk_search(key, okuri)
-	local ret = ""
-
-	-- ユーザー辞書検索
-	ret = ret .. crvmgr.search_user_dictionary(key, okuri)
-
-	-- SKK辞書検索
-	local from_skk_dict = crvmgr.search_skk_dictionary(key, okuri)
-
-	-- SKK辞書の結果より先に数値を変換する
-	if string.match(key, "^%d+$") then
-
-		if string.len(key) == 3 then
-			local t3 = from_3digits(key)
-			if 0 < #t3 then
-				ret = ret .. to_skkdict_entry(t3)
-			end
-		end
-		if string.len(key) == 4 then
-			local t4 = from_4digits(key)
-			if 0 < #t4 then
-				ret = ret .. to_skkdict_entry(t4)
-			end
-		end
-		if string.len(key) == 6 then
-			local t6 = from_6digits(key)
-			if 0 < #t6 then
-				ret = ret .. to_skkdict_entry(t6)
-			end
-		end
-		if string.len(key) == 7 then
-			-- 郵便番号SKK辞書にエントリがあれば候補の先頭に追加
-			if 0 < string.len(from_skk_dict) then
-				local pref = string.sub(key, 1, 3) .. "-" .. string.sub(key, 4) .. " "
-				ret = ret .. add_prefix_to_skkdict_entry(pref, from_skk_dict)
-			end
-		end
-		if string.len(key) == 8 then
-			local t8 = from_8digits(key)
-			if 0 < #t8 then
-				ret = ret .. to_skkdict_entry(t8)
-			end
-		end
-		if 10 <= string.len(key) then
-			local tTel = {}
-			if string.len(key) == 10 then
-				table.insert(tTel, string.format("%02d-%04d-%04d", string.sub(key, 1, 2), string.sub(key, 3, 6), string.sub(key, 7, 10)))
-				table.insert(tTel, string.format("%03d-%03d-%04d", string.sub(key, 1, 3), string.sub(key, 4, 6), string.sub(key, 7, 10)))
-			end
-			if string.len(key) == 11 then
-				table.insert(tTel, string.format("%03d-%04d-%04d", string.sub(key, 1, 3), string.sub(key, 4, 7), string.sub(key, 8, 11)))
-			end
-			if 0 < #tTel then
-				ret = ret .. to_skkdict_entry(tTel)
-			end
-		end
-
-		local td = from_digits(key)
-		if 0 < #td then
-			ret = ret .. to_skkdict_entry(td)
-		end
-
-	end
-
-	-- SKK辞書の検索結果を反映
-	ret = ret .. from_skk_dict
-
-	-- 分数
-	if string.match(key, "^%d+/%d+$") then
-		local i = string.find(key, "/")
-		local n = string.sub(key, 1, i - 1)
-		local m = string.sub(key, i + 1)
-		ret = ret .. to_skkdict_entry({string.format("%d分の%d", m, n)})
-	end
-
-	-- アルファベットが連続してピリオドで終わる場合は各文字を大文字にしてピリオドと半角スペースを入れる
-	if string.match(key, "^[a-z]+%.") then
-		local f = string.gsub(string.sub(key, 0, -2), "[a-z]", function(m)
-			return string.upper(m) .. ". "
-		end)
-		ret = ret .. to_skkdict_entry({f})
-	end
-
-	-- 郵便番号変換（郵便番号SKK辞書は数字7桁）
-	if string.match(key, "^%d%d%d%-%d%d%d%d$") then
-		local k = string.gsub(key, "-", "")
-		local s = crvmgr.search_skk_dictionary(k, okuri)
-		if 0 < string.len(s) then
-			local pref = key .. " "
-			ret = ret .. add_prefix_to_skkdict_entry(pref, s)
-		end
-	end
-
-	--[[
-		SKK辞書サーバー検索
-		- 「英数・記号から始まる場合」もしくは「接辞の>で終わる場合」は Google 日本語入力 CGI APIへの問い合わせを除外する。
-		- crvskkserv.ini で正規表現を書く方法もあるが、設定の一元管理のために init.lua で設定しておく。
-	--]]
-	if not string.match(key, "^[a-zA-Z0-9%p].+") then
-		local tail = string.sub(key, string.len(key))
-		if tail ~= ">" then
-			ret = ret .. crvmgr.search_skk_server(key)
-		end
-	end
-
-	if (okuri == "") then
-		-- Unicodeコードポイント変換
-		ret = ret .. crvmgr.search_unicode(key)
-
-		-- JIS X 0213面区点番号変換
-		ret = ret .. crvmgr.search_jisx0213(key)
-
-		-- JIS X 0208区点番号変換
-		ret = ret .. crvmgr.search_jisx0208(key)
-
-		local cccplen = string.len(charcode_conv_prefix)
-		if (cccplen < string.len(key) and string.sub(key, 1, cccplen) == charcode_conv_prefix) then
-			local subkey = string.sub(key, cccplen + 1)
-
-			-- 文字コード表記変換
-			ret = ret .. crvmgr.search_character_code(subkey)
-		end
-	end
-
-	-- 丸括弧を亀甲パーレンにした候補も追加
-	local entries = {}
-	for candidate in string.gmatch(ret, "/([^/\n]+)") do
-		table.insert(entries, candidate)
-		if string.find(candidate, "（") and string.find(candidate, "）") then
-			local kikko = string.gsub(string.gsub(candidate, "（", "〔"), "）", "〕")
-			table.insert(entries, kikko)
-		end
-	end
-	if #entries > 0 then
-		ret = ""
-		for _, v in ipairs(entries) do
-			ret = ret .. "/" .. v
-		end
-		ret = ret .. "/\n"
-	end
-
-	-- 余計な"/\n"を削除
-	ret = string.gsub(ret, "/\n/", "/")
-
-	return ret
-end
-
-
-
---[[
-
-	C側から呼ばれる関数群
-
---]]
-
--- 辞書検索
-function lua_skk_search(key, okuri)
-
-	-- skk-search-sagyo-henkaku (t:true/anything:false)
-	-- 「送りあり変換で送りなし候補も検索する」 → 送り仮名あり、送りローマ字なし
-	if (okuri ~= "" and string.match(string.sub(key, -1), "[a-z]") == nil) then
-		if (enable_skk_search_sagyo_only) then
-			if (string.find("さしすせ", okuri) ~= nil) then
-				okuri = ""
-			end
-		else
-			okuri = ""
-		end
-	end
-
-	local ret = skk_search(key, okuri)
-
-	-- skk-ignore-dic-word
-	if (enable_skk_ignore_dic_word) then
-		ret = skk_ignore_dic_word(ret)
-	end
-
-	return ret
-end
-
--- 補完
-function lua_skk_complement(key)
-	return crvmgr.complement(key)
-end
-
--- 見出し語変換
-function lua_skk_convert_key(key, okuri)
-	return skk_convert_key(key, okuri)
-end
-
--- 候補変換
-function lua_skk_convert_candidate(key, candidate, okuri)
-	return skk_convert_candidate(key, candidate, okuri)
-end
-
--- 逆検索
-function lua_skk_reverse(candidate)
-	-- エントリの前後からスペースを取り除く
-	candidate = string.gsub(candidate, "^ +", "")
-	candidate = string.gsub(candidate, " +$", "")
-	return crvmgr.reverse(candidate)
-end
-
-
 --[[
 
 カタカナひらがなの変換テーブル
@@ -2394,7 +2170,6 @@ end)()
 --[[
 
 カタカナをひらがなに変換する
-
 
 ]]--
 local function katakana_to_hiragana(s)
@@ -2480,6 +2255,311 @@ local function is_all_katakana_bytes(s)
 		i = i + 3 -- 3バイト進める
 	end
 	return true
+end
+
+--[[
+
+文字列がすべて半角カタカナか判定する
+
+]]--
+local function is_all_half_katakana_bytes(s)
+	local i = 1
+	local len = #s
+	while i <= len do
+		if len < i + 2 then
+			return false
+		end -- 3バイト未満で終わる場合は false
+
+		-- UTF-8 の3バイトを取得
+		local b1 = string.byte(s, i)
+		local b2 = string.byte(s, i + 1)
+		local b3 = string.byte(s, i + 2)
+
+		-- 半角カタカナの範囲チェック
+		local is_half_katakana = (
+			(b1 == 0xEF and b2 == 0xBD and (0xA6 <= b3 and b3 <= 0xBF)) or -- U+FF66 〜 U+FF7F (ｦ〜ｿ)
+			(b1 == 0xEF and b2 == 0xBE and (0x81 <= b3 and b3 <= 0x9F)) -- U+FF80 〜 U+FF9F (ﾀ〜ﾟ)
+		)
+
+		if not is_half_katakana then
+			return false
+		end
+
+		i = i + 3 -- 3バイト進める
+	end
+	return true
+end
+
+--[[
+
+SKK辞書形式（/<C1><;A1>/<C2><;A2>/.../<Cn><;An>/\n）を分割する
+
+]]--
+local function split_skkdictline(dictline)
+	local t = {};
+	local i = 1
+	for s in string.gmatch(dictline, "([^/]+)") do
+		t[i] = s
+		i = i + 1
+	end
+	return t
+end
+
+--[[
+
+SKK辞書形式（/<C1><;A1>/<C2><;A2>/.../<Cn><;An>/\n）から「すべてカタカナのもの」「すべて半角カナのもの」を除外する
+
+]]--
+local function trim_skkdictline(dictline)
+	local ret = ""
+	local entries = split_skkdictline(dictline)
+	for i = 1, #entries do
+		local ent = entries[i]
+		if ent ~= "\n" then
+			if not is_all_half_katakana_bytes(ent) and not is_all_katakana_bytes(ent) then
+				ret = ret .. "/" .. ent
+			end
+		end
+	end
+	return ret .. "/\n"
+end
+
+
+
+--[[
+
+SKK辞書の行形式（/<C1><;A1>/<C2><;A2>/.../<Cn><;An>/\n）に変換する
+
+]]--
+local function to_skkdictline(t)
+	local ret = ""
+	if #t < 1 then
+		return ret
+	end
+	for i = 1, #t do
+		ret = ret .. "/" .. t[i]
+	end
+	return ret .. "/\n"
+end
+
+
+--[[
+
+SKK辞書の行形式（/<C1><;A1>/<C2><;A2>/.../<Cn><;An>/\n）の各エントリにプレフィックスを追加する
+
+]]--
+local function add_prefix_to_skkdict_entry(pref, dictline)
+	return string.gsub(dictline, "/%C", function(m)
+		return "/" .. pref .. string.sub(m, 2)
+	end)
+end
+
+-- 辞書検索処理
+--   検索結果のフォーマットはSKK辞書の候補部分と同じ
+--   "/<C1><;A1>/<C2><;A2>/.../<Cn><;An>/\n"
+local function skk_search(key, okuri)
+	local ret = ""
+
+	-- ユーザー辞書検索
+	ret = ret .. crvmgr.search_user_dictionary(key, okuri)
+
+	-- SKK辞書検索
+	local from_skk_dict = crvmgr.search_skk_dictionary(key, okuri)
+
+	-- SKK辞書の結果より先に数値を変換する
+	if string.match(key, "^%d+$") then
+
+		if string.len(key) == 3 then
+			local t3 = from_3digits(key)
+			if 0 < #t3 then
+				ret = ret .. to_skkdictline(t3)
+			end
+		end
+		if string.len(key) == 4 then
+			local t4 = from_4digits(key)
+			if 0 < #t4 then
+				ret = ret .. to_skkdictline(t4)
+			end
+		end
+		if string.len(key) == 6 then
+			local t6 = from_6digits(key)
+			if 0 < #t6 then
+				ret = ret .. to_skkdictline(t6)
+			end
+		end
+		if string.len(key) == 7 then
+			-- 郵便番号SKK辞書にエントリがあれば候補の先頭に追加
+			if 0 < string.len(from_skk_dict) then
+				local pref = string.sub(key, 1, 3) .. "-" .. string.sub(key, 4) .. " "
+				ret = ret .. add_prefix_to_skkdict_entry(pref, from_skk_dict)
+			end
+		end
+		if string.len(key) == 8 then
+			local t8 = from_8digits(key)
+			if 0 < #t8 then
+				ret = ret .. to_skkdictline(t8)
+			end
+		end
+		if 10 <= string.len(key) then
+			local tTel = {}
+			if string.len(key) == 10 then
+				table.insert(tTel, string.format("%02d-%04d-%04d", string.sub(key, 1, 2), string.sub(key, 3, 6), string.sub(key, 7, 10)))
+				table.insert(tTel, string.format("%03d-%03d-%04d", string.sub(key, 1, 3), string.sub(key, 4, 6), string.sub(key, 7, 10)))
+			end
+			if string.len(key) == 11 then
+				table.insert(tTel, string.format("%03d-%04d-%04d", string.sub(key, 1, 3), string.sub(key, 4, 7), string.sub(key, 8, 11)))
+			end
+			if 0 < #tTel then
+				ret = ret .. to_skkdictline(tTel)
+			end
+		end
+
+		local td = from_digits(key)
+		if 0 < #td then
+			ret = ret .. to_skkdictline(td)
+		end
+
+	end
+
+	-- SKK辞書の検索結果を反映
+	ret = ret .. from_skk_dict
+
+	-- 分数
+	if string.match(key, "^%d+/%d+$") then
+		local i = string.find(key, "/")
+		local n = string.sub(key, 1, i - 1)
+		local m = string.sub(key, i + 1)
+		ret = ret .. to_skkdictline({string.format("%d分の%d", m, n)})
+	end
+
+	-- アルファベットが連続してピリオドで終わる場合は各文字を大文字にしてピリオドと半角スペースを入れる
+	if string.match(key, "^[a-z]+%.") then
+		local f = string.gsub(string.sub(key, 0, -2), "[a-z]", function(m)
+			return string.upper(m) .. ". "
+		end)
+		ret = ret .. to_skkdictline({f})
+	end
+
+	-- 郵便番号変換（郵便番号SKK辞書は数字7桁）
+	if string.match(key, "^%d%d%d%-%d%d%d%d$") then
+		local k = string.gsub(key, "-", "")
+		local s = crvmgr.search_skk_dictionary(k, okuri)
+		if 0 < string.len(s) then
+			local pref = key .. " "
+			ret = ret .. add_prefix_to_skkdict_entry(pref, s)
+		end
+	end
+
+	--[[
+		SKK辞書サーバー検索
+		- 「英数・記号から始まる場合」もしくは「接辞の>で終わる場合」は Google 日本語入力 CGI APIへの問い合わせを除外する。
+		- crvskkserv.ini で正規表現を書く方法もあるが、設定の一元管理のために init.lua で設定しておく。
+	--]]
+	if not string.match(key, "^[a-zA-Z0-9%p].+") then
+		local tail = string.sub(key, string.len(key))
+		if tail ~= ">" then
+			ret = ret .. crvmgr.search_skk_server(key)
+		end
+	end
+
+	if (okuri == "") then
+		-- Unicodeコードポイント変換
+		ret = ret .. crvmgr.search_unicode(key)
+
+		-- JIS X 0213面区点番号変換
+		ret = ret .. crvmgr.search_jisx0213(key)
+
+		-- JIS X 0208区点番号変換
+		ret = ret .. crvmgr.search_jisx0208(key)
+
+		local cccplen = string.len(charcode_conv_prefix)
+		if (cccplen < string.len(key) and string.sub(key, 1, cccplen) == charcode_conv_prefix) then
+			local subkey = string.sub(key, cccplen + 1)
+
+			-- 文字コード表記変換
+			ret = ret .. crvmgr.search_character_code(subkey)
+		end
+	end
+
+	-- 丸括弧を亀甲パーレンにした候補も追加
+	local entries = {}
+	for candidate in string.gmatch(ret, "/([^/\n]+)") do
+		table.insert(entries, candidate)
+		if string.find(candidate, "（") and string.find(candidate, "）") then
+			local kikko = string.gsub(string.gsub(candidate, "（", "〔"), "）", "〕")
+			table.insert(entries, kikko)
+		end
+	end
+	if #entries > 0 then
+		ret = ""
+		for _, v in ipairs(entries) do
+			ret = ret .. "/" .. v
+		end
+		ret = ret .. "/\n"
+	end
+
+	ret = ret .. trim_skkdictline(ret)
+
+	-- 余計な"/\n"を削除
+	ret = string.gsub(ret, "/\n/", "/")
+
+	return ret
+end
+
+
+
+--[[
+
+	C側から呼ばれる関数群
+
+--]]
+
+-- 辞書検索
+function lua_skk_search(key, okuri)
+
+	-- skk-search-sagyo-henkaku (t:true/anything:false)
+	-- 「送りあり変換で送りなし候補も検索する」 → 送り仮名あり、送りローマ字なし
+	if (okuri ~= "" and string.match(string.sub(key, -1), "[a-z]") == nil) then
+		if (enable_skk_search_sagyo_only) then
+			if (string.find("さしすせ", okuri) ~= nil) then
+				okuri = ""
+			end
+		else
+			okuri = ""
+		end
+	end
+
+	local ret = skk_search(key, okuri)
+
+	-- skk-ignore-dic-word
+	if (enable_skk_ignore_dic_word) then
+		ret = skk_ignore_dic_word(ret)
+	end
+
+	return ret
+end
+
+-- 補完
+function lua_skk_complement(key)
+	return crvmgr.complement(key)
+end
+
+-- 見出し語変換
+function lua_skk_convert_key(key, okuri)
+	return skk_convert_key(key, okuri)
+end
+
+-- 候補変換
+function lua_skk_convert_candidate(key, candidate, okuri)
+	return skk_convert_candidate(key, candidate, okuri)
+end
+
+-- 逆検索
+function lua_skk_reverse(candidate)
+	-- エントリの前後からスペースを取り除く
+	candidate = string.gsub(candidate, "^ +", "")
+	candidate = string.gsub(candidate, " +$", "")
+	return crvmgr.reverse(candidate)
 end
 
 
