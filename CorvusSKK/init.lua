@@ -2278,7 +2278,7 @@ local function is_all_half_katakana_bytes(s)
 		-- 半角カタカナの範囲チェック
 		local is_half_katakana = (
 			(b1 == 0xEF and b2 == 0xBD and (0xA6 <= b3 and b3 <= 0xBF)) or -- U+FF66 〜 U+FF7F (ｦ〜ｿ)
-			(b1 == 0xEF and b2 == 0xBE and (0x81 <= b3 and b3 <= 0x9F)) -- U+FF80 〜 U+FF9F (ﾀ〜ﾟ)
+			(b1 == 0xEF and b2 == 0xBE and (0x80 <= b3 and b3 <= 0x9F)) -- U+FF80 〜 U+FF9F (ﾀ〜ﾟ)
 		)
 
 		if not is_half_katakana then
@@ -2297,34 +2297,13 @@ SKK辞書形式（/<C1><;A1>/<C2><;A2>/.../<Cn><;An>/\n）を分割する
 ]]--
 local function split_skkdictline(dictline)
 	local t = {};
-	local i = 1
 	for s in string.gmatch(dictline, "([^/]+)") do
-		t[i] = s
-		i = i + 1
+		if s ~= "\n" then
+			table.insert(t, s)
+		end
 	end
 	return t
 end
-
---[[
-
-SKK辞書形式（/<C1><;A1>/<C2><;A2>/.../<Cn><;An>/\n）から「すべてカタカナのもの」「すべて半角カナのもの」を除外する
-
-]]--
-local function trim_skkdictline(dictline)
-	local ret = ""
-	local entries = split_skkdictline(dictline)
-	for i = 1, #entries do
-		local ent = entries[i]
-		if ent ~= "\n" then
-			if not is_all_half_katakana_bytes(ent) and not is_all_katakana_bytes(ent) then
-				ret = ret .. "/" .. ent
-			end
-		end
-	end
-	return ret .. "/\n"
-end
-
-
 
 --[[
 
@@ -2340,6 +2319,33 @@ local function to_skkdictline(t)
 		ret = ret .. "/" .. t[i]
 	end
 	return ret .. "/\n"
+end
+
+
+--[[
+
+SKK辞書形式（/<C1><;A1>/<C2><;A2>/.../<Cn><;An>/\n）からアノテーション（半角セミコロン以降）を除外する
+
+]]--
+local function trim_annotation(s)
+	return string.gsub(s, ";.+", "")
+end
+
+--[[
+
+SKK辞書形式（/<C1><;A1>/<C2><;A2>/.../<Cn><;An>/\n）から「すべて半角カナのもの」を除外する
+
+]]--
+local function filter_skkdictline(dictline)
+	local t = {}
+	local entries = split_skkdictline(dictline)
+	for i = 1, #entries do
+		local ent = entries[i]
+		if not is_all_half_katakana_bytes(trim_annotation(ent)) then
+			table.insert(t, ent)
+		end
+	end
+	return to_skkdictline(t)
 end
 
 
@@ -2458,7 +2464,7 @@ local function skk_search(key, okuri)
 	if not string.match(key, "^[a-zA-Z0-9%p].+") then
 		local tail = string.sub(key, string.len(key))
 		if tail ~= ">" then
-			ret = ret .. crvmgr.search_skk_server(key)
+			ret = ret .. filter_skkdictline(crvmgr.search_skk_server(key))
 		end
 	end
 
@@ -2497,8 +2503,6 @@ local function skk_search(key, okuri)
 		end
 		ret = ret .. "/\n"
 	end
-
-	ret = ret .. trim_skkdictline(ret)
 
 	-- 余計な"/\n"を削除
 	ret = string.gsub(ret, "/\n/", "/")
