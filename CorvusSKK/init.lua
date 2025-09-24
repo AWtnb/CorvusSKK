@@ -2264,7 +2264,7 @@ local function skk_search(key, okuri)
 
 	--[[
 		SKK辞書サーバー検索
-		- 英数・記号から始まる場合、接辞の>で終わる場合は Google 日本語入力 CGI APIへの問い合わせを除外する。
+		- 「英数・記号から始まる場合」もしくは「接辞の>で終わる場合」は Google 日本語入力 CGI APIへの問い合わせを除外する。
 		- crvskkserv.ini で正規表現を書く方法もあるが、設定の一元管理のために init.lua で設定しておく。
 	--]]
 	if not string.match(key, "^[a-zA-Z0-9%p].+") then
