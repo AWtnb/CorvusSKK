@@ -756,10 +756,10 @@
       <row ro="x`" hi="〻" ka="〻" an="〻" so="0" />
       <row ro="bk" hi="べ" ka="ベ" an="ﾍﾞ" so="1" />
       <row ro="bn" hi="文" ka="文" an="ﾌﾞﾝ" so="0" />
-      <row ro="bru" hi="べる" ka="ベル" an="ﾍﾞﾙ" so="0" />
-      <row ro="bte" hi="べて" ka="ベテ" an="ﾍﾞﾃ" so="0" />
-      <row ro="clu" hi="せる" ka="セル" an="ｾﾙ" so="0" />
-      <row ro="cru" hi="せる" ka="セル" an="ｾﾙ" so="0" />
+      <row ro="br" hi="べ" ka="ベ" an="ﾍﾞ" so="1" />
+      <row ro="bt" hi="べ" ka="ベ" an="ﾍﾞ" so="1" />
+      <row ro="cl" hi="せ" ka="セ" an="ｾ" so="1" />
+      <row ro="cr" hi="せ" ka="セ" an="ｾ" so="1" />
       <row ro="cte" hi="せて" ka="セテ" an="ｾﾃ" so="0" />
       <row ro="d," hi="で、" ka="デ、" an="ﾃﾞ､" so="0" />
       <row ro="dki" hi="でき" ka="デキ" an="ﾃﾞｷ" so="0" />
@@ -779,6 +779,7 @@
       <row ro="dsto" hi="ですと" ka="デスト" an="ﾃﾞｽﾄ" so="0" />
       <row ro="dsu" hi="です" ka="デス" an="ﾃﾞｽ" so="0" />
       <row ro="dsy" hi="ですよ" ka="デスヨ" an="ﾃﾞｽﾖ" so="0" />
+      <row ro="f," hi="が、" ka="ガ、" an="ｶﾞ､" so="0" />
       <row ro="g," hi="が、" ka="ガ、" an="ｶﾞ､" so="0" />
       <row ro="gma" hi="ございま" ka="ゴザイマ" an="ｺﾞｻﾞｲﾏ" so="0" />
       <row ro="gn" hi="げん" ka="ゲン" an="ｹﾞﾝ" so="0" />
