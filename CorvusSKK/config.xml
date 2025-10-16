@@ -473,6 +473,7 @@
       <row ro="kk" hi="っ" ka="ッ" an="ｯ" so="1" />
       <row ro="pp" hi="っ" ka="ッ" an="ｯ" so="1" />
       <row ro="rr" hi="っ" ka="ッ" an="ｯ" so="1" />
+      <row ro="rra" hi="れら" ka="レラ" an="ﾚﾗ" so="0" />
       <row ro="rre" hi="られ" ka="ラレ" an="ﾗﾚ" so="0" />
       <row ro="rru" hi="れる" ka="レル" an="ﾚﾙ" so="0" />
       <row ro="ss" hi="っ" ka="ッ" an="ｯ" so="1" />
