@@ -493,7 +493,7 @@
       <row ro="xyu" hi="ゅ" ka="ュ" an="ｭ" so="0" />
       <row ro="xye" hi="え" ka="エ" an="ｴ" so="0" />
       <row ro="xyo" hi="ょ" ka="ョ" an="ｮ" so="0" />
-      <row ro="xwa" hi="ゎ" ka="ヮ" an="ﾜ" so="0" />
+      <row ro="xwa" hi="挙" ka="挙" an="ｱ" so="0" />
       <row ro="xwi" hi="ゐ" ka="ヰ" an="ｲ" so="0" />
       <row ro="xwu" hi="う" ka="ウ" an="ｳ" so="0" />
       <row ro="xwe" hi="ゑ" ka="ヱ" an="ｴ" so="0" />
@@ -662,9 +662,7 @@
       <row ro="z=" hi="≒" ka="≒" an="≒" so="0" />
       <row ro="x=" hi="≠" ka="≠" an="≠" so="0" />
       <row ro="z@" hi="々" ka="々" an="z`" so="0" />
-      <row ro="zw" hi="々" ka="々" an="z`" so="0" />
       <row ro="z`" hi="〃" ka="〃" an="〃" so="0" />
-      <row ro="zW" hi="〃" ka="〃" an="〃" so="0" />
       <row ro="lg" hi="〓" ka="〓" an="〓" so="0" />
       <row ro="k1" hi="一" ka="一" an="一" so="0" />
       <row ro="k2" hi="二" ka="二" an="二" so="0" />
