@@ -2102,7 +2102,7 @@ SKK辞書形式（/<C1><;A1>/<C2><;A2>/.../<Cn><;An>/\n）からアノテーシ�
 
 ]]--
 local function trim_annotation(s)
-	return string.gsub(s, ";.+", "")
+	return string.gsub(s, ";.+/", "/")
 end
 
 --[[
@@ -2704,7 +2704,12 @@ function lua_skk_add(okuriari, key, candidate, annotation, okuri)
 	-- エントリ先頭にスペースが含まれないようにする
 	candidate = string.gsub(candidate, "^ +", "")
 
-	-- skk-search-sagyo-henkaku を応用して、2文字以上（バイト数で言えば6以上）の送りあり変換で送り仮名なしとしても登録する
+	-- スペースを含む場合はスペースをアンダースコアにした見出し語も登録する
+	if string.match(candidate, " ") then
+		crvmgr.add(okuriari, key, string.gsub(candidate, " ", "_"), annotation, okuri)
+	end
+
+	-- 2文字以上（バイト数で言えば6以上）の送りあり変換で送り仮名なしとしても登録する（skk-search-sagyo-henkaku の応用）
 	if (
 		okuri ~= "" and
 		3*2 <= string.len(candidate) and
@@ -2713,9 +2718,9 @@ function lua_skk_add(okuriari, key, candidate, annotation, okuri)
 		if not is_all_hiragana_bytes(candidate) then
 			if (string.find("がさしすせとだでなにのはもやを", okuri) ~= nil) then
 				-- 送り仮名なしの見出し語はkeyから最後のアルファベット1文字を除いたもの
-				local non_okuri = string.sub(key, 1, string.len(key) - 1)
-				if non_okuri ~= "" then
-					crvmgr.add(false, non_okuri, candidate, annotation, "")
+				local base = string.sub(key, 1, string.len(key) - 1)
+				if base ~= "" then
+					crvmgr.add(false, base, candidate, annotation, "")
 				end
 			end
 		end
