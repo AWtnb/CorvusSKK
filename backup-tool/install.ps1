@@ -14,7 +14,7 @@ if (-not (Test-Path $appDir -PathType Container)) {
 }
 
 $backupDir = $env:USERPROFILE | Join-Path -ChildPath "Dropbox" | Join-Path -ChildPath "CorvusSKK-backup"
-if (($args.Length -gt 0) -and ($args[0].Trim().Length -gt 0)) {
+if (($args.Count -gt 0) -and ($args[0].Trim().Length -gt 0)) {
     $backupDir = $args[0].Trim()
 }
 

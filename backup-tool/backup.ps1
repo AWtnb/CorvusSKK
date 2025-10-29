@@ -1,6 +1,6 @@
 $maxGen = 15
 
-if (($args.Length -lt 1) -or ($args[0].Trim().Length -lt 1)) {
+if (($args.Count -lt 1) -or ($args[0].Trim().Length -lt 1)) {
     $log = "{0} Backup dest path is not specified." -f (Get-Date -Format "yyyyMMdd-HH:mm:ss")
     $log | Out-File -FilePath ($env:USERPROFILE | Join-Path -ChildPath "Desktop\CorvusSKK-backup-error.log") -Append
     [System.Environment]::exit(1)
