@@ -1,12 +1,13 @@
+param([parameter(Mandatory)]$backupDir)
+
 $maxGen = 15
 
-if (($args.Count -lt 1) -or ($args[0].Trim().Length -lt 1)) {
+if (-not $backupDir) {
     $log = "{0} Backup dest path is not specified." -f (Get-Date -Format "yyyyMMdd-HH:mm:ss")
     $log | Out-File -FilePath ($env:USERPROFILE | Join-Path -ChildPath "Desktop\CorvusSKK-backup-error.log") -Append
     [System.Environment]::exit(1)
 }
 
-$backupDir = $args[0].Trim()
 if (-not (Test-Path $backupDir -PathType Container)) {
     New-Item -Path $backupDir -ItemType Directory > $null
 }

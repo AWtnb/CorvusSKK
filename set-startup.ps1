@@ -1,12 +1,12 @@
-$d = $args[0]
-if ($d.length -lt 1) {
-    Write-Host "Specify exe path."
+param([parameter(Mandatory)]$path)
+if (-not $path) {
+    Write-Host "Specify crvskkserv.exe path."
 } else {
     $wsShell = New-Object -ComObject WScript.Shell
     $startup = $env:USERPROFILE | Join-Path -ChildPath "AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup"
-    $shortcutPath = $startup | Join-Path -ChildPath ((Get-Item $d).BaseName + ".lnk")
+    $shortcutPath = $startup | Join-Path -ChildPath ((Get-Item $path).BaseName + ".lnk")
     $shortcut = $wsShell.CreateShortcut($shortcutPath)
-    $shortcut.TargetPath = $d
+    $shortcut.TargetPath = $path
     $shortcut.Save()
     "Created shortcut on startup: {0}" -f $shortcutPath | Write-Host
 }
