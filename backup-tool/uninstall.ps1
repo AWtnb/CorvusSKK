@@ -13,4 +13,4 @@ $env:APPDATA | Join-Path -ChildPath $config.appDirName | Get-Item -ErrorAction S
 $schedule = New-Object -ComObject Schedule.Service
 $schedule.connect()
 $root = $schedule.GetFolder("\")
-$root.DeleteFolder($config.taskPath.TrimStart("\").TrimEnd("\"), $null)
+$root.DeleteFolder($taskPath.TrimStart("\").TrimEnd("\"), $null)
