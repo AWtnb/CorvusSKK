@@ -1683,6 +1683,22 @@ local function from_digits(s)
 	return t
 end
 
+
+--[[
+
+2桁変換
+
+]]--
+local function from_2digits(s)
+	local t = {}
+	local n1 =tonumber(string.sub(s, 1, 1))
+	local n2 =tonumber(string.sub(s, 2))
+	if n1 ~= 0 and n2 ~= 0 then
+		table.insert(t, string.format("%d月%d日", n1, n2))
+	end
+	return t
+end
+
 --[[
 
 3桁変換
@@ -2409,6 +2425,12 @@ local function skk_search(key, okuri)
 	-- SKK辞書の結果より先に数値を変換する
 	if string.match(key, "^%d+$") then
 
+		if string.len(key) == 2 then
+			local t2 = from_2digits(key)
+			if 0 < #t2 then
+				ret = ret .. to_skkdict_record(t2)
+			end
+		end
 		if string.len(key) == 3 then
 			local t3 = from_3digits(key)
 			if 0 < #t3 then
