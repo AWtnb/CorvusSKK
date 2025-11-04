@@ -756,7 +756,6 @@
       <row ro="x@" hi="ゝ" ka="ヽ" an="ヽ" so="0" />
       <row ro="x`" hi="〻" ka="〻" an="〻" so="0" />
       <row ro="bk" hi="べ" ka="ベ" an="ﾍﾞ" so="1" />
-      <row ro="bn" hi="文" ka="文" an="ﾌﾞﾝ" so="0" />
       <row ro="br" hi="べ" ka="ベ" an="ﾍﾞ" so="1" />
       <row ro="bt" hi="べ" ka="ベ" an="ﾍﾞ" so="1" />
       <row ro="cl" hi="せ" ka="セ" an="ｾ" so="1" />
@@ -787,7 +786,6 @@
       <row ro="gru" hi="げる" ka="ゲル" an="ｹﾞﾙ" so="0" />
       <row ro="gte" hi="げて" ka="ゲテ" an="ｹﾞﾃ" so="0" />
       <row ro="h," hi="は、" ka="ハ、" an="ﾊ､" so="0" />
-      <row ro="hn" hi="分" ka="分" an="ﾌﾝ" so="0" />
       <row ro="jn" hi="じゅん" ka="ジュン" an="ｼﾞｭﾝ" so="0" />
       <row ro="jsn" hi="自身" ka="自身" an="ｼﾞｼﾝ" so="0" />
       <row ro="jti" hi="自体" ka="自体" an="ｼﾞﾀｲ" so="0" />
@@ -910,6 +908,8 @@
       <row ro="tra" hi="たら" ka="タラ" an="ﾀﾗ" so="0" />
       <row ro="tri" hi="ており" ka="ﾃｵﾘ" an="ﾃｵﾘ" so="0" />
       <row ro="w," hi="を、" ka="ヲ、" an="ｦ､" so="0" />
+      <row ro="xbn" hi="文" ka="文" an="ﾌﾞﾝ" so="0" />
+      <row ro="xhn" hi="分" ka="分" an="ﾌﾝ" so="0" />
       <row ro="xnd" hi="ので" ka="ノデ" an="ﾉﾃﾞ" so="0" />
       <row ro="y," hi="や、" ka="ヤ、" an="ﾔ､" so="0" />
       <row ro="yd" hi="よう" ka="ヨウ" an="ﾖｳ" so="1" />
