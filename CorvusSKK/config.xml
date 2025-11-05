@@ -804,6 +804,7 @@
       <row ro="kto" hi="こと" ka="コト" an="ｺﾄ" so="0" />
       <row ro="ktt" hi="かたち" ka="カタチ" an="ｶﾀﾁ" so="0" />
       <row ro="lda" hi="いただ" ka="イタダ" an="ｲﾀﾀﾞ" so="0" />
+      <row ro="ldm" hi="いただき" ka="イタダキ" an="ｲﾀﾀﾞｷ" so="1" />
       <row ro="lre" hi="られ" ka="ラレ" an="ﾗﾚ" so="0" />
       <row ro="lru" hi="れる" ka="レル" an="ﾚﾙ" so="0" />
       <row ro="lta" hi="れた" ka="レタ" an="ﾚﾀ" so="0" />
