@@ -2709,11 +2709,6 @@ function lua_skk_add(okuriari, key, candidate, annotation, okuri)
 	-- エントリ先頭にスペースが含まれないようにする
 	candidate = string.gsub(candidate, "^ +", "")
 
-	-- スペースを含む場合はスペースをアンダースコアにした見出し語も登録する
-	if string.match(candidate, " ") then
-		crvmgr.add(okuriari, key, string.gsub(candidate, " ", "_"), annotation, okuri)
-	end
-
 	-- 2文字以上（バイト数で言えば6以上）の送りあり変換で送り仮名なしとしても登録する（skk-search-sagyo-henkaku の応用）
 	if (
 		okuri ~= "" and
