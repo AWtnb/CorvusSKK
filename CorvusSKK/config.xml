@@ -858,7 +858,7 @@
       <row ro="s." hi="す。" ka="ス。" an="ｽ｡" so="0" />
       <row ro="sba" hi="せば" ka="セバ" an="ｾﾊﾞ" so="0" />
       <row ro="sce" hi="させ" ka="サセ" an="ｻｾ" so="0" />
-      <row ro="sle" hi="させ" ka="サセ" an="ｻｾ" so="0" />
+      <row ro="sl" hi="する" ka="スル" an="ｽﾙ" so="0" />
       <row ro="sda" hi="させていただ" ka="サセテイタダ" an="ｻｾﾃｲﾀﾀﾞ" so="0" />
       <row ro="sde" hi="すで" ka="スデ" an="ｽﾃﾞ" so="0" />
       <row ro="sdi" hi="次第" ka="次第" an="ｼﾀﾞｲ" so="0" />
@@ -870,8 +870,6 @@
       <row ro="shh" hi="しょう" ka="ショウ" an="ｼｮｳ" so="0" />
       <row ro="shk" hi="しょうか" ka="ショウカ" an="ｼｮｳｶ" so="0" />
       <row ro="ska" hi="すか" ka="スカ" an="ｽｶ" so="0" />
-      <row ro="sli" hi="さい。" ka="サイ。" an="ｻｲ｡" so="0" />
-      <row ro="sM" hi="様" ka="様" an="ｻﾏ" so="0" />
       <row ro="sma" hi="しま" ka="シマ" an="ｼﾏ" so="0" />
       <row ro="smi" hi="しまい" ka="シマイ" an="ｼﾏｲ" so="0" />
       <row ro="sml" hi="しまい" ka="シマイ" an="ｼﾏｲ" so="0" />
