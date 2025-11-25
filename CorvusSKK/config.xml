@@ -582,7 +582,7 @@
       <row ro="/" hi="／" ka="／" an="/" so="0" />
       <row ro=":" hi="：" ka="：" an=":" so="0" />
       <row ro=";" hi="ん" ka="ン" an="ﾝ" so="0" />
-      <row ro="ll" hi="ん" ka="ン" an="ﾝ" so="0" />
+      <row ro="l;" hi="を" ka="ヲ" an="ｦ" so="0" />
       <row ro="&lt;" hi="&lt;" ka="&lt;" an="&lt;" so="0" />
       <row ro="=" hi="=" ka="=" an="=" so="0" />
       <row ro=">" hi=">" ka=">" an=">" so="0" />
