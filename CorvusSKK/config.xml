@@ -313,7 +313,7 @@
       <row ro="chu" hi="ちゅ" ka="チュ" an="ﾁｭ" so="0" />
       <row ro="che" hi="ちぇ" ka="チェ" an="ﾁｪ" so="0" />
       <row ro="cho" hi="ちょ" ka="チョ" an="ﾁｮ" so="0" />
-      <row ro="ca" hi="変" ka="変" an="ｶ" so="0" />
+      <row ro="ca" hi="買" ka="買" an="ｶ" so="0" />
       <row ro="ci" hi="来" ka="来" an="ｷ" so="0" />
       <row ro="cu" hi="来" ka="来" an="ｸ" so="0" />
       <row ro="co" hi="こ" ka="コ" an="ｺ" so="0" />
@@ -510,7 +510,7 @@
       <row ro="lyu" hi="ゅ" ka="ュ" an="ｭ" so="0" />
       <row ro="lyo" hi="ょ" ka="ョ" an="ｮ" so="0" />
       <row ro="lwa" hi="ゎ" ka="ヮ" an="ﾜ" so="0" />
-      <row ro="lka" hi="買" ka="買" an="ｶ" so="0" />
+      <row ro="lka" hi="変" ka="変" an="ｶ" so="0" />
       <row ro="lki" hi="決" ka="決" an="ｷ" so="0" />
       <row ro="va" hi="ゔぁ" ka="ヴァ" an="ｳﾞｧ" so="0" />
       <row ro="vi" hi="ゔぃ" ka="ヴィ" an="ｳﾞｨ" so="0" />
