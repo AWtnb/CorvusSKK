@@ -13,11 +13,9 @@
 ### SKKサーバ
 
 1. [リポジトリ](https://github.com/nathancorvussolis/crvskkserv/releases/) から最新版をダウンロード
-1. [`set-startup.ps1`](set-startup.ps1) を実行してスタートアップに登録（`crvskkserv.exe` のパスを引数に指定する）
+1. [`set-skkserv-startup.ps1`](set-skkserv-startup.ps1) を実行してスタートアップに登録（`crvskkserv.exe` のパスを引数に指定する）
 
-    ```
-    .\set-startup.ps1 "$env:USERPROFILE\Personal\crvskkserv\crvskkserv.exe"
-    ```
+### Syncthing
 
 Syncthing使用時は下記の内容を `.stignore` に記載して同期の対象外にする。
 
