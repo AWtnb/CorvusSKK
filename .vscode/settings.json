@@ -1,0 +1,4 @@
+{
+  "Lua.diagnostics.disable": ["undefined-global", "param-type-mismatch"],
+  "Lua.diagnostics.globals": ["convert_s_to_table", "eval_table", "lua_skk_search", "lua_skk_complement", "lua_skk_convert_key", "lua_skk_convert_candidate", "lua_skk_reverse", "lua_skk_add", "lua_skk_delete", "lua_skk_save", "enable_skk_convert_num", "enable_skk_convert_gadget", "enable_skk_ignore_dic_word", "enable_skk_search_sagyo_only"]
+}
