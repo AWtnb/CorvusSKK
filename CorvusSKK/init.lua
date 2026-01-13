@@ -2,7 +2,7 @@
 
 Original: https://github.com/nathancorvussolis/corvusskk/blob/master/installer/config-lua/init.lua
 
-]]--
+]] --
 
 --[[
 	 CorvusSKK Lua拡張スクリプト
@@ -136,25 +136,25 @@ enable_skk_search_sagyo_only = true
 
 
 -- 数値変換タイプ1 (全角数字)
-local skk_num_type1_table = {"０", "１", "２", "３", "４", "５", "６", "７", "８", "９"}
+local skk_num_type1_table = { "０", "１", "２", "３", "４", "５", "６", "７", "８", "９" }
 
 -- 数値変換タイプ2, 3 (漢数字)
-local skk_num_type3_table = {"〇", "一", "二", "三", "四", "五", "六", "七", "八", "九"}
-local skk_num_type3_1k_table = {"", "十", "百", "千"}
-local skk_num_type3_10k_table = {"", "万", "億", "兆", "京", "垓",
-	"𥝱", "穣", "溝", "澗", "正", "載", "極", "恒河沙", "阿僧祇", "那由他", "不可思議", "無量大数"}
+local skk_num_type3_table = { "〇", "一", "二", "三", "四", "五", "六", "七", "八", "九" }
+local skk_num_type3_1k_table = { "", "十", "百", "千" }
+local skk_num_type3_10k_table = { "", "万", "億", "兆", "京", "垓",
+	"𥝱", "穣", "溝", "澗", "正", "載", "極", "恒河沙", "阿僧祇", "那由他", "不可思議", "無量大数" }
 
 -- 数値変換タイプ5 (漢数字、大字)
-local skk_num_type5_table = {"零", "壱", "弐", "参", "四", "五", "六", "七", "八", "九"}
-local skk_num_type5_1k_table = {"", "拾", "百", "千"}
-local skk_num_type5_10k_table = {"", "万", "億", "兆", "京", "垓",
-	"𥝱", "穣", "溝", "澗", "正", "載", "極", "恒河沙", "阿僧祇", "那由他", "不可思議", "無量大数"}
+local skk_num_type5_table = { "零", "壱", "弐", "参", "四", "五", "六", "七", "八", "九" }
+local skk_num_type5_1k_table = { "", "拾", "百", "千" }
+local skk_num_type5_10k_table = { "", "万", "億", "兆", "京", "垓",
+	"𥝱", "穣", "溝", "澗", "正", "載", "極", "恒河沙", "阿僧祇", "那由他", "不可思議", "無量大数" }
 
 -- 数値変換タイプ6 (独自拡張、ローマ数字)
-local skk_num_type6_table_I = {"", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"}
-local skk_num_type6_table_X = {"", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC"}
-local skk_num_type6_table_C = {"", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM"}
-local skk_num_type6_table_M = {"", "M", "MM", "MMM"}
+local skk_num_type6_table_I = { "", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX" }
+local skk_num_type6_table_X = { "", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC" }
+local skk_num_type6_table_C = { "", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM" }
+local skk_num_type6_table_M = { "", "M", "MM", "MMM" }
 
 -- 数値変換タイプ8 (桁区切り)
 local skk_num_type8_sep = ","
@@ -170,44 +170,44 @@ local skk_henkan_key = ""
 local skk_num_list = {}
 
 -- おみくじ吉凶テーブル
-local skk_gadget_omikuji_table = {"大吉", "吉", "中吉", "小吉", "末吉", "凶", "大凶"}
+local skk_gadget_omikuji_table = { "大吉", "吉", "中吉", "小吉", "末吉", "凶", "大凶" }
 
 -- 元号テーブル
 local skk_gadget_gengo_table = {
-	{{2019,  5,  1, 1}, "れいわ",     {"令和", "R"}}, -- 2019/05/01
-	{{1989,  1,  8, 1}, "へいせい",   {"平成", "H"}}, -- 1989/01/08
-	{{1926, 12, 25, 1}, "しょうわ",   {"昭和", "S"}}, -- 1926/12/25
-	{{1912,  7, 30, 1}, "たいしょう", {"大正", "T"}}, -- 1912/07/30
-	{{1873,  1,  1, 6}, "めいじ",     {"明治", "M"}}, -- 1873/01/01(グレゴリオ暦 明治6年)
+	{ { 2019, 5, 1, 1 }, "れいわ", { "令和", "R" } }, -- 2019/05/01
+	{ { 1989, 1, 8, 1 }, "へいせい", { "平成", "H" } }, -- 1989/01/08
+	{ { 1926, 12, 25, 1 }, "しょうわ", { "昭和", "S" } }, -- 1926/12/25
+	{ { 1912, 7, 30, 1 }, "たいしょう", { "大正", "T" } }, -- 1912/07/30
+	{ { 1873, 1, 1, 6 }, "めいじ", { "明治", "M" } }, -- 1873/01/01(グレゴリオ暦 明治6年)
 }
 
 -- 月テーブル
 local skk_gadget_month_table = {
-	{"Jan", "1"}, {"Feb", "2"}, {"Mar", "3"}, {"Apr", "4"}, {"May", "5"}, {"Jun", "6"},
-	{"Jul", "7"}, {"Aug", "8"}, {"Sep", "9"}, {"Oct", "10"}, {"Nov", "11"}, {"Dec", "12"}
+	{ "Jan", "1" }, { "Feb", "2" }, { "Mar", "3" }, { "Apr", "4" }, { "May", "5" }, { "Jun", "6" },
+	{ "Jul", "7" }, { "Aug", "8" }, { "Sep", "9" }, { "Oct", "10" }, { "Nov", "11" }, { "Dec", "12" }
 }
 
 -- 曜日テーブル
 local skk_gadget_dayofweek_table = {
-	{"Sun", "日"}, {"Mon", "月"}, {"Tue", "火"}, {"Wed", "水"}, {"Thu", "木"}, {"Fri", "金"}, {"Sat", "土"}
+	{ "Sun", "日" }, { "Mon", "月" }, { "Tue", "火" }, { "Wed", "水" }, { "Thu", "木" }, { "Fri", "金" }, { "Sat", "土" }
 }
 
 -- 単位テーブル
 local skk_gadget_unit_table_org = {
-	{"mile", {{"yard", 1760.0}, {"feet", 5280.0}, {"m", 1609.344}, {"km", 1.609344}}},
-	{"yard", {{"feet", 3.0}, {"inch", 36.0}, {"m", 0.9144}, {"cm", 91.44}, {"mm", 914.4}}},
-	{"feet", {{"inch", 12.0}, {"yard", (1.0 / 3.0)}, {"m", 0.3048}, {"cm", 30.48}, {"mm", 304.8}}},
-	{"inch", {{"feet", (1.0 / 12.0)}, {"yard", (1.0 / 36.0)}, {"m", 0.0254}, {"cm", 2.54}, {"mm", 25.4}}},
-	{"pound", {{"g", 453.59237}, {"ounce", 16.0}, {"grain", 7000.0}}},
-	{"ounce", {{"g", 28.349523125}, {"pound", (1.0 / 16.0)}, {"grain", (7000.0 / 16.0)}}},
-	{"grain", {{"mg", 64.79891}, {"g", 0.06479891}, {"pound", (1.0 / 7000.0)}, {"ounce", (16.0 / 7000.0)}}},
-	{"寸", {{"mm", (1000 / 33)}, {"cm", (100 / 33)}}},
-	{"尺", {{"mm", (10000 / 33)}, {"cm", (1000 / 33)}}},
-	{"坪", {{"㎡", (400 / 121)}}},
-	{"勺", {{"L", (2401 / 1331) / 100}, {"mL", (2401 / 1331) * 10}}},
-	{"合", {{"L", (2401 / 1331) / 10}, {"mL", (2401 / 1331) * 100}}},
-	{"升", {{"L", (2401 / 1331)}}},
-	{"斗", {{"L", (2401 / 1331) * 10}}},
+	{ "mile", { { "yard", 1760.0 }, { "feet", 5280.0 }, { "m", 1609.344 }, { "km", 1.609344 } } },
+	{ "yard", { { "feet", 3.0 }, { "inch", 36.0 }, { "m", 0.9144 }, { "cm", 91.44 }, { "mm", 914.4 } } },
+	{ "feet", { { "inch", 12.0 }, { "yard", (1.0 / 3.0) }, { "m", 0.3048 }, { "cm", 30.48 }, { "mm", 304.8 } } },
+	{ "inch", { { "feet", (1.0 / 12.0) }, { "yard", (1.0 / 36.0) }, { "m", 0.0254 }, { "cm", 2.54 }, { "mm", 25.4 } } },
+	{ "pound", { { "g", 453.59237 }, { "ounce", 16.0 }, { "grain", 7000.0 } } },
+	{ "ounce", { { "g", 28.349523125 }, { "pound", (1.0 / 16.0) }, { "grain", (7000.0 / 16.0) } } },
+	{ "grain", { { "mg", 64.79891 }, { "g", 0.06479891 }, { "pound", (1.0 / 7000.0) }, { "ounce", (16.0 / 7000.0) } } },
+	{ "寸", { { "mm", (1000 / 33) }, { "cm", (100 / 33) } } },
+	{ "尺", { { "mm", (10000 / 33) }, { "cm", (1000 / 33) } } },
+	{ "坪", { { "㎡", (400 / 121) } } },
+	{ "勺", { { "L", (2401 / 1331) / 100 }, { "mL", (2401 / 1331) * 10 } } },
+	{ "合", { { "L", (2401 / 1331) / 10 }, { "mL", (2401 / 1331) * 100 } } },
+	{ "升", { { "L", (2401 / 1331) } } },
+	{ "斗", { { "L", (2401 / 1331) * 10 } } },
 }
 local skk_gadget_unit_table = {}
 for i, v in ipairs(skk_gadget_unit_table_org) do
@@ -220,11 +220,11 @@ end
 
 -- 変数テーブル
 local skk_gadget_variable_table_org = {
-	{"skk-henkan-key", function() return skk_henkan_key end},
-	{"skk-num-list", function() return skk_num_list end},
-	{"fill-column", "70"},
-	{"comment-start", "/*"},
-	{"comment-end", "*/"},
+	{ "skk-henkan-key", function() return skk_henkan_key end },
+	{ "skk-num-list",   function() return skk_num_list end },
+	{ "fill-column",    "70" },
+	{ "comment-start",  "/*" },
+	{ "comment-end",    "*/" },
 }
 local skk_gadget_variable_table = {}
 for i, v in ipairs(skk_gadget_variable_table_org) do
@@ -255,7 +255,7 @@ local function skk_num_to_kanji(num, type_table, type_1k_table, type_10k_table)
 			local sj = string.sub(num, (i - 1) * 4 + j, (i - 1) * 4 + j)
 			if (sj ~= "0") then
 				-- 十の位と百の位の「一」は表記しない
-				if((sj ~= "1") or (j == 1) or (j == 4)) then
+				if ((sj ~= "1") or (j == 1) or (j == 4)) then
 					ret = ret .. type_table[tonumber(sj) + 1]
 				end
 				ret = ret .. type_1k_table[(4 - j) % 4 + 1]
@@ -508,7 +508,7 @@ usage:
 - `(replace-removable-zero (format-time-string "%Y年%m月%d日") "")`
 - `(format-time-string "%Y%m%d")`
 
-]]--
+]] --
 local function format_time_string(t)
 	local format = t[1]
 	local time = tonumber(t[2])
@@ -527,7 +527,7 @@ end
 -- cdr
 local function cdr(t)
 	if (#t > 0 and #t[1] > 1) then
-		return {table.unpack(t[1], 2)}
+		return { table.unpack(t[1], 2) }
 	end
 	return ""
 end
@@ -629,9 +629,9 @@ local function conv_ad_to_gengo(num, gengotype, type, div, tail, not_gannen, mon
 
 	for i, v in ipairs(skk_gadget_gengo_table) do
 		if ((year >= v[1][1] and month == 0 and day == 0) or
-			(year > v[1][1]) or
-			(year == v[1][1] and month > v[1][2]) or
-			(year == v[1][1] and month == v[1][2] and day >= v[1][3])) then
+				(year > v[1][1]) or
+				(year == v[1][1] and month > v[1][2]) or
+				(year == v[1][1] and month == v[1][2] and day >= v[1][3])) then
 			ret = v[3][tonumber(gengotype)] .. div
 			local gengo_year = year - v[1][1] + v[1][4]
 			if ((gengo_year == 1) and (not not_gannen)) then
@@ -858,7 +858,7 @@ usage:
 
 - `(replace-removable-zero "01月01日", "")`
 
-]]--
+]] --
 local function replace_removable_zero(t)
 	local s = t[1]
 	local repl = t[2]
@@ -889,7 +889,7 @@ usage:
 - `(replace-removable-zero (smart-format-day "%Y年%m月%d日（%a）" #0) "")`
 - `(replace-removable-zero (smart-format-day "%Y年%m月%d日（%a）") "")`
 
-]]--
+]] --
 local function smart_format_day(t)
 	local yy = tostring(os.date("%Y"))
 	local mm = tostring(os.date("%m"))
@@ -910,7 +910,7 @@ local function smart_format_day(t)
 			end
 		end
 	end
-	local ts = os.time({year=yy,month=mm,day=dd})
+	local ts = os.time({ year = yy, month = mm, day = dd })
 	return os.date(fmt, ts)
 end
 
@@ -923,7 +923,7 @@ usage:
 - `(replace-removable-zero (format-this-year "%Y年%m月%d日（%a）" #0 #0) "0")`
 - `(replace-removable-zero (format-this-year "%m月%d日（%a）" #0 #0) "")`
 
-]]--
+]] --
 local function format_this_year(t)
 	return smart_format_day(t)
 end
@@ -937,7 +937,7 @@ usage:
 - `(replace-removable-zero (format-this-month "%Y年%m月%d日（%a）" #0) " ")`
 - `(replace-removable-zero (format-this-month "%d日（%a）" #0) "")`
 
-]]--
+]] --
 local function format_this_month(t)
 	return smart_format_day(t)
 end
@@ -951,7 +951,7 @@ usage:
 
 - `(gengofy #0)`
 
-]]--
+]] --
 local function gengofy(t)
 	local s = t[1]
 	local yyyy = tonumber(string.sub(s, 1, 4))
@@ -987,10 +987,10 @@ local function gengofy(t)
 
 	for i, v in ipairs(skk_gadget_gengo_table) do
 		if (
-			(v[1][1] < yyyy) or
-			(v[1][1] == yyyy and v[1][2] < mm) or
-			(v[1][1] == yyyy and v[1][2] == mm and v[1][3] <= dd)
-		) then
+				(v[1][1] < yyyy) or
+				(v[1][1] == yyyy and v[1][2] < mm) or
+				(v[1][1] == yyyy and v[1][2] == mm and v[1][3] <= dd)
+			) then
 			gengo = v[3][1]
 			y = yyyy - v[1][1] + v[1][4]
 			if y == v[1][4] then
@@ -999,9 +999,9 @@ local function gengofy(t)
 			break
 		else
 			if (
-				(v[1][1] == yyyy and mm < v[1][2]) or
-				(v[1][1] == yyyy and mm == v[1][2] and dd < v[1][3])
-			) then
+					(v[1][1] == yyyy and mm < v[1][2]) or
+					(v[1][1] == yyyy and mm == v[1][2] and dd < v[1][3])
+				) then
 				local last = skk_gadget_gengo_table[i + 1]
 				if last then
 					gengo = last[3][1]
@@ -1034,9 +1034,9 @@ usage:
 - `(replace-removable-zero (format-upcoming-day "%m月%d日（%a）" #0 #0) "")`
 - `(replace-removable-zero (format-upcoming-day "%d日（%a）" #0) "")`
 
-]]--
+]] --
 local function format_upcoming_day(t)
-	local today = os.time({year=tostring(os.date("%Y")), month=tostring(os.date("%m")), day=tostring(os.date("%d"))})
+	local today = os.time({ year = tostring(os.date("%Y")), month = tostring(os.date("%m")), day = tostring(os.date("%d")) })
 
 	local fmt = t[1]
 	local yyyy = tostring(os.date("%Y"))
@@ -1048,12 +1048,12 @@ local function format_upcoming_day(t)
 		dd = t[3]
 	end
 
-	local ts = os.time({year=yyyy,month=MM,day=dd})
+	local ts = os.time({ year = yyyy, month = MM, day = dd })
 	if os.difftime(ts, today) <= 0 then
 		if 2 < #t then
-			ts = os.time({year=tostring(tonumber(yyyy)+1),month=MM,day=dd})
+			ts = os.time({ year = tostring(tonumber(yyyy) + 1), month = MM, day = dd })
 		else
-			ts = os.time({year=yyyy,month=tostring(tonumber(MM)+1),day=dd})
+			ts = os.time({ year = yyyy, month = tostring(tonumber(MM) + 1), day = dd })
 		end
 	end
 	return os.date(fmt, ts)
@@ -1074,7 +1074,7 @@ usage:
 
 --]]
 local function format_last_day(t)
-	local today = os.time({year=tostring(os.date("%Y")), month=tostring(os.date("%m")), day=tostring(os.date("%d"))})
+	local today = os.time({ year = tostring(os.date("%Y")), month = tostring(os.date("%m")), day = tostring(os.date("%d")) })
 
 	local fmt = t[1]
 	local yyyy = tostring(os.date("%Y"))
@@ -1086,12 +1086,12 @@ local function format_last_day(t)
 		dd = t[3]
 	end
 
-	local ts = os.time({year=yyyy,month=MM,day=dd})
+	local ts = os.time({ year = yyyy, month = MM, day = dd })
 	if os.difftime(today, ts) <= 0 then
 		if 2 < #t then
-			ts = os.time({year=tostring(tonumber(yyyy)-1),month=MM,day=dd})
+			ts = os.time({ year = tostring(tonumber(yyyy) - 1), month = MM, day = dd })
 		else
-			ts = os.time({year=yyyy,month=tostring(tonumber(MM)-1),day=dd})
+			ts = os.time({ year = yyyy, month = tostring(tonumber(MM) - 1), day = dd })
 		end
 	end
 	return os.date(fmt, ts)
@@ -1105,9 +1105,9 @@ usage:
 
 - `(format-day-of-week "（%s）" #0)`
 
-]]--
+]] --
 local function format_day_of_week(t)
-	local ds = {"月", "火", "水", "木", "金", "土", "日"}
+	local ds = { "月", "火", "水", "木", "金", "土", "日" }
 	local n = (tonumber(t[2]) - 1) % 7 + 1
 	return string.format(t[1], ds[n])
 end
@@ -1120,7 +1120,7 @@ usage:
 
 - `(replace-removable-zero (format-upcoming-day-of-week "%d日（%a）" #0) "")`
 
-]]--
+]] --
 local function format_upcoming_day_of_week(t)
 	local fmt = t[1]
 	local idx = tonumber(t[2]) % 7
@@ -1130,7 +1130,7 @@ local function format_upcoming_day_of_week(t)
 	local dd = tostring(os.date("%d"))
 
 	for i = 1, 7, 1 do
-		local ts = os.time({year=yy, month=mm, day=tostring(tonumber(dd)+i)})
+		local ts = os.time({ year = yy, month = mm, day = tostring(tonumber(dd) + i) })
 		if tonumber(os.date("%w", ts)) == idx then
 			return os.date(fmt, ts)
 		end
@@ -1146,7 +1146,7 @@ usage:
 
 - `(replace-removable-zero (format-last-day-of-week "%d日（%a）" #0) "")`
 
-]]--
+]] --
 local function format_last_day_of_week(t)
 	local fmt = t[1]
 	local idx = tonumber(t[2]) % 7
@@ -1156,7 +1156,7 @@ local function format_last_day_of_week(t)
 	local dd = tostring(os.date("%d"))
 
 	for i = 1, 7, 1 do
-		local ts = os.time({year=yy, month=mm, day=tostring(tonumber(dd)-i)})
+		local ts = os.time({ year = yy, month = mm, day = tostring(tonumber(dd) - i) })
 		if tonumber(os.date("%w", ts)) == idx then
 			return os.date(fmt, ts)
 		end
@@ -1174,14 +1174,14 @@ usage:
 - `(replace-removable-zero (skk-day-plus "%Y%m%d" #0) "")`
 - `(replace-removable-zero (skk-day-plus "%Y年%m月%d日（%a）" #0) "")`
 
-]]--
+]] --
 local function skk_day_plus(t)
 	local fmt = t[1]
 	local delta = t[2]
 	local yy = tostring(os.date("%Y"))
 	local mm = tostring(os.date("%m"))
 	local dd = tostring(tonumber(os.date("%d")) + tonumber(delta))
-	return  tostring(os.date(fmt, os.time({year=yy,month=mm,day=dd})))
+	return tostring(os.date(fmt, os.time({ year = yy, month = mm, day = dd })))
 end
 
 --[[
@@ -1193,14 +1193,14 @@ usage:
 - `(replace-removable-zero (skk-day-minus "%Y%m%d" #0) "")`
 - `(replace-removable-zero (skk-day-minus "%Y年%m月%d日（%a）" #0) "")`
 
-]]--
+]] --
 local function skk_day_minus(t)
 	local fmt = t[1]
 	local delta = t[2]
 	local yy = tostring(os.date("%Y"))
 	local mm = tostring(os.date("%m"))
 	local dd = tostring(tonumber(os.date("%d")) - tonumber(delta))
-	return  tostring(os.date(fmt, os.time({year=yy,month=mm,day=dd})))
+	return tostring(os.date(fmt, os.time({ year = yy, month = mm, day = dd })))
 end
 
 
@@ -1209,15 +1209,15 @@ end
 
 桁区切りのコンマを挿入する
 
-]]--
+]] --
 local function ketakugiri(s)
 	-- https://www.mathkuro.com/game-dev/lua-convert-number-to-currency-style-string/
 	local ret = ""
 	local i = 1
 	s = string.reverse(s)
 	while (i <= string.len(s)) do
-	  ret = "," .. string.reverse(string.sub(s, i, i + 2)) .. ret
-	  i = i + 3
+		ret = "," .. string.reverse(string.sub(s, i, i + 2)) .. ret
+		i = i + 3
 	end
 
 	return string.sub(ret, 2)
@@ -1231,7 +1231,7 @@ usage:
 
 - `(concat (to-comma-separated #0) "円")`
 
-]]--
+]] --
 local function to_comma_separated(t)
 	return ketakugiri(t[1])
 end
@@ -1240,7 +1240,7 @@ end
 
 日本語の位取りを入れる
 
-]]--
+]] --
 local function kuraidori(s)
 	local ret = ""
 	local i = 1
@@ -1268,7 +1268,7 @@ usage:
 
 - `(concat (to-japanese-unit #0) "円")`
 
-]]--
+]] --
 local function to_japanese_unit(t)
 	return kuraidori(t[1])
 end
@@ -1284,14 +1284,14 @@ usage:
 - `(format-proof #0 4)`
 - `(concat "要" (format-proof #0 4) "ゲラ")`
 
-]]--
+]] --
 local function format_proof(t)
 	local count = tonumber(t[1])
 	local finish = tonumber(t[2])
 	if count < 1 then
 		count = 1
 	end
-	local step = {"初", "再", "三", "四", "五" ,"六" ,"七" ,"八" ,"九"}
+	local step = { "初", "再", "三", "四", "五", "六", "七", "八", "九" }
 	local idx = ""
 	local append = ""
 	if count < finish then
@@ -1320,10 +1320,10 @@ usage:
 
 - `(format-book-heading #0)`
 
-]]--
+]] --
 local function format_book_heading(t)
 	local count = tonumber(t[1]) + 1
-	local step = {"部", "章", "節", "項", "小"}
+	local step = { "部", "章", "節", "項", "小" }
 	local h = ""
 	if count <= #step then
 		h = step[count]
@@ -1345,7 +1345,7 @@ usage:
 
 - `(format-credit-card-1 #0)`
 
-]]--
+]] --
 local function format_credit_card_1(t)
 	local yyyyMM = t[1]
 	if string.len(yyyyMM) == 1 then
@@ -1374,7 +1374,7 @@ usage:
 
 - `(format-credit-card-2 #0)`
 
-]]--
+]] --
 local function format_credit_card_2(t)
 	local yyyyMM = t[1]
 	if string.len(yyyyMM) == 1 then
@@ -1387,7 +1387,8 @@ local function format_credit_card_2(t)
 	local MM = string.sub(yyyyMM, 5, 6)
 	if string.len(MM) == 2 and 0 < tonumber(MM) and tonumber(MM) <= 12 then
 		local mmMinus1 = (tonumber(MM) - 1 + 11) % 12 + 1
-		return string.format("%s_%02d月請求分_%02d01-%02d%02d", yyyy, MM, mmMinus1, mmMinus1, os.date("%d", os.time({year=yyyy, month=MM, day=0})))
+		return string.format("%s_%02d月請求分_%02d01-%02d%02d", yyyy, MM, mmMinus1, mmMinus1,
+			os.date("%d", os.time({ year = yyyy, month = MM, day = 0 })))
 	end
 	return yyyyMM .. "_請求分_前月1日-前月末日"
 end
@@ -1400,7 +1401,7 @@ usage:
 
 - `(format-markdown-heading #0)`
 
-]]--
+]] --
 local function format_markdown_heading(t)
 	local heading = ""
 	local count = tonumber(t[1])
@@ -1420,7 +1421,7 @@ usage:
 - `(resolve-user-profile "%s\\Desktop\\")`
 - `(concat (resolve-user-profile "%s\\Desktop\\") (format-time-string "%Y%m%d_%H%M%S" (current-time)))`
 
-]]--
+]] --
 local function resolve_user_profile(t)
 	return string.format(t[1], os.getenv("USERPROFILE"))
 end
@@ -1431,10 +1432,10 @@ end
 
 https://getwebtips.net/blog/2022/7/20/python-coding-challenge-convert-integer-into-roman-numeral/
 
-]]--
+]] --
 local function to_roman(i, lower)
-	local values = {{1000, "M"}, {900, "CM"}, {500, "D"}, {400, "CD"}, {100, "C"}, {90, "XC"}, {50, "L"}, {40, "XL"},
-					{10, "X"}, {9, "IX"}, {5, "V"}, {4, "IV"}, {1, "I"}}
+	local values = { { 1000, "M" }, { 900, "CM" }, { 500, "D" }, { 400, "CD" }, { 100, "C" }, { 90, "XC" }, { 50, "L" }, { 40, "XL" },
+		{ 10,   "X" }, { 9, "IX" }, { 5, "V" }, { 4, "IV" }, { 1, "I" } }
 	local ret = ""
 
 	for _, val in ipairs(values) do
@@ -1465,10 +1466,11 @@ usage:
 
 - `(format-roman-lower #0)`
 
-]]--
+]] --
 local function format_roman_lower(t)
 	local i = tonumber(t[1])
-	local letters = { "\u{2170}", "\u{2171}", "\u{2172}", "\u{2173}", "\u{2174}", "\u{2175}", "\u{2176}", "\u{2177}", "\u{2178}", "\u{2179}"}
+	local letters = { "\u{2170}", "\u{2171}", "\u{2172}", "\u{2173}", "\u{2174}", "\u{2175}", "\u{2176}", "\u{2177}",
+		"\u{2178}", "\u{2179}" }
 	if i <= #letters then
 		return letters[i]
 	end
@@ -1484,10 +1486,11 @@ usage:
 
 - `(format-roman-upper #0)`
 
-]]--
+]] --
 local function format_roman_upper(t)
 	local i = tonumber(t[1])
-	local letters = { "\u{2160}", "\u{2161}", "\u{2162}", "\u{2163}", "\u{2164}", "\u{2165}", "\u{2166}", "\u{2167}", "\u{2168}", "\u{2169}"}
+	local letters = { "\u{2160}", "\u{2161}", "\u{2162}", "\u{2163}", "\u{2164}", "\u{2165}", "\u{2166}", "\u{2167}",
+		"\u{2168}", "\u{2169}" }
 	if i <= #letters then
 		return letters[i]
 	end
@@ -1499,14 +1502,21 @@ end
 
 丸数字に変換（黒対応）
 
-]]--
+]] --
 local function to_circled_num(n, black)
 	local letters = {
-		"\u{24EA}", "\u{2460}", "\u{2461}", "\u{2462}", "\u{2463}", "\u{2464}", "\u{2465}", "\u{2466}", "\u{2467}", "\u{2468}", "\u{2469}", "\u{246A}", "\u{246B}", "\u{246C}", "\u{246D}", "\u{246E}", "\u{246F}", "\u{2470}", "\u{2471}", "\u{2472}", "\u{2473}", "\u{3251}", "\u{3252}", "\u{3253}", "\u{3254}", "\u{3255}", "\u{3256}", "\u{3257}", "\u{3258}", "\u{3259}", "\u{325A}", "\u{325B}", "\u{325C}", "\u{325D}", "\u{325E}", "\u{325F}", "\u{32B1}", "\u{32B2}", "\u{32B3}", "\u{32B4}", "\u{32B5}", "\u{32B6}", "\u{32B7}", "\u{32B8}", "\u{32B9}", "\u{32BA}", "\u{32BB}", "\u{32BC}", "\u{32BD}", "\u{32BE}", "\u{32BF}"
+		"\u{24EA}", "\u{2460}", "\u{2461}", "\u{2462}", "\u{2463}", "\u{2464}", "\u{2465}", "\u{2466}", "\u{2467}",
+		"\u{2468}", "\u{2469}", "\u{246A}", "\u{246B}", "\u{246C}", "\u{246D}", "\u{246E}", "\u{246F}", "\u{2470}",
+		"\u{2471}", "\u{2472}", "\u{2473}", "\u{3251}", "\u{3252}", "\u{3253}", "\u{3254}", "\u{3255}", "\u{3256}",
+		"\u{3257}", "\u{3258}", "\u{3259}", "\u{325A}", "\u{325B}", "\u{325C}", "\u{325D}", "\u{325E}", "\u{325F}",
+		"\u{32B1}", "\u{32B2}", "\u{32B3}", "\u{32B4}", "\u{32B5}", "\u{32B6}", "\u{32B7}", "\u{32B8}", "\u{32B9}",
+		"\u{32BA}", "\u{32BB}", "\u{32BC}", "\u{32BD}", "\u{32BE}", "\u{32BF}"
 	}
 	if black then
 		letters = {
-			"\u{24FF}", "\u{2776}", "\u{2777}", "\u{2778}", "\u{2779}", "\u{277A}", "\u{277B}", "\u{277C}", "\u{277D}", "\u{277E}", "\u{277F}", "\u{24EB}", "\u{24EC}", "\u{24ED}", "\u{24EE}", "\u{24EF}", "\u{24F0}", "\u{24F1}", "\u{24F2}", "\u{24F3}", "\u{24F4}"
+			"\u{24FF}", "\u{2776}", "\u{2777}", "\u{2778}", "\u{2779}", "\u{277A}", "\u{277B}", "\u{277C}", "\u{277D}",
+			"\u{277E}", "\u{277F}", "\u{24EB}", "\u{24EC}", "\u{24ED}", "\u{24EE}", "\u{24EF}", "\u{24F0}", "\u{24F1}",
+			"\u{24F2}", "\u{24F3}", "\u{24F4}"
 		}
 	end
 	local i = n + 1
@@ -1525,7 +1535,7 @@ usage:
 
 - `(format-circled-num #0)`
 
-]]--
+]] --
 local function format_circled_num(t)
 	return to_circled_num(t[1], false)
 end
@@ -1539,7 +1549,7 @@ usage:
 
 - `(format-black-circled-num #0)`
 
-]]--
+]] --
 local function format_black_circled_num(t)
 	return to_circled_num(t[1], true)
 end
@@ -1550,7 +1560,7 @@ end
 
 チェックディジット計算
 
-]]--
+]] --
 local function getCheckDigit(isbn12)
 	local total = 0
 	for i = 1, #isbn12 do
@@ -1578,7 +1588,7 @@ usage:
 - `(format-japanese-isbn #0)`
 - `(format-japanese-isbn #0 "-")`
 
-]]--
+]] --
 local function format_japanese_isbn(t)
 	local code = tostring(t[1])
 	local sep = ""
@@ -1599,58 +1609,58 @@ end
 
 -- 関数テーブル
 local skk_gadget_func_table_org = {
-	{"concat", concat},
-	{"substring", substring},
-	{"make-string", make_string},
-	{"string-to-number", string_to_number},
-	{"string-to-char", string_to_char},
-	{"number-to-string", number_to_string},
-	{"window-width", window_width},
-	{"window-height", window_height},
-	{"current-time", current_time},
-	{"current-time-string", current_time_string},
-	{"format-time-string", format_time_string},
-	{"car", car},
-	{"cdr", cdr},
-	{"1+", plus_1},
-	{"1-", minus_1},
-	{"+", plus},
-	{"-", minus},
-	{"skk-version", skk_version},
-	{"skk-server-version", skk_server_version},
-	{"skk-ad-to-gengo", skk_ad_to_gengo},
-	{"skk-gengo-to-ad", skk_gengo_to_ad},
-	{"skk-default-current-date", skk_default_current_date},
-	{"skk-current-date", skk_current_date},
-	{"skk-relative-date", skk_relative_date},
-	{"skk-gadget-units-conversion", skk_gadget_units_conversion},
-	{"skk-omikuji", skk_omikuji},
-	{"skk-strftime", skk_strftime},
-	{"smart-format-day", smart_format_day},
-	{"format-this-year", format_this_year},
-	{"format-upcoming-day", format_upcoming_day},
-	{"format-last-day", format_last_day},
-	{"format-upcoming-day-of-week", format_upcoming_day_of_week},
-	{"format-last-day-of-week", format_last_day_of_week},
-	{"format-this-month", format_this_month},
-	{"gengofy", gengofy},
-	{"to-comma-separated", to_comma_separated},
-	{"to-japanese-unit", to_japanese_unit},
-	{"skk-day-plus", skk_day_plus},
-	{"skk-day-minus", skk_day_minus},
-	{"format-proof", format_proof},
-	{"format-book-heading", format_book_heading},
-	{"format-credit-card-1", format_credit_card_1},
-	{"format-credit-card-2", format_credit_card_2},
-	{"format-day-of-week", format_day_of_week},
-	{"format-markdown-heading", format_markdown_heading},
-	{"resolve-user-profile", resolve_user_profile},
-	{"format-japanese-isbn", format_japanese_isbn},
-	{"format-roman-lower", format_roman_lower},
-	{"format-roman-upper", format_roman_upper},
-	{"format-circled-num", format_circled_num},
-	{"format-black-circled-num", format_black_circled_num},
-	{"replace-removable-zero", replace_removable_zero},
+	{ "concat",                      concat },
+	{ "substring",                   substring },
+	{ "make-string",                 make_string },
+	{ "string-to-number",            string_to_number },
+	{ "string-to-char",              string_to_char },
+	{ "number-to-string",            number_to_string },
+	{ "window-width",                window_width },
+	{ "window-height",               window_height },
+	{ "current-time",                current_time },
+	{ "current-time-string",         current_time_string },
+	{ "format-time-string",          format_time_string },
+	{ "car",                         car },
+	{ "cdr",                         cdr },
+	{ "1+",                          plus_1 },
+	{ "1-",                          minus_1 },
+	{ "+",                           plus },
+	{ "-",                           minus },
+	{ "skk-version",                 skk_version },
+	{ "skk-server-version",          skk_server_version },
+	{ "skk-ad-to-gengo",             skk_ad_to_gengo },
+	{ "skk-gengo-to-ad",             skk_gengo_to_ad },
+	{ "skk-default-current-date",    skk_default_current_date },
+	{ "skk-current-date",            skk_current_date },
+	{ "skk-relative-date",           skk_relative_date },
+	{ "skk-gadget-units-conversion", skk_gadget_units_conversion },
+	{ "skk-omikuji",                 skk_omikuji },
+	{ "skk-strftime",                skk_strftime },
+	{ "smart-format-day",            smart_format_day },
+	{ "format-this-year",            format_this_year },
+	{ "format-upcoming-day",         format_upcoming_day },
+	{ "format-last-day",             format_last_day },
+	{ "format-upcoming-day-of-week", format_upcoming_day_of_week },
+	{ "format-last-day-of-week",     format_last_day_of_week },
+	{ "format-this-month",           format_this_month },
+	{ "gengofy",                     gengofy },
+	{ "to-comma-separated",          to_comma_separated },
+	{ "to-japanese-unit",            to_japanese_unit },
+	{ "skk-day-plus",                skk_day_plus },
+	{ "skk-day-minus",               skk_day_minus },
+	{ "format-proof",                format_proof },
+	{ "format-book-heading",         format_book_heading },
+	{ "format-credit-card-1",        format_credit_card_1 },
+	{ "format-credit-card-2",        format_credit_card_2 },
+	{ "format-day-of-week",          format_day_of_week },
+	{ "format-markdown-heading",     format_markdown_heading },
+	{ "resolve-user-profile",        resolve_user_profile },
+	{ "format-japanese-isbn",        format_japanese_isbn },
+	{ "format-roman-lower",          format_roman_lower },
+	{ "format-roman-upper",          format_roman_upper },
+	{ "format-circled-num",          format_circled_num },
+	{ "format-black-circled-num",    format_black_circled_num },
+	{ "replace-removable-zero",      replace_removable_zero },
 }
 local skk_gadget_func_table = {
 }
@@ -1662,7 +1672,7 @@ end
 
 数値変換（独自）
 
-]]--
+]] --
 local function from_digits(s)
 	local t = {}
 	local n = tonumber(s)
@@ -1688,11 +1698,11 @@ end
 
 2桁変換
 
-]]--
+]] --
 local function from_2digits(s)
 	local t = {}
-	local n1 =tonumber(string.sub(s, 1, 1))
-	local n2 =tonumber(string.sub(s, 2))
+	local n1 = tonumber(string.sub(s, 1, 1))
+	local n2 = tonumber(string.sub(s, 2))
 	if n1 ~= 0 and n2 ~= 0 then
 		table.insert(t, string.format("%d月%d日", n1, n2))
 	end
@@ -1703,7 +1713,7 @@ end
 
 3桁変換
 
-]]--
+]] --
 local function from_3digits(s)
 	local t = {}
 
@@ -1718,7 +1728,7 @@ local function from_3digits(s)
 	local MM = tonumber(string.sub(s, 1, 2))
 	local d = tonumber(string.sub(s, 3))
 	if 0 < MM and MM <= 12 and 0 < d then
-			table.insert(t, string.format("%d月%d日", MM, d))
+		table.insert(t, string.format("%d月%d日", MM, d))
 	end
 
 	-- hmm
@@ -1793,7 +1803,7 @@ end
 
 4桁変換
 
-]]--
+]] --
 local function from_4digits(s)
 	local t = {}
 
@@ -1892,7 +1902,7 @@ end
 
 8桁変換
 
-]]--
+]] --
 local function from_8digits(s)
 	local t = {}
 	local yyyy = string.sub(s, 1, 4)
@@ -1917,7 +1927,7 @@ end
 
 6桁変換
 
-]]--
+]] --
 local function from_6digits(s)
 	local t = {}
 	local yyyy = string.sub(s, 1, 4)
@@ -1942,13 +1952,13 @@ end
 
 カタカナひらがなの変換テーブル
 
-]]--
-local KATAKANA_HIRAGANA_CONVERSION_TABLE = (function ()
+]] --
+local KATAKANA_HIRAGANA_CONVERSION_TABLE = (function()
 	local katakana = "ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモヤャユュヨョラリルレロワヲンヴヵヶ"
 	local hiragana = "ぁあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすずせぜそぞただちぢっつづてでとどなにぬねのはばぱひびぴふぶぷへべぺほぼぽまみむめもやゃゆゅよょらりるれろわをんゔゕゖ"
 
 	local table = {}
-	for i = 1, #katakana, 3 do  -- UTF-8 のカタカナ・ひらがなは3バイトずつ
+	for i = 1, #katakana, 3 do -- UTF-8 のカタカナ・ひらがなは3バイトずつ
 		local k = string.sub(katakana, i, i + 2)
 		local h = string.sub(hiragana, i, i + 2)
 		table[k] = h
@@ -1960,12 +1970,12 @@ end)()
 
 カタカナをひらがなに変換する
 
-]]--
+]] --
 local function katakana_to_hiragana(s)
 	local result = ""
 	local i = 1
 	while i <= #s do
-		local char = string.sub(s, i, i + 2)  -- UTF-8 の3バイト取得
+		local char = string.sub(s, i, i + 2) -- UTF-8 の3バイト取得
 		local kata = KATAKANA_HIRAGANA_CONVERSION_TABLE[char]
 		if kata then
 			result = result .. kata
@@ -1981,7 +1991,7 @@ end
 
 文字列がすべてひらがなか判定する
 
-]]--
+]] --
 local function is_all_hiragana_bytes(s)
 	local i = 1
 	local len = #s
@@ -2000,7 +2010,7 @@ local function is_all_hiragana_bytes(s)
 		local is_hiragana = (
 			(b1 == 0xE3 and b2 == 0x81 and (0x81 <= b3 and b3 <= 0xBF)) or -- U+3041 〜 U+307F (ぁ〜み)
 			(b1 == 0xE3 and b2 == 0x82 and (0x80 <= b3 and b3 <= 0x96)) or -- U+3080 〜 U+3096 (む〜ゖ)
-			(b1 == 0xE3 and b2 == 0x83 and (b3 == 0xBC)) -- U+30FC (ー)
+			(b1 == 0xE3 and b2 == 0x83 and (b3 == 0xBC))          -- U+30FC (ー)
 		)
 		if not is_hiragana then
 			return false
@@ -2015,7 +2025,7 @@ end
 
 文字列がすべてカタカナか判定する
 
-]]--
+]] --
 local function is_all_katakana_bytes(s)
 	local i = 1
 	local len = #s
@@ -2034,7 +2044,7 @@ local function is_all_katakana_bytes(s)
 		local is_katakana = (
 			(b1 == 0xE3 and b2 == 0x82 and (0xA1 <= b3 and b3 <= 0xBF)) or -- U+30A1 〜 U+30BF (ァ〜タ)
 			(b1 == 0xE3 and b2 == 0x83 and (0x80 <= b3 and b3 <= 0xB6)) or -- U+30C0 〜 U+30F6 (ダ〜ヶ)
-			(b1 == 0xE3 and b2 == 0x83 and b3 == 0xBC) -- U+30FC (ー)
+			(b1 == 0xE3 and b2 == 0x83 and b3 == 0xBC)            -- U+30FC (ー)
 		)
 
 		if not is_katakana then
@@ -2050,7 +2060,7 @@ end
 
 文字列がすべて半角カタカナか判定する
 
-]]--
+]] --
 local function is_all_half_katakana_bytes(s)
 	local i = 1
 	local len = #s
@@ -2084,7 +2094,7 @@ end
 
 SKK辞書形式（/<C1><;A1>/<C2><;A2>/.../<Cn><;An>/\n）を分割する
 
-]]--
+]] --
 local function split_skkdict_record(record)
 	local t = {};
 	for s in string.gmatch(record, "([^/]+)") do
@@ -2099,7 +2109,7 @@ end
 
 SKK辞書の行形式（/<C1><;A1>/<C2><;A2>/.../<Cn><;An>/\n）に変換する
 
-]]--
+]] --
 local function to_skkdict_record(t)
 	local ret = ""
 	if #t < 1 then
@@ -2116,7 +2126,7 @@ end
 
 SKK辞書形式（/<C1><;A1>/<C2><;A2>/.../<Cn><;An>/\n）からアノテーション（半角セミコロン以降）を除外する
 
-]]--
+]] --
 local function trim_annotation(s)
 	return string.gsub(s, ";.+/", "/")
 end
@@ -2125,7 +2135,7 @@ end
 
 SKK辞書形式（/<C1><;A1>/<C2><;A2>/.../<Cn><;An>/\n）から「すべて半角カナのもの」を除外する
 
-]]--
+]] --
 local function filter_skkdict_record(record)
 	local t = {}
 	local entries = split_skkdict_record(record)
@@ -2143,7 +2153,7 @@ end
 
 SKK辞書の行形式（/<C1><;A1>/<C2><;A2>/.../<Cn><;An>/\n）の各エントリにプレフィックスを追加する
 
-]]--
+]] --
 local function add_prefix_to_skkdict_record(pref, record)
 	return string.gsub(record, "/%C", function(m)
 		return "/" .. pref .. string.sub(m, 2)
@@ -2260,7 +2270,7 @@ function eval_table(x)
 
 		local func = skk_gadget_func_table[x[1]]
 		if (func) then
-			local arg = {table.unpack(x, 2)}
+			local arg = { table.unpack(x, 2) }
 			for i, v in ipairs(arg) do
 				local vv = skk_gadget_variable_table[v]
 				if (vv) then
@@ -2331,7 +2341,6 @@ end
 
 -- 実行変換
 local function skk_convert_gadget(key, candidate)
-
 	-- skk-henkan-key
 	skk_henkan_key = key
 
@@ -2424,7 +2433,6 @@ local function skk_search(key, okuri)
 
 	-- SKK辞書の結果より先に数値を変換する
 	if string.match(key, "^%d+$") then
-
 		if string.len(key) == 2 then
 			local t2 = from_2digits(key)
 			if 0 < #t2 then
@@ -2465,11 +2473,14 @@ local function skk_search(key, okuri)
 		if 10 <= string.len(key) then
 			local tTel = {}
 			if string.len(key) == 10 then
-				table.insert(tTel, string.format("%02d-%04d-%04d", string.sub(key, 1, 2), string.sub(key, 3, 6), string.sub(key, 7, 10)))
-				table.insert(tTel, string.format("%03d-%03d-%04d", string.sub(key, 1, 3), string.sub(key, 4, 6), string.sub(key, 7, 10)))
+				table.insert(tTel,
+					string.format("%02d-%04d-%04d", string.sub(key, 1, 2), string.sub(key, 3, 6), string.sub(key, 7, 10)))
+				table.insert(tTel,
+					string.format("%03d-%03d-%04d", string.sub(key, 1, 3), string.sub(key, 4, 6), string.sub(key, 7, 10)))
 			end
 			if string.len(key) == 11 then
-				table.insert(tTel, string.format("%03d-%04d-%04d", string.sub(key, 1, 3), string.sub(key, 4, 7), string.sub(key, 8, 11)))
+				table.insert(tTel,
+					string.format("%03d-%04d-%04d", string.sub(key, 1, 3), string.sub(key, 4, 7), string.sub(key, 8, 11)))
 			end
 			if 0 < #tTel then
 				ret = ret .. to_skkdict_record(tTel)
@@ -2480,7 +2491,6 @@ local function skk_search(key, okuri)
 		if 0 < #td then
 			ret = ret .. to_skkdict_record(td)
 		end
-
 	end
 
 	-- SKK辞書の検索結果を反映
@@ -2491,7 +2501,7 @@ local function skk_search(key, okuri)
 		local i = string.find(key, "/")
 		local n = string.sub(key, 1, i - 1)
 		local m = string.sub(key, i + 1)
-		ret = ret .. to_skkdict_record({string.format("%d分の%d", m, n)})
+		ret = ret .. to_skkdict_record({ string.format("%d分の%d", m, n) })
 	end
 
 	-- アルファベットが連続してピリオドで終わる場合は各文字を大文字にしてピリオドと半角スペースを入れる
@@ -2499,7 +2509,7 @@ local function skk_search(key, okuri)
 		local f = string.gsub(string.sub(key, 0, -2), "[a-z]", function(m)
 			return string.upper(m) .. ". "
 		end)
-		ret = ret .. to_skkdict_record({f})
+		ret = ret .. to_skkdict_record({ f })
 	end
 
 	-- 郵便番号変換（郵便番号SKK辞書は数字7桁）
@@ -2559,7 +2569,6 @@ end
 
 -- 辞書検索
 function lua_skk_search(key, okuri)
-
 	-- skk-search-sagyo-henkaku (t:true/anything:false)
 	-- 「送りあり変換で送りなし候補も検索する」 → 送り仮名あり、送りローマ字なし
 	if (okuri ~= "" and string.match(string.sub(key, -1), "[a-z]") == nil) then
@@ -2604,7 +2613,6 @@ function lua_skk_reverse(candidate)
 	candidate = string.gsub(candidate, " +$", "")
 	return crvmgr.reverse(candidate)
 end
-
 
 -- 辞書追加
 function lua_skk_add(okuriari, key, candidate, annotation, okuri)
@@ -2711,10 +2719,10 @@ function lua_skk_add(okuriari, key, candidate, annotation, okuri)
 
 	-- 2文字以上（バイト数で言えば6以上）の送りあり変換で送り仮名なしとしても登録する（skk-search-sagyo-henkaku の応用）
 	if (
-		okuri ~= "" and
-		3*2 <= string.len(candidate) and
-		string.match(string.sub(key, -1), "[a-z]")
-	) then
+			okuri ~= "" and
+			3 * 2 <= string.len(candidate) and
+			string.match(string.sub(key, -1), "[a-z]")
+		) then
 		if not is_all_hiragana_bytes(candidate) then
 			if (string.find("がさしすせとだでなにのはもやを", okuri) ~= nil) then
 				-- 送り仮名なしの見出し語はkeyから最後のアルファベット1文字を除いたもの
@@ -2753,7 +2761,6 @@ function lua_skk_add(okuriari, key, candidate, annotation, okuri)
 
 	-- 辞書登録
 	crvmgr.add(okuriari, key, candidate, annotation, okuri)
-
 end
 
 -- 辞書削除
@@ -2765,10 +2772,10 @@ function lua_skk_delete(okuriari, key, candidate)
 			local cap = string.upper(string.sub(key, 1, 1)) .. string.sub(key, 2)
 			local upp = string.upper(key)
 			local low = string.lower(key)
-			crvmgr.delete(okuriari, "$"..hira, key)
-			crvmgr.delete(okuriari, "$"..hira, cap)
-			crvmgr.delete(okuriari, "$"..hira, upp)
-			crvmgr.delete(okuriari, "$"..hira, low)
+			crvmgr.delete(okuriari, "$" .. hira, key)
+			crvmgr.delete(okuriari, "$" .. hira, cap)
+			crvmgr.delete(okuriari, "$" .. hira, upp)
+			crvmgr.delete(okuriari, "$" .. hira, low)
 		end
 	end
 	crvmgr.delete(okuriari, key, candidate)
