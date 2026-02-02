@@ -6,9 +6,6 @@
 
 - [`install.ps1`](./install.ps1) を実行して `CorvusSKK` のジャンクションをAppDataに作成すると、以降はその内容がロードされるようになる。
 - このリポジトリをVSCodeで開くショートカットをスタートメニューに登録するには [`set-startmenu.ps1`](./set-startmenu.ps1) を実行する。
-- [`backup-tool/install.ps1`](./backup-tool/install.ps1) は [backup-tool/backup.ps1](./backup-tool/backup.ps1) を `$env:AppData\CorvusSKK-backup-tool` にコピーし、起動時に実行するタスクを登録する。
-    - バックアップ先は `backup-tool/install.ps1` の実行時にコマンドライン引数で指定する。デフォルトだと `$env:USERPROFILE\Dropbox\CorvusSKK-backup` にバックアップする。
-    - [`backup-tool/uninstall.ps1`](./backup-tool/uninstall.ps1) で関連データを削除可能。
 
 ### SKKサーバ
 
