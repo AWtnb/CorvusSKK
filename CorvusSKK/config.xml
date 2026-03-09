@@ -274,7 +274,8 @@
       <row ro="ze" hi="ぜ" ka="ゼ" an="ｾﾞ" so="0" />
       <row ro="zo" hi="ぞ" ka="ゾ" an="ｿﾞ" so="0" />
       <row ro="da" hi="だ" ka="ダ" an="ﾀﾞ" so="0" />
-      <row ro="di" hi="ぢ" ka="ヂ" an="ﾁﾞ" so="0" />
+      <row ro="di" hi="だい" ka="ダイ" an="ﾀﾞｲ" so="0" />
+      <row ro="dxi" hi="ぢ" ka="ヂ" an="ﾁﾞ" so="0" />
       <row ro="du" hi="づ" ka="ヅ" an="ﾂﾞ" so="0" />
       <row ro="de" hi="で" ka="デ" an="ﾃﾞ" so="0" />
       <row ro="do" hi="ど" ka="ド" an="ﾄﾞ" so="0" />
