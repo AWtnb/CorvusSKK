@@ -910,8 +910,10 @@
       <row ro="tma" hi="いたしま" ka="イタシマ" an="ｲﾀｼﾏ" so="0" />
       <row ro="tme" hi="ため" ka="タメ" an="ﾀﾒ" so="0" />
       <row ro="tnk" hi="とのこと" ka="トノコト" an="ﾄﾉｺﾄ" so="0" />
-      <row ro="tnl" hi="となり" ka="トナリ" an="ﾄﾅﾘ" so="0" />
-      <row ro="tnr" hi="となり" ka="トナリ" an="ﾄﾅﾘ" so="0" />
+      <row ro="tnli" hi="となり" ka="トナリ" an="ﾄﾅﾘ" so="0" />
+      <row ro="tnri" hi="となり" ka="トナリ" an="ﾄﾅﾘ" so="0" />
+      <row ro="tnlu" hi="となる" ka="トナル" an="ﾄﾅﾙ" so="0" />
+      <row ro="tnru" hi="となる" ka="トナル" an="ﾄﾅﾙ" so="0" />
       <row ro="tra" hi="たら" ka="タラ" an="ﾀﾗ" so="0" />
       <row ro="w," hi="を、" ka="ヲ、" an="ｦ､" so="0" />
       <row ro="xbn" hi="文" ka="文" an="ﾌﾞﾝ" so="0" />
