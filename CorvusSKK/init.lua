@@ -2714,6 +2714,11 @@ function lua_skk_add(okuriari, key, candidate, annotation, okuri)
 		return
 	end
 
+	-- 「っ」から始まる場合はタイプミスの可能性が高いので辞書登録しない
+	if string.sub(key, 0, string.len("っ")) == "っ" then
+		return
+	end
+
 	-- エントリ先頭にスペースが含まれないようにする
 	candidate = string.gsub(candidate, "^ +", "")
 
