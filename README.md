@@ -5,20 +5,12 @@
 ## Install
 
 - [`install.ps1`](./install.ps1) を実行して `CorvusSKK` のジャンクションをAppDataに作成すると、以降はその内容がロードされるようになる。
-- このリポジトリをVSCodeで開くショートカットをスタートメニューに登録するには [`set-startmenu.ps1`](./set-startmenu.ps1) を実行する。
 
 ### SKKサーバ
 
 1. [リポジトリ](https://github.com/nathancorvussolis/crvskkserv/releases/) から最新版をダウンロード
 1. [`set-skkserv-startup.ps1`](set-skkserv-startup.ps1) を実行してスタートアップに登録（`crvskkserv.exe` のパスを引数に指定する）
 
-### Syncthing
-
-Syncthing使用時は下記の内容を `.stignore` に記載して同期の対象外にする。
-
-```
-(?d)CorvusSKK/*dict.txt
-```
 
 ## Windowsシステム設定
 
