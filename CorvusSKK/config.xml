@@ -566,7 +566,7 @@
       <row ro="8" hi="8" ka="8" an="8" so="0" />
       <row ro="9" hi="9" ka="9" an="9" so="0" />
       <row ro=" " hi=" " ka=" " an=" " so="0" />
-      <row ro="!" hi="！" ka="！" an="!" so="0" />
+      <row ro="!" hi="!" ka="!" an="!" so="0" />
       <row ro="&quot;" hi="&quot;" ka="&quot;" an="&quot;" so="0" />
       <row ro="#" hi="#" ka="#" an="#" so="0" />
       <row ro="$" hi="$" ka="$" an="$" so="0" />
