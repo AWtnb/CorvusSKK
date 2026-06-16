@@ -571,7 +571,7 @@
       <row ro="#" hi="#" ka="#" an="#" so="0" />
       <row ro="$" hi="$" ka="$" an="$" so="0" />
       <row ro="%" hi="%" ka="%" an="%" so="0" />
-      <row ro="&amp;" hi="＆" ka="＆" an="&amp;" so="0" />
+      <row ro="&amp;" hi="&amp;" ka="&amp;" an="&amp;" so="0" />
       <row ro="'" hi="'" ka="'" an="'" so="0" />
       <row ro="(" hi="（" ka="（" an="(" so="0" />
       <row ro=")" hi="）" ka="）" an=")" so="0" />
