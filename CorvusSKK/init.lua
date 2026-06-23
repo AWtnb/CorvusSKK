@@ -1948,6 +1948,122 @@ local function from_6digits(s)
 	return t
 end
 
+local function join(t, s)
+	local ret = ""
+	for _, v in ipairs(t) do
+		if ret == "" then
+			ret = v
+		else
+			ret = ret .. s .. v
+		end
+	end
+	return ret
+end
+
+--[[
+
+元号アルファベットに数字が続いたとき、判例日付に変換する
+
+]] --
+local function to_precedent_timestamp(s)
+	local labels = { { "r", { "令", "令和" } }, { "h", { "平", "平成" } }, { "s", { "昭", "昭和" } }, { "t", { "大", "大正" } }, { "m", { "明", "明治" } } }
+
+	local function timestamp(labelT, t)
+		local ret = {}
+		for i = 1, #labelT do
+			for j = 1, #t do
+				table.insert(ret, labelT[i] .. join(t[j], "."))
+				table.insert(ret, labelT[i] .. join(t[j], "・"))
+			end
+		end
+		return ret
+	end
+
+	local label = nil
+	for i = 1, #labels do
+		if string.sub(s, 1, 1) == labels[i][1] then
+			label = labels[i][2]
+		end
+	end
+	if label == nil then
+		return {}
+	end
+
+	local dateStr = string.sub(s, 2)
+
+	if string.len(dateStr) == 3 then
+		local t3 = {}
+		-- y,m,d
+		local y = tonumber(string.sub(dateStr, 1, 1))
+		local m = tonumber(string.sub(dateStr, 2, 2))
+		local d = tonumber(string.sub(dateStr, 3, 3))
+		if y * m * d ~= 0 then
+			table.insert(t3, { y, m, d })
+		end
+		return timestamp(label, t3)
+	end
+
+	if string.len(dateStr) == 4 then
+		local t4 = {}
+		-- y,mm,d
+		local y = tonumber(string.sub(dateStr, 1, 1))
+		local mm = tonumber(string.sub(dateStr, 2, 3))
+		local d = tonumber(string.sub(dateStr, 4, 4))
+		if y * mm * d ~= 0 and mm <= 12 then
+			table.insert(t4, { y, mm, d })
+		end
+		-- y,m,dd
+		local m = tonumber(string.sub(dateStr, 2, 2))
+		local dd = tonumber(string.sub(dateStr, 3, 4))
+		if y * m * dd ~= 0 and dd <= 31 then
+			table.insert(t4, { y, m, dd })
+		end
+		local yy = tonumber(string.sub(dateStr, 1, 2))
+		-- yy,m,d
+		if yy * m * d ~= 0 then
+			table.insert(t4, { yy, m, d })
+		end
+		return timestamp(label, t4)
+	end
+
+	if string.len(dateStr) == 5 then
+		local t5 = {}
+		-- y,mm,dd
+		local y = tonumber(string.sub(dateStr, 1, 1))
+		local mm = tonumber(string.sub(dateStr, 2, 3))
+		local dd = tonumber(string.sub(dateStr, 4, 5))
+		if y * mm * dd ~= 0 and mm <= 12 and dd <= 31 then
+			table.insert(t5, { y, mm, dd })
+		end
+		-- yy,m,dd
+		local yy = tonumber(string.sub(dateStr, 1, 2))
+		local m = tonumber(string.sub(dateStr, 3, 3))
+		if yy * m * dd ~= 0 and dd <= 31 then
+			table.insert(t5, { yy, m, dd })
+		end
+		-- yy,mm,d
+		local d = tonumber(string.sub(dateStr, 4, 4))
+		if yy * mm * d ~= 0 and mm <= 12 then
+			table.insert(t5, { yy, mm, d })
+		end
+		return timestamp(label, t5)
+	end
+
+	if string.len(dateStr) == 6 then
+		local t6 = {}
+		-- yy,mm,dd
+		local yy = tonumber(string.sub(dateStr, 1, 2))
+		local mm = tonumber(string.sub(dateStr, 3, 4))
+		local dd = tonumber(string.sub(dateStr, 5, 6))
+		if yy * mm * dd ~= 0 and mm <= 12 and dd <= 31 then
+			table.insert(t6, { yy, mm, dd })
+		end
+		return timestamp(label, t6)
+	end
+
+	return {}
+end
+
 --[[
 
 カタカナひらがなの変換テーブル
@@ -2493,6 +2609,11 @@ local function skk_search(key, okuri)
 		end
 	end
 
+	-- 判例日付変換
+	if string.match(key, "^%D%d+$") and 3 < string.len(key) then
+		ret = ret .. to_skkdict_record(to_precedent_timestamp(key))
+	end
+
 	-- SKK辞書の検索結果を反映
 	ret = ret .. from_skk_dict
 
@@ -2701,6 +2822,11 @@ function lua_skk_add(okuriari, key, candidate, annotation, okuri)
 
 	-- 分数形式なら登録しない
 	if string.match(key, "^%d+/%d+$") then
+		return
+	end
+
+	-- 判例日付変換なら登録しない
+	if string.match(key, "^%D%d+$") and 3 < string.len(key) then
 		return
 	end
 
