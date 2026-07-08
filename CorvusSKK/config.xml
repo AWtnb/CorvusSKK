@@ -513,8 +513,9 @@
       <row ro="lwa" hi="ゎ" ka="ヮ" an="ﾜ" so="0" />
       <row ro="lka" hi="変" ka="変" an="ｶ" so="0" />
       <row ro="lke" hi="ゖ" ka="ヶ" an="ｹ" so="0" />
+      <row ro="lci" hi="効" ka="効" an="ｷ" so="0" />
       <row ro="lki" hi="決" ka="決" an="ｷ" so="0" />
-      <row ro="lxi" hi="活" ka="活" an="ｷ" so="0" />
+      <row ro="lyi" hi="活" ka="活" an="ｷ" so="0" />
       <row ro="va" hi="ゔぁ" ka="ヴァ" an="ｳﾞｧ" so="0" />
       <row ro="vi" hi="ゔぃ" ka="ヴィ" an="ｳﾞｨ" so="0" />
       <row ro="vu" hi="ゔ" ka="ヴ" an="ｳﾞ" so="0" />
