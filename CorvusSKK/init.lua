@@ -2820,12 +2820,6 @@ function lua_skk_add(okuriari, key, candidate, annotation, okuri)
 		return
 	end
 
-	-- すべて平仮名なら登録しない
-	if is_all_hiragana_bytes(key) then
-		return
-	end
-
-
 	-- 分数形式なら登録しない
 	if string.match(key, "^%d+/%d+$") then
 		return
@@ -2853,6 +2847,12 @@ function lua_skk_add(okuriari, key, candidate, annotation, okuri)
 
 	-- エントリ先頭にスペースが含まれないようにする
 	candidate = string.gsub(candidate, "^ +", "")
+
+
+	-- 候補がすべて平仮名なら登録しない
+	if is_all_hiragana_bytes(candidate) then
+		return
+	end
 
 	-- 2文字以上（バイト数で言えば6以上）の送りあり変換で送り仮名なしとしても登録する（skk-search-sagyo-henkaku の応用）
 	if (
