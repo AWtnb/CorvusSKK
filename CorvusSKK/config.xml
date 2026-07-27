@@ -138,7 +138,7 @@
     <key name="hint" value="\cs" />
     <key name="convpoint" value="" />
     <key name="direct" value="[0-9]" />
-    <key name="enter" value="\cj" />
+    <key name="enter" value="\cj|\cm" />
     <key name="cancel" value="\cg|\cz" />
     <key name="back" value="\ch" />
     <key name="delete" value="" />
