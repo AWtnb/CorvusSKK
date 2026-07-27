@@ -2820,6 +2820,12 @@ function lua_skk_add(okuriari, key, candidate, annotation, okuri)
 		return
 	end
 
+	-- すべて平仮名なら登録しない
+	if is_all_hiragana_bytes(key) then
+		return
+	end
+
+
 	-- 分数形式なら登録しない
 	if string.match(key, "^%d+/%d+$") then
 		return
