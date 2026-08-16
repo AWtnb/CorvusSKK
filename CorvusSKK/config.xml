@@ -26,8 +26,10 @@
     <key name="privatemodeauto" value="1" />
   </section>
   <section name="behavior">
-    <key name="defaultmode" value="0" />
+    <key name="defaultmode" value="1" />
     <key name="defmodeascii" value="0" />
+    <key name="kbdopenmode" value="0" />
+    <key name="kopmodeascii" value="0" />
     <key name="begincvokuri" value="1" />
     <key name="precedeokuri" value="1" />
     <key name="shiftnnokuri" value="0" />
@@ -44,6 +46,7 @@
     <key name="dyncompmulti" value="1" />
     <key name="compuserdic" value="1" />
     <key name="compincback" value="0" />
+    <key name="compwithall" value="0" />
   </section>
   <section name="font">
     <key name="name" value="UDEV Gothic" />
