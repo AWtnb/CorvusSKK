@@ -2018,8 +2018,9 @@ local function to_precedent_timestamp(s)
 		if y * m * dd ~= 0 and dd <= 31 then
 			table.insert(t4, { y, m, dd })
 		end
-		local yy = tonumber(string.sub(dateStr, 1, 2))
 		-- yy,m,d
+		local yy = tonumber(string.sub(dateStr, 1, 2))
+		m = tonumber(string.sub(dateStr, 3, 3))
 		if yy * m * d ~= 0 then
 			table.insert(t4, { yy, m, d })
 		end
