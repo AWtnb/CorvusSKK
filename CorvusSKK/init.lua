@@ -1532,7 +1532,6 @@ end
 
 usage:
 
-
 - `(format-circled-num #0)`
 
 ]] --
@@ -1546,12 +1545,51 @@ end
 
 usage:
 
-
 - `(format-black-circled-num #0)`
 
 ]] --
 local function format_black_circled_num(t)
 	return to_circled_num(t[1], true)
+end
+
+
+--[[
+
+括弧つき数字変換
+
+usage:
+
+- `(format-num-with-paren #0)`
+
+]] --
+local function format_num_with_paren(t)
+	local letters = {
+		"\u{2474}",
+		"\u{2475}",
+		"\u{2476}",
+		"\u{2477}",
+		"\u{2478}",
+		"\u{2479}",
+		"\u{247A}",
+		"\u{247B}",
+		"\u{247C}",
+		"\u{247D}",
+		"\u{247E}",
+		"\u{247F}",
+		"\u{2480}",
+		"\u{2481}",
+		"\u{2482}",
+		"\u{2483}",
+		"\u{2484}",
+		"\u{2485}",
+		"\u{2486}",
+		"\u{2487}",
+	}
+	local i = tonumber(t[1])
+	if i <= #letters then
+		return letters[i]
+	end
+	return string.format("(%d)", i)
 end
 
 
@@ -1660,6 +1698,7 @@ local skk_gadget_func_table_org = {
 	{ "format-roman-upper",          format_roman_upper },
 	{ "format-circled-num",          format_circled_num },
 	{ "format-black-circled-num",    format_black_circled_num },
+	{ "format-num-with-paren",       format_num_with_paren },
 	{ "replace-removable-zero",      replace_removable_zero },
 }
 local skk_gadget_func_table = {
