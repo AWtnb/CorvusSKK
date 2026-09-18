@@ -1552,6 +1552,35 @@ local function format_black_circled_num(t)
 	return to_circled_num(t[1], true)
 end
 
+--[[
+
+丸数字変換（漢字）
+
+usage:
+
+- `(format-kanji-circled-num #0)`
+
+]] --
+local function format_kanji_circled_num(t)
+	local letters = {
+		"\u{3280}",
+		"\u{3281}",
+		"\u{3282}",
+		"\u{3283}",
+		"\u{3284}",
+		"\u{3285}",
+		"\u{3286}",
+		"\u{3287}",
+		"\u{3288}",
+		"\u{3289}",
+	}
+	local n = tonumber(t[1])
+	if n <= #letters then
+		return letters[n]
+	end
+	return string.format("(%d)", n)
+end
+
 
 --[[
 
@@ -1760,6 +1789,7 @@ local skk_gadget_func_table_org = {
 	{ "format-roman-upper",          format_roman_upper },
 	{ "format-circled-num",          format_circled_num },
 	{ "format-black-circled-num",    format_black_circled_num },
+	{ "format-kanji-circled-num",    format_kanji_circled_num },
 	{ "format-num-with-paren",       format_num_with_paren },
 	{ "format-kanji-num-with-paren", format_kanji_num_with_paren },
 	{ "format-iroha",                format_iroha },
