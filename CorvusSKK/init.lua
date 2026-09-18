@@ -1557,12 +1557,8 @@ end
 
 括弧つき数字変換
 
-usage:
-
-- `(format-num-with-paren #0)`
-
 ]] --
-local function format_num_with_paren(t)
+local function to_num_with_paren(n, kanji)
 	local letters = {
 		"\u{2474}",
 		"\u{2475}",
@@ -1585,11 +1581,51 @@ local function format_num_with_paren(t)
 		"\u{2486}",
 		"\u{2487}",
 	}
-	local i = tonumber(t[1])
-	if i <= #letters then
-		return letters[i]
+	if kanji then
+		letters = {
+			"\u{3220}",
+			"\u{3221}",
+			"\u{3222}",
+			"\u{3223}",
+			"\u{3224}",
+			"\u{3225}",
+			"\u{3226}",
+			"\u{3227}",
+			"\u{3228}",
+			"\u{3229}",
+		}
 	end
-	return string.format("(%d)", i)
+	if n <= #letters then
+		return letters[n]
+	end
+	return string.format("(%d)", n)
+end
+
+
+--[[
+
+括弧つき数字変換
+
+usage:
+
+- `(format-num-with-paren #0)`
+
+]] --
+local function format_num_with_paren(t)
+	return to_num_with_paren(tonumber(t[1]), false)
+end
+
+--[[
+
+括弧つき数字変換（漢字）
+
+usage:
+
+- `(format-kanji-num-with-paren #0)`
+
+]] --
+local function format_kanji_num_with_paren(t)
+	return to_num_with_paren(tonumber(t[1]), true)
 end
 
 
@@ -1699,6 +1735,7 @@ local skk_gadget_func_table_org = {
 	{ "format-circled-num",          format_circled_num },
 	{ "format-black-circled-num",    format_black_circled_num },
 	{ "format-num-with-paren",       format_num_with_paren },
+	{ "format-kanji-num-with-paren", format_kanji_num_with_paren },
 	{ "replace-removable-zero",      replace_removable_zero },
 }
 local skk_gadget_func_table = {
