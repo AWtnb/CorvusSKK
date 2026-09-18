@@ -1628,6 +1628,32 @@ local function format_kanji_num_with_paren(t)
 	return to_num_with_paren(tonumber(t[1]), true)
 end
 
+--[[
+
+丸イロハに変換
+
+usage:
+
+- `(format-iroha #0)`
+
+]] --
+local function format_iroha(t)
+	local letters = {
+		"\u{32D1}", -- イ
+		"\u{32FA}", -- ロ
+		"\u{32E9}", -- ハ
+		"\u{32E5}", -- ニ
+		"\u{32ED}", -- ホ
+		"\u{32EC}", -- ヘ
+		"\u{32E3}", -- ト
+	}
+	local n = tonumber(t[1])
+	if n <= #letters then
+		return letters[n]
+	end
+	return string.format("(%d)", n)
+end
+
 
 
 --[[
@@ -1736,6 +1762,7 @@ local skk_gadget_func_table_org = {
 	{ "format-black-circled-num",    format_black_circled_num },
 	{ "format-num-with-paren",       format_num_with_paren },
 	{ "format-kanji-num-with-paren", format_kanji_num_with_paren },
+	{ "format-iroha",                format_iroha },
 	{ "replace-removable-zero",      replace_removable_zero },
 }
 local skk_gadget_func_table = {
