@@ -2245,7 +2245,8 @@ local function to_precedent_timestamp(s)
 			table.insert(t5, { yy, m, dd })
 		end
 		-- yy,mm,d
-		local d = tonumber(string.sub(dateStr, 4, 4))
+		mm = tonumber(string.sub(dateStr, 3, 4))
+		local d = tonumber(string.sub(dateStr, 5, 5))
 		if yy * mm * d ~= 0 and mm <= 12 then
 			table.insert(t5, { yy, mm, d })
 		end
