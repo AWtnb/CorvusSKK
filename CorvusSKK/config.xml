@@ -649,6 +649,8 @@
       <row ro="l5" hi="★" ka="★" an="★" so="0" />
       <row ro="z%" hi="☆" ka="☆" an="☆" so="0" />
       <row ro="l%" hi="☆" ka="☆" an="☆" so="0" />
+      <row ro="z6" hi="＆" ka="＆" an="&amp;" so="0" />
+      <row ro="l6" hi="＆" ka="＆" an="&amp;" so="0" />
       <row ro="z7" hi="‘" ka="‘" an="'" so="0" />
       <row ro="z'" hi="’" ka="’" an="'" so="0" />
       <row ro="z8" hi="〔" ka="〔" an="〔" so="0" />
