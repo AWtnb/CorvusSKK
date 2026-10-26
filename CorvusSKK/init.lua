@@ -505,7 +505,7 @@ usage:
 - `(format-time-string "%Y_%m")`
 - `(format-time-string "%Y/%m/%d")`
 - `(format-time-string "%Y-%m-%d")`
-- `(replace-removable-zero (format-time-string "%Y年%m月%d日") "")`
+- `(unpad (format-time-string "%Y年%m月%d日") "")`
 - `(format-time-string "%Y%m%d")`
 
 ]] --
@@ -856,10 +856,10 @@ end
 
 usage:
 
-- `(replace-removable-zero "01月01日", "")`
+- `(unpad "01月01日", "")`
 
 ]] --
-local function replace_removable_zero(t)
+local function unpad(t)
 	local s = t[1]
 	local repl = t[2]
 	if tonumber(repl) == 0 then
@@ -884,10 +884,10 @@ Yに1989年以前を指定するとWindows環境ではエラーになるよう�
 
 usage:
 
-- `(replace-removable-zero (smart-format-day "%Y年%m月%d日（%a）" #0 #0 #0) "")`
-- `(replace-removable-zero (smart-format-day "%Y年%m月%d日（%a）" #0 #0) "")`
-- `(replace-removable-zero (smart-format-day "%Y年%m月%d日（%a）" #0) "")`
-- `(replace-removable-zero (smart-format-day "%Y年%m月%d日（%a）") "")`
+- `(unpad (smart-format-day "%Y年%m月%d日（%a）" #0 #0 #0) "")`
+- `(unpad (smart-format-day "%Y年%m月%d日（%a）" #0 #0) "")`
+- `(unpad (smart-format-day "%Y年%m月%d日（%a）" #0) "")`
+- `(unpad (smart-format-day "%Y年%m月%d日（%a）") "")`
 
 ]] --
 local function smart_format_day(t)
@@ -920,8 +920,8 @@ end
 
 usage:
 
-- `(replace-removable-zero (format-this-year "%Y年%m月%d日（%a）" #0 #0) "0")`
-- `(replace-removable-zero (format-this-year "%m月%d日（%a）" #0 #0) "")`
+- `(unpad (format-this-year "%Y年%m月%d日（%a）" #0 #0) "0")`
+- `(unpad (format-this-year "%m月%d日（%a）" #0 #0) "")`
 
 ]] --
 local function format_this_year(t)
@@ -934,8 +934,8 @@ end
 
 usage:
 
-- `(replace-removable-zero (format-this-month "%Y年%m月%d日（%a）" #0) " ")`
-- `(replace-removable-zero (format-this-month "%d日（%a）" #0) "")`
+- `(unpad (format-this-month "%Y年%m月%d日（%a）" #0) " ")`
+- `(unpad (format-this-month "%d日（%a）" #0) "")`
 
 ]] --
 local function format_this_month(t)
@@ -1030,9 +1030,9 @@ end
 
 usage:
 
-- `(replace-removable-zero (format-upcoming-day "%Y年%m月%d日（%a）" #0 #0) "")`
-- `(replace-removable-zero (format-upcoming-day "%m月%d日（%a）" #0 #0) "")`
-- `(replace-removable-zero (format-upcoming-day "%d日（%a）" #0) "")`
+- `(unpad (format-upcoming-day "%Y年%m月%d日（%a）" #0 #0) "")`
+- `(unpad (format-upcoming-day "%m月%d日（%a）" #0 #0) "")`
+- `(unpad (format-upcoming-day "%d日（%a）" #0) "")`
 
 ]] --
 local function format_upcoming_day(t)
@@ -1068,9 +1068,9 @@ end
 
 usage:
 
-- `(replace-removable-zero (format-last-day "%Y年%m月%d日（%a）" #0 #0) "")`
-- `(replace-removable-zero (format-last-day "%m月%d日（%a）" #0 #0) "")`
-- `(replace-removable-zero (format-last-day "%d日（%a）" #0) "")`
+- `(unpad (format-last-day "%Y年%m月%d日（%a）" #0 #0) "")`
+- `(unpad (format-last-day "%m月%d日（%a）" #0 #0) "")`
+- `(unpad (format-last-day "%d日（%a）" #0) "")`
 
 --]]
 local function format_last_day(t)
@@ -1118,7 +1118,7 @@ t[1]で指定したフォーマットで、t[2]の数字（月曜日＝1）に�
 
 usage:
 
-- `(replace-removable-zero (format-upcoming-day-of-week "%d日（%a）" #0) "")`
+- `(unpad (format-upcoming-day-of-week "%d日（%a）" #0) "")`
 
 ]] --
 local function format_upcoming_day_of_week(t)
@@ -1144,7 +1144,7 @@ t[1]で指定したフォーマットで、t[2]の数字（月曜日＝1）に�
 
 usage:
 
-- `(replace-removable-zero (format-last-day-of-week "%d日（%a）" #0) "")`
+- `(unpad (format-last-day-of-week "%d日（%a）" #0) "")`
 
 ]] --
 local function format_last_day_of_week(t)
@@ -1171,8 +1171,8 @@ t[1]で指定したフォーマットで、t[2]で指定した「N日後の日�
 
 usage:
 
-- `(replace-removable-zero (skk-day-plus "%Y%m%d" #0) "")`
-- `(replace-removable-zero (skk-day-plus "%Y年%m月%d日（%a）" #0) "")`
+- `(unpad (skk-day-plus "%Y%m%d" #0) "")`
+- `(unpad (skk-day-plus "%Y年%m月%d日（%a）" #0) "")`
 
 ]] --
 local function skk_day_plus(t)
@@ -1190,8 +1190,8 @@ t[1]で指定したフォーマットで、t[2]で指定した「N日前の日�
 
 usage:
 
-- `(replace-removable-zero (skk-day-minus "%Y%m%d" #0) "")`
-- `(replace-removable-zero (skk-day-minus "%Y年%m月%d日（%a）" #0) "")`
+- `(unpad (skk-day-minus "%Y%m%d" #0) "")`
+- `(unpad (skk-day-minus "%Y年%m月%d日（%a）" #0) "")`
 
 ]] --
 local function skk_day_minus(t)
@@ -1793,11 +1793,11 @@ local skk_gadget_func_table_org = {
 	{ "format-num-with-paren",       format_num_with_paren },
 	{ "format-kanji-num-with-paren", format_kanji_num_with_paren },
 	{ "format-iroha",                format_iroha },
-	{ "replace-removable-zero",      replace_removable_zero },
+	{ "unpad",                       unpad },
 }
 local skk_gadget_func_table = {
 }
-for i, v in ipairs(skk_gadget_func_table_org) do
+for _, v in ipairs(skk_gadget_func_table_org) do
 	skk_gadget_func_table[v[1]] = v[2]
 end
 
