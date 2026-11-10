@@ -26,7 +26,7 @@
     <key name="privatemodeauto" value="1" />
   </section>
   <section name="behavior">
-    <key name="defaultmode" value="1" />
+    <key name="defaultmode" value="0" />
     <key name="defmodeascii" value="0" />
     <key name="kbdopenmode" value="0" />
     <key name="kopmodeascii" value="0" />
